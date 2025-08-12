@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planes de Hosting para Minecraft | VoltixHost</title>
+    <meta name="description" content="Explora nuestros planes de hosting para Minecraft con tarjetas interactivas 3D. Elige el servidor perfecto para tu aventura. Rendimiento y diseño de alta gama.">
+    
+    <!-- Favicon de la página -->
+    <link rel="icon" href="./images/favi.webp" type="image/webp">
+    
+    <!-- Fuentes de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Estilos CSS personalizados -->
+    <style>
+        /* --- ESTILOS GENERALES --- */
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-image: url('./images/fondo.webp'); 
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat; 
+            background-attachment: fixed; 
+            color: #e5e7eb; 
+            overflow-x: hidden; 
+        }
+        /* Estilo de la barra de scroll */
+        body::-webkit-scrollbar { width: 10px; }
+        body::-webkit-scrollbar-track { background: #1f2937; border-radius: 10px; }
+        body::-webkit-scrollbar-thumb { background-image: linear-gradient(to bottom, #6A0DAD, #C71585); border-radius: 10px; border: 2px solid #1f2937; }
+        
+        h1, h2, h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; }
+
+        /* --- GRADIENTES Y BOTONES --- */
+        .bg-menu-gradient { background: linear-gradient(to right, rgba(255, 0, 255, 0.2), rgba(255, 0, 0, 0.2), rgba(0, 0, 255, 0.2)); backdrop-filter: blur(10px); }
+        .bg-button-gradient-primary { background-image: linear-gradient(to right, #6A0DAD, #C71585); }
+        .bg-button-gradient-secondary { background-image: linear-gradient(to right, #0076c7, #228B22); }
+        .bg-button-gradient-home {
+            background-image: linear-gradient(to right, #8A2BE2, #C71585);
+            color: white;
+            transition-property: transform, box-shadow;
+            transition-duration: 300ms;
+        }
+        .bg-button-gradient-home:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px -5px rgba(138, 43, 226, 0.6);
+        }
+        .text-gradient { background-image: linear-gradient(to right, #ff00ff, #ff0000, #0000ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        
+        /* --- ANIMACIONES DE MENÚ Y CARTELES --- */
+        .nav-link { position: relative; text-decoration: none; display: inline-block; overflow: hidden; }
+        .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: linear-gradient(to right, #ff00ff, #ff0000, #0000ff); transition: width 0.3s ease-in-out; }
+        .nav-link:hover::after { width: 100%; }
+        @keyframes drop { 0% { transform: translateY(-20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+        
+        /* Animación de balanceo 3D para el cartel de oferta */
+        @keyframes swing-3d {
+            0%, 100% { transform: rotateX(20deg); }
+            50% { transform: rotateX(-20deg); }
+        }
+        .swinging-sign {
+            animation: swing-3d 3s ease-in-out infinite;
+            transform-origin: top center;
+            transform-style: preserve-3d;
+        }
+
+        /* Menú desplegable (Dropdown) */
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content { display: none; position: absolute; background-color: rgba(0, 0, 0, 0.8); min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4); z-index: 1; border-radius: 0.5rem; overflow: hidden; top: 100%; left: 50%; transform: translateX(-50%) translateY(10px); opacity: 0; transition: transform 0.3s ease-out, opacity 0.3s ease-out; transform-origin: top center; padding: 0.5rem 0; }
+        .dropdown:hover .dropdown-content { display: block; transform: translateX(-50%) translateY(0); opacity: 1; }
+        @keyframes ladder-unfold { 0% { transform: translateY(-20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+        .dropdown-content a { color: #e5e7eb; padding: 0.75rem 1rem; text-decoration: none; display: block; text-align: left; transition: background-color 0.2s ease-in-out; transform: translateY(-10px); opacity: 0; }
+        .dropdown-content a:hover { background-color: rgba(255, 255, 255, 0.1); }
+        .dropdown:hover .dropdown-content a { animation: ladder-unfold 0.4s ease-out forwards; }
+        .dropdown:hover .dropdown-content a:nth-child(1) { animation-delay: 0.05s; }
+        .dropdown:hover .dropdown-content a:nth-child(2) { animation-delay: 0.1s; }
+        .dropdown:hover .dropdown-content a:nth-child(3) { animation-delay: 0.15s; }
+        .dropdown:hover .dropdown-content a:nth-child(4) { animation-delay: 0.2s; }
+        
+        /* Menú para móviles */
+        #mobile-menu { transform: translateY(-100%); opacity: 0; transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.4s ease-in-out; pointer-events: none; }
+        #mobile-menu.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+        #mobile-submenu { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-in-out; background-color: rgba(0, 0, 0, 0.3); border-radius: 0.5rem; margin-top: 0.5rem; }
+        #mobile-submenu.open { max-height: 500px; }
+
+        /* --- ESTILOS PARA LAS TARJETAS DE PLANES --- */
+        .plan-card-base { background: rgba(17, 24, 39, 0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(122, 59, 204, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.3s ease, box-shadow 0.3s ease; opacity: 0; overflow: hidden; }
+        .recommended-plan { border-color: #34d399; box-shadow: 0 0 20px 0 rgba(52, 211, 153, 0.4); }
+        @keyframes reveal-up { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+        .plan-card-base.visible, .feature-block.visible { animation: reveal-up 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+
+        /* ESTILOS 3D SOLO PARA ESCRITORIO */
+        @media (min-width: 1024px) {
+            .plan-container-3d { perspective: 1500px; }
+            .plan-card-3d { transform-style: preserve-3d; transition: transform 0.1s linear; }
+            .plan-card-3d-content { transform: translateZ(20px); }
+            .plan-image-3d { transform: translateZ(50px) scale(1.05); }
+        }
+
+        /* --- ANIMACIÓN DE ÍCONOS DE CARACTERÍSTICAS --- */
+        .feature-icon {
+            transition: transform 0.3s ease-in-out;
+        }
+        .feature-block:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        .feature-icon path {
+            fill: #e5e7eb; /* Color por defecto para los íconos */
+        }
+
+        /* --- ANIMACIÓN DE BURBUJAS EN EL FOOTER --- */
+        .footer-container { position: relative; overflow: hidden; }
+        .bubbles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; padding: 0; margin: 0; }
+        .bubbles li { position: absolute; list-style: none; display: block; width: 20px; height: 20px; background: rgba(199, 21, 133, 0.3); animation: rise 25s infinite; bottom: -200px; border-radius: 50%; }
+        @keyframes rise {
+            0% { transform: translateY(0) scale(1); opacity: 0.8; }
+            100% { transform: translateY(-1200px) scale(0); opacity: 0; }
+        }
+        .bubbles li:nth-child(1) { left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
+        .bubbles li:nth-child(2) { left: 10%; width: 30px; height: 30px; animation-delay: 2s; animation-duration: 17s; }
+        .bubbles li:nth-child(3) { left: 70%; width: 25px; height: 25px; animation-delay: 4s; }
+        .bubbles li:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
+        .bubbles li:nth-child(5) { left: 65%; width: 20px; height: 20px; animation-delay: 0s; animation-duration: 22s; }
+        .bubbles li:nth-child(6) { left: 75%; width: 120px; height: 120px; animation-delay: 3s; }
+        .bubbles li:nth-child(7) { left: 35%; width: 150px; height: 150px; animation-delay: 7s; }
+        .bubbles li:nth-child(8) { left: 50%; width: 35px; height: 35px; animation-delay: 15s; animation-duration: 45s; }
+        .bubbles li:nth-child(9) { left: 20%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 35s; }
+        .bubbles li:nth-child(10) { left: 85%; width: 150px; height: 150px; animation-delay: 0s; animation-duration: 11s; }
+        .bubbles li:nth-child(11) { left: 5%; width: 40px; height: 40px; animation-delay: 5s; animation-duration: 20s; }
+        .bubbles li:nth-child(12) { left: 90%; width: 50px; height: 50px; animation-delay: 1s; animation-duration: 15s; }
+
+    </style>
+</head>
+<body class="bg-gray-900">
+
+    <!-- Encabezado y Navegación -->
+    <header class="relative z-40">
+        <div class="flex items-center justify-between p-4">
+            <div class="flex-grow"></div>
+            <!-- Menú de escritorio -->
+            <div class="hidden md:flex items-center space-x-4">
+                <!-- Cartel de Oferta con animación de balanceo -->
+                <div class="bg-menu-gradient p-2 rounded-xl text-center swinging-sign">
+                    <h1 class="text-xl font-extrabold text-gradient">30% OFF</h1>
+                    <p class="text-xs text-gray-300">¡Hosting de Minecraft ahora más barato!</p>
+                </div>
+                <div class="flex items-center space-x-4 bg-menu-gradient p-2 rounded-xl shadow-visible">
+                    <ul class="flex space-x-4 text-xs font-medium">
+                        <li class="dropdown">
+                            <a href="#" id="desktop-services-link" class="nav-link p-2">SERVICIOS</a>
+                            <div class="dropdown-content">
+                                <a href="planes-minecraft.html">Minecraft Hosting</a>
+                                <a href="#">Web Hosting</a>
+                                <a href="#">Bot Discord Hosting</a>
+                                <a href="#">Diseño Web</a>
+                            </div>
+                        </li>
+                        <li><a href="#" class="nav-link p-2">CENTRO DE INFORMACIÓN</a></li>
+                        <li><a href="#" class="nav-link p-2">CONTACTO</a></li>
+                        <li><a href="#" class="nav-link p-2">PARTNERS</a></li>
+                        <li><a href="#" class="nav-link p-2">ACERCA DE</a></li>
+                    </ul>
+                    <div class="flex items-center space-x-2">
+                        <button class="bg-button-gradient-secondary font-bold py-1.5 px-4 rounded-md shadow-lg transition-all duration-300 transform hover:scale-105">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block -mt-1 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                            CLIENTES
+                        </button>
+                        <a href="index.html" class="bg-button-gradient-home font-bold py-1.5 px-4 rounded-md shadow-lg transition-all duration-300 transform">
+                            INICIO
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Botón de menú para móviles -->
+            <button id="menu-btn" class="md:hidden block text-white z-50" aria-label="Abrir menú">
+                <svg id="menu-open-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                <svg id="menu-close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <!-- Menú desplegable para móviles -->
+        <div id="mobile-menu" class="absolute top-0 left-0 w-full bg-menu-gradient md:hidden pt-16">
+            <!-- Cartel de Oferta para móvil -->
+            <div class="p-4">
+                 <div class="bg-menu-gradient p-2 rounded-xl text-center swinging-sign mx-auto w-2/3">
+                    <h1 class="text-lg font-extrabold text-gradient">30% OFF</h1>
+                    <p class="text-xs text-gray-300">¡Hosting de Minecraft ahora más barato!</p>
+                </div>
+            </div>
+            <ul class="flex flex-col items-center text-center p-4 space-y-2">
+                <li class="w-full">
+                    <a href="#" id="mobile-services-link" class="nav-link py-3 px-4 text-white">SERVICIOS</a>
+                    <div id="mobile-submenu" class="w-full">
+                        <a href="planes-minecraft.html" class="block py-3 px-2 text-gray-300 hover:text-white">Minecraft Hosting</a>
+                        <a href="#" class="block py-3 px-2 text-gray-300 hover:text-white">Web Hosting</a>
+                        <a href="#" class="block py-3 px-2 text-gray-300 hover:text-white">Bot Discord Hosting</a>
+                        <a href="#" class="block py-3 px-2 text-gray-300 hover:text-white">Diseño Web</a>
+                    </div>
+                </li>
+                <li class="w-full"><a href="#" class="nav-link py-3 px-4 text-white">CENTRO DE INFORMACIÓN</a></li>
+                <li class="w-full"><a href="#" class="nav-link py-3 px-4 text-white">CONTACTO</a></li>
+                <li class="w-full"><a href="#" class="nav-link py-3 px-4 text-white">PARTNERS</a></li>
+                <li class="w-full"><a href="#" class="nav-link py-3 px-4 text-white">ACERCA DE NOSOTROS</a></li>
+            </ul>
+            <div class="p-4 space-y-3">
+                <button class="w-full bg-button-gradient-secondary font-bold py-2 px-4 rounded-md shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block -mt-1 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    CLIENTES
+                </button>
+                <a href="index.html" class="block w-full bg-button-gradient-home font-bold py-2 px-4 rounded-md shadow-lg text-center">
+                    INICIO
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="container mx-auto px-4 py-16 md:py-20 text-center">
+        
+        <h1 class="text-4xl md:text-6xl font-bold">Planes de Hosting para <span class="text-gradient">Minecraft</span></h1>
+        <p class="text-lg text-gray-300 mt-4 max-w-2xl mx-auto">Elige el plan perfecto para tu aventura. Todos incluyen activación instantánea y la mejor protección Anti-DDoS.</p>
+
+        <!-- Sección de Planes -->
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mt-16">
+            
+            <!-- Plan Spark -->
+            <div class="plan-container-3d">
+                <div class="plan-card-base plan-card-3d rounded-xl flex flex-col h-full">
+                    <div class="plan-image-3d"><img src="./images/spark.webp" alt="Plan Spark Host" class="w-full h-auto" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1f2937/e5e7eb?text=Spark';"></div>
+                    <div class="plan-card-3d-content p-6 flex flex-col flex-grow">
+                        <p class="text-5xl font-extrabold mb-4">$1.80<span class="text-lg font-medium text-gray-400">/mes</span></p>
+                        <ul class="space-y-4 text-left my-8 flex-grow">
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>2 GB RAM DDR4</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>1-10 Jugadores</li>
+                        </ul>
+                        <button class="w-full bg-button-gradient-primary font-bold py-3 px-6 rounded-md shadow-lg mt-auto transform hover:scale-105 transition-transform">Contratar Ahora</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Plan Spark+ -->
+            <div class="plan-container-3d">
+                <div class="plan-card-base plan-card-3d rounded-xl flex flex-col h-full">
+                    <div class="plan-image-3d"><img src="./images/spark-plus.webp" alt="Plan Spark Host+" class="w-full h-auto" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1f2937/e5e7eb?text=Spark+';"></div>
+                    <div class="plan-card-3d-content p-6 flex flex-col flex-grow">
+                        <p class="text-5xl font-extrabold mb-4">$3.60<span class="text-lg font-medium text-gray-400">/mes</span></p>
+                        <ul class="space-y-4 text-left my-8 flex-grow">
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>4 GB RAM DDR4</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>1-15 Jugadores</li>
+                        </ul>
+                        <button class="w-full bg-button-gradient-primary font-bold py-3 px-6 rounded-md shadow-lg mt-auto transform hover:scale-105 transition-transform">Contratar Ahora</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Plan Surge (Recomendado) -->
+            <div class="plan-container-3d">
+                <div class="plan-card-base plan-card-3d recommended-plan lg:scale-105 rounded-xl flex flex-col h-full relative">
+                    <div class="absolute top-0 right-0 bg-green-500 text-white text-xs font-bold px-8 py-1 transform translate-x-1/4 rotate-45 translate-y-4 z-10">Más Popular</div>
+                    <div class="plan-image-3d"><img src="./images/surge.webp" alt="Plan Surge Host" class="w-full h-auto" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1f2937/e5e7eb?text=Surge';"></div>
+                    <div class="plan-card-3d-content p-6 flex flex-col flex-grow">
+                        <p class="text-5xl font-extrabold mb-4">$7.20<span class="text-lg font-medium text-gray-400">/mes</span></p>
+                        <ul class="space-y-4 text-left my-8 flex-grow">
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>8 GB RAM DDR4</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>15-40 Jugadores</li>
+                        </ul>
+                        <button class="w-full bg-button-gradient-primary font-bold py-3 px-6 rounded-md shadow-lg mt-auto transform hover:scale-105 transition-transform">Contratar Ahora</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Plan Volt -->
+            <div class="plan-container-3d">
+                <div class="plan-card-base plan-card-3d rounded-xl flex flex-col h-full">
+                    <div class="plan-image-3d"><img src="./images/volt.webp" alt="Plan Volt Host" class="w-full h-auto" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1f2937/e5e7eb?text=Volt';"></div>
+                    <div class="plan-card-3d-content p-6 flex flex-col flex-grow">
+                        <p class="text-5xl font-extrabold mb-4">$10.80<span class="text-lg font-medium text-gray-400">/mes</span></p>
+                        <ul class="space-y-4 text-left my-8 flex-grow">
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>12 GB RAM DDR4</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>35-70 Jugadores</li>
+                        </ul>
+                        <button class="w-full bg-button-gradient-primary font-bold py-3 px-6 rounded-md shadow-lg mt-auto transform hover:scale-105 transition-transform">Contratar Ahora</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Plan Overload -->
+        <div class="mt-8 flex justify-center">
+            <div class="plan-container-3d lg:w-1/4 md:w-1/2 w-full">
+                <div class="plan-card-base plan-card-3d rounded-xl flex flex-col h-full">
+                    <div class="plan-image-3d"><img src="./images/overload.webp" alt="Plan Overload Host" class="w-full h-auto" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1f2937/e5e7eb?text=Overload';"></div>
+                    <div class="plan-card-3d-content p-6 flex flex-col flex-grow">
+                        <p class="text-5xl font-extrabold mb-4">$14.40<span class="text-lg font-medium text-gray-400">/mes</span></p>
+                        <ul class="space-y-4 text-left my-8 flex-grow">
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>16 GB RAM DDR4</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>50+ Jugadores</li>
+                        </ul>
+                        <button class="w-full bg-button-gradient-primary font-bold py-3 px-6 rounded-md shadow-lg mt-auto transform hover:scale-105 transition-transform">Contratar Ahora</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Sección de Características -->
+    <section class="py-16 md:py-24">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12">Siempre Incluido en tu <span class="text-gradient">Servidor</span></h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="feature-block bg-gray-800/50 p-6 rounded-lg">
+                    <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.89 94.06" class="feature-icon mx-auto h-16 w-16 text-white mb-4"><defs><style>.cls-1{fill-rule:evenodd;}</style></defs><title>gaming-pc</title><path class="cls-1" d="M3.12,0H104.28a3.13,3.13,0,0,1,3.13,3.12v8h-6.63V8.64A2.76,2.76,0,0,0,98,5.88H9.4A2.76,2.76,0,0,0,6.64,8.64V61.19A2.77,2.77,0,0,0,9.4,64H77.31V77H3.12A3.13,3.13,0,0,1,0,73.87V3.12A3.12,3.12,0,0,1,3.12,0Zm65,23.6h.11A1,1,0,0,1,69,24c4.48,4.6,6.83,14.61,6.3,21.31A13.27,13.27,0,0,1,74.15,50a4.23,4.23,0,0,1-3,2.58c-1.68.31-3.79-.58-6.31-3.15l-1-1a29.49,29.49,0,0,1-3.47-3.85H42a28.35,28.35,0,0,1-3.47,3.86l-1,1C35,52,32.94,52.88,31.26,52.57a4.21,4.21,0,0,1-3-2.58,13.26,13.26,0,0,1-1.12-4.72c-.52-6.73,1.86-16.8,6.37-21.38a1,1,0,0,1,.7-.29h.11a7.49,7.49,0,0,1,11.82,0h3.1c-.24-5.86,1.39-7.33,3.8-7.5a12.85,12.85,0,0,1,2.76.26c1.82.3,3.84.64,5.27-.8a1,1,0,0,1,1.39,0,1,1,0,0,1,0,1.39c-2.14,2.15-4.68,1.73-7,1.35a10.66,10.66,0,0,0-2.31-.24c-1.3.09-2.17,1.17-2,5.55h5.05a7.48,7.48,0,0,1,11.81,0ZM42.48,29.8v2.61h2.61a2.24,2.24,0,0,1,0,4.48H42.48V39.5a2.24,2.24,0,0,1-4.48,0V36.89H35.39a2.24,2.24,0,0,1,0-4.48H38V29.8a2.24,2.24,0,0,1,4.48,0Zm20.45-2.28a2.06,2.06,0,1,1-2.92,0,2.06,2.06,0,0,1,2.92,0Zm0,9a2.06,2.06,0,1,1-2.92,0,2.08,2.08,0,0,1,2.92,0Zm4.95-4.7a2.06,2.06,0,1,1-2.92,0,2.06,2.06,0,0,1,2.92,0Zm-9.91,0a2.06,2.06,0,1,1-2.92,0,2.06,2.06,0,0,1,2.92,0ZM90.52,21.33H119a3.92,3.92,0,0,1,3.91,3.91v63.2A3.92,3.92,0,0,1,119,92.35H90.52a3.92,3.92,0,0,1-3.91-3.91V25.23a3.92,3.92,0,0,1,3.91-3.9ZM114.35,37.5h2.83v1.62h-2.83V37.5Zm-9.61,38.67a4.25,4.25,0,1,1-4.25,4.25,4.25,4.25,0,0,1,4.25-4.25ZM91.9,33.8h25.69a.81.81,0,0,1,.81.81V39a.81.81,0,0,1-.81.81H91.9a.81.81,0,0,1-.81-.81V34.61a.81.81,0,0,1,.81-.81Zm-24,47.51c.07,4.9,2.1,9.3,7.57,12.75H33.22c4.38-3.17,6.33-7,6.31-12.75ZM53.71,66.47a4,4,0,1,1-4,4,4,4,0,0,1,4-4Z"/></svg>
+                    <h3 class="text-xl font-bold mb-2">Panel Pterodactyl</h3><p class="text-gray-400">Gestiona tu servidor de forma fácil e intuitiva con el panel de control más potente del mercado.</p>
+                </div>
+                <div class="feature-block bg-gray-800/50 p-6 rounded-lg">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 122.88 120.23" style="enable-background:new 0 0 122.88 120.23" xml:space="preserve" class="feature-icon mx-auto h-16 w-16 text-white mb-4"><style type="text/css">.st0{fill-rule:evenodd;clip-rule:evenodd;}</style><g><path class="st0" d="M94.41,76.4c5.23,3.31,9.95,4.88,14.01,4.51c0.71,14.33-4.58,22.79-13.96,26.31 c-9.05-3.3-14.41-11.4-14.01-26.53C85.22,80.95,89.89,79.92,94.41,76.4L94.41,76.4z M83.59,23.13l-0.03,0.09 c-6.27-1.17-15.32-1.78-24.87-1.67c-9.65,0.11-19.86,0.95-28.27,2.68l-0.01-0.03C23.08-10.32,93.28-5.39,83.59,23.13L83.59,23.13z M94.46,63.4c7.85,0,14.95,3.18,20.09,8.32c5.14,5.14,8.32,12.25,8.32,20.09c0,7.85-3.18,14.95-8.32,20.09 c-5.14,5.14-12.25,8.32-20.09,8.32c-7.85,0-14.95-3.18-20.09-8.32c-2.45-2.45-4.46-5.35-5.88-8.56H0L3.51,89.9 c7.16-31.46,24.38-18.95,39.3-29.41c0.23-0.2,0.45-0.4,0.67-0.61l0.18-3.27c-0.75-0.65-1.47-1.36-2.12-2.15 c-2.26-2.66-3.2-5.46-4.45-9.16c-0.14-0.47-0.32-0.93-0.47-1.36c-1.54,0-2.87-1.29-3.81-3.12c-0.72-1.44-1.22-3.16-1.4-4.81 c-0.18-1.69-0.04-3.27,0.57-4.27l-0.8-3.81c8.16-1.68,18.11-2.49,27.53-2.6c9.18-0.11,17.8,0.45,23.74,1.52 c-0.44,1.62-0.76,3.14-0.7,3.85c0.83,0.07,1.44,0.54,1.83,1.26c0.5,0.9,0.65,2.23,0.5,3.66c-0.11,1.36-0.5,2.91-1.01,4.27 c-0.93,2.44-2.48,4.42-4.24,4.6c-0.22,0.65-0.39,1.29-0.57,1.94c-0.9,3.05-1.62,5.46-3.48,7.79c-0.83,1.08-1.8,2.05-2.8,2.87 l0.18,2.91c1.03,1.41,2.16,2.52,3.44,3.33c2.4,1.26,5.36,1.68,8.55,2.01C87.36,64.08,90.83,63.4,94.46,63.4L94.46,63.4z M111.34,74.94c-4.32-4.32-10.29-6.99-16.88-6.99c-6.59,0-12.56,2.67-16.88,6.99c-4.32,4.32-6.99,10.29-6.99,16.88 c0,6.59,2.67,12.56,6.99,16.88c4.32,4.32,10.29,6.99,16.88,6.99c6.59,0,12.56-2.67,16.88-6.99c4.32-4.32,6.99-10.29,6.99-16.88 C118.34,85.23,115.66,79.26,111.34,74.94L111.34,74.94z M49.86,12.47h15.17c0.36,0,0.65,0.29,0.65,0.65v3.5 c0,0.36-0.29,0.65-0.65,0.65H49.86c-0.36,0-0.65-0.29-0.65-0.65v-3.5C49.21,12.76,49.5,12.47,49.86,12.47L49.86,12.47z M69.72,58.23c-4.05,2.7-6.53,4.19-11.77,4.06c-5.1-0.08-7.77-1.8-11.84-4.38C45.81,74.93,70.15,75.95,69.72,58.23L69.72,58.23z M75.8,45.87c0.22-0.75,0.47-1.54,0.75-2.48c0.11-0.4,0.5-0.68,0.9-0.61c1.18,0.22,2.37-1.51,3.2-3.59 c0.47-1.26,0.83-2.62,0.93-3.84c0.11-1.15,0-2.15-0.32-2.77c-0.32-0.59-1.21-0.25-1.87-0.83c-3.4,9.02-33.06,13.1-45.2,0.68 c-0.43,0.68-0.5,1.9-0.36,3.27c0.18,1.44,0.61,3.02,1.26,4.27c0.75,1.47,1.72,2.48,2.69,2.23c0.4-0.11,0.83,0.11,0.97,0.5 c0.29,0.79,0.47,1.4,0.68,2.01C45.73,63.19,69.63,64.64,75.8,45.87L75.8,45.87z M21.8,83.08h15.17c0.36,0,0.65,0.29,0.65,0.65v3.5 c0,0.36-0.29,0.65-0.65,0.65H21.8c-0.36,0-0.65-0.29-0.65-0.65v-3.5C21.15,83.37,21.44,83.08,21.8,83.08L21.8,83.08z M94.44,83.31 c2.89,1.83,5.5,2.7,7.74,2.49c0.39,7.91-2.53,12.58-7.71,14.53c-5-1.82-7.96-6.3-7.74-14.65C89.36,85.81,91.94,85.25,94.44,83.31 L94.44,83.31z"/></g></svg>
+                    <h3 class="text-xl font-bold mb-2">Protección Anti-DDoS</h3><p class="text-gray-400">Todos nuestros servidores están blindados contra ataques DDoS sin costo adicional.</p>
+                </div>
+                <div class="feature-block bg-gray-800/50 p-6 rounded-lg">
+                    <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.88 119.78" class="feature-icon mx-auto h-16 w-16 text-white mb-4"><title>realtime</title><path d="M63,7.81A3.91,3.91,0,1,1,63,0,59.63,59.63,0,0,1,93.56,8.38l-.39.33c-1.74,1.57-3.57,3.4-5.42,5.35A52,52,0,0,0,63,7.81ZM47.94,47.25l10.36-.14.77.2A38.58,38.58,0,0,1,65,51.45a41.08,41.08,0,0,1,3.81,3.67A240.17,240.17,0,0,1,83.9,34.31C88.49,28.78,95,21,100.09,16.45l1-.39h11.31l-2.28,2.53A293.89,293.89,0,0,0,89.38,45.44c-5.75,8.31-14.15,21.18-18.72,30l-1.42,2.74-1.31-2.79A67.83,67.83,0,0,0,59.2,61.23,57.29,57.29,0,0,0,47.09,50l.85-2.77ZM40.13,31.7a3.89,3.89,0,1,1,6.74-3.87l1.75,3a3.89,3.89,0,1,1-6.75,3.88l-1.74-3ZM28.76,46.92a3.9,3.9,0,0,1,3.91-6.75l3,1.75a3.9,3.9,0,0,1-3.91,6.75l-3-1.75ZM34.25,82.8a3.89,3.89,0,0,1-3.88-6.75l3-1.75a3.89,3.89,0,0,1,3.88,6.75l-3,1.75Zm-8.34-19a3.89,3.89,0,1,1,0-7.78H29.4a3.89,3.89,0,1,1,0,7.78Zm39.77,32a3.89,3.89,0,0,1-7.78,0v-3.5a3.89,3.89,0,0,1,7.78,0v3.5ZM57.9,24a3.89,3.89,0,0,1,7.78,0V27.5a3.89,3.89,0,1,1-7.78,0V24ZM47.22,92.91A3.89,3.89,0,1,1,40.48,89l1.74-3A3.9,3.9,0,0,1,49,89.89l-1.75,3ZM84.7,89A3.89,3.89,0,0,1,78,92.9l-1.75-3A3.89,3.89,0,0,1,83,86l1.75,3Zm10.11-13a3.9,3.9,0,0,1-3.9,6.75l-3-1.75a3.9,3.9,0,0,1,3.91-6.75l3,1.75Zm5.26-20a3.89,3.89,0,1,1,0,7.78H96.35a3.89,3.89,0,0,1,0-7.78ZM16.5,17a5.17,5.17,0,0,1,1.57-.32,5.05,5.05,0,0,1,5.65,3.53L27.87,33.7a5.07,5.07,0,1,1-9.7,2.94l-.66-2.15a52.08,52.08,0,0,0,82.3,62.22,52.09,52.09,0,0,0,9.43-60.78c1.74-2.24,3.52-4.45,5.29-6.55A59.89,59.89,0,1,1,3.1,59.89a59.82,59.82,0,0,1,8.07-30L6.89,31.51A5.08,5.08,0,1,1,3.28,22L16.5,17Z"/></svg>
+                    <h3 class="text-xl font-bold mb-2">Activación Instantánea</h3><p class="text-gray-400">Tu servidor se entrega al instante una vez recibido el pago. ¡Sin esperas!</p>
+                </div>
+                <div class="feature-block bg-gray-800/50 p-6 rounded-lg">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 122.88 115.33" style="enable-background:new 0 0 122.88 115.33" xml:space="preserve" class="feature-icon mx-auto h-16 w-16 text-white mb-4"><g><path d="M76.98,97.89c-3.62,4.01-7.79,7.99-12.51,11.94c1.28-0.17,2.56-0.38,3.81-0.62c3.42-0.69,6.71-1.7,9.89-3.08 c0.82-0.35,1.62-0.72,2.41-1.1c0.59,0.76,1.25,1.42,1.96,1.98c0.77,0.61,1.59,1.09,2.45,1.45c-1.58,0.85-3.2,1.62-4.86,2.34 c-3.53,1.52-7.16,2.63-10.9,3.39c-3.74,0.76-7.61,1.14-11.59,1.14c-3.98,0-7.82-0.38-11.59-1.14c-3.7-0.73-7.26-1.83-10.76-3.32 c-0.03,0-0.1-0.03-0.14-0.07c-3.46-1.49-6.75-3.29-9.82-5.33c-3.08-2.04-5.92-4.39-8.51-6.99c-2.63-2.59-4.95-5.43-6.99-8.51 c-2.08-3.08-3.84-6.37-5.33-9.82c-1.52-3.53-2.63-7.16-3.39-10.9C0.38,65.52,0,61.64,0,57.66c0-3.98,0.38-7.82,1.14-11.59 c0.73-3.7,1.83-7.26,3.32-10.76c0-0.03,0.03-0.1,0.07-0.14c1.49-3.49,3.29-6.75,5.33-9.82c2.04-3.08,4.39-5.92,6.99-8.51 c2.59-2.63,5.43-4.95,8.51-6.99c3.08-2.08,6.36-3.84,9.82-5.33c3.53-1.52,7.16-2.63,10.9-3.39C49.81,0.38,53.69,0,57.66,0 c3.98,0,7.82,0.38,11.59,1.14c3.7,0.73,7.26,1.83,10.76,3.32c0.03,0,0.1,0.03,0.14,0.07c3.46,1.49,6.75,3.29,9.82,5.33 c3.08,2.04,5.92,4.39,8.51,6.99c2.63,2.59,4.95,5.43,6.99,8.51c2.08,3.08,3.84,6.37,5.33,9.82c1.52,3.53,2.63,7.16,3.39,10.9 c0.43,2.12,0.74,4.28,0.93,6.48l-5.23-1.39c-0.16-1.38-0.37-2.74-0.64-4.09c-0.69-3.42-1.7-6.71-3.08-9.89 c-0.86-2.04-1.83-3.98-2.91-5.85l0,0H86.38c3,5.13,5.16,10.23,6.47,15.32l-5.68-1.51c-1.48-4.56-3.71-9.16-6.71-13.81H60.19v9.39 c-0.36,0.21-0.72,0.46-1.07,0.74l0,0c-0.28,0.22-0.55,0.46-0.8,0.71c-0.34,0.35-0.66,0.72-0.93,1.12 c-0.44,0.64-0.79,1.35-1.06,2.11c-0.27,0.77-0.43,1.54-0.49,2.29c-0.05,0.64-0.03,1.3,0.07,1.95c0.08,0.54,0.2,1.07,0.38,1.59 l0.05,0.14c0.04,0.11,0.08,0.22,0.12,0.32c0.06,0.17,0.11,0.27,0.13,0.32l0.02-0.01l3.63,8.17h-0.06v23.8h10.62l2.24,5.05H60.19 v17.78c5.65-4.64,10.5-9.32,14.54-14.01L76.98,97.89L76.98,97.89z M115.14,97.97c-0.34,0.34-0.74,0.6-1.16,0.79 c-0.44,0.2-0.91,0.32-1.38,0.36c-0.51,0.04-1.03-0.01-1.53-0.17c-0.48-0.15-0.94-0.4-1.35-0.74l-11.09-9.41l-3.81,9.35 c-0.32,0.78-0.7,1.5-1.13,2.15c-0.44,0.66-0.93,1.23-1.44,1.68c-0.41,0.36-0.86,0.67-1.33,0.9c-0.47,0.23-0.95,0.38-1.45,0.45 c-0.58,0.08-1.16,0.04-1.72-0.12c-0.54-0.16-1.06-0.42-1.56-0.81c-0.4-0.31-0.77-0.71-1.12-1.19c-0.32-0.44-0.61-0.96-0.88-1.56 c-7.22-16.27-15.83-33.78-22.27-50.16c-0.08-0.22-0.14-0.44-0.17-0.67c-0.03-0.23-0.04-0.46-0.02-0.69 c0.02-0.27,0.08-0.53,0.17-0.79c0.09-0.25,0.21-0.5,0.36-0.72c0.08-0.11,0.16-0.22,0.26-0.31c0.08-0.08,0.17-0.16,0.27-0.23 c0.18-0.14,0.37-0.26,0.57-0.36l0.05-0.02c0.19-0.09,0.39-0.16,0.58-0.2l0.09-0.02c0.18-0.04,0.36-0.06,0.54-0.07 c0.21-0.01,0.41,0.01,0.61,0.04c0.07,0.01,0.14,0.02,0.21,0.03c17.64,4.38,35.38,9.38,52.98,14.05c0.63,0.17,1.19,0.38,1.68,0.62 c0.53,0.27,0.98,0.57,1.35,0.91c0.46,0.42,0.81,0.9,1.05,1.41c0.25,0.53,0.38,1.1,0.39,1.69v0.01c0.01,0.5-0.06,1-0.21,1.5 c-0.15,0.5-0.38,0.98-0.68,1.45c-0.37,0.58-0.85,1.16-1.43,1.69c-0.56,0.52-1.22,1.01-1.95,1.46c-2.89,1.7-5.77,3.5-8.64,5.24 l11.05,9.47c0.4,0.35,0.72,0.76,0.94,1.21l0.03,0.08c0.21,0.45,0.34,0.92,0.38,1.41c0.04,0.49-0.01,1-0.16,1.5 c-0.14,0.47-0.37,0.93-0.69,1.34C119.84,92.6,117.01,96.24,115.14,97.97L115.14,97.97z M112.24,94.34l5.35-6.28l-13-11.14 l-0.07-0.07c-0.06-0.06-0.13-0.13-0.18-0.19c-0.08-0.09-0.15-0.19-0.21-0.3c-0.33-0.54-0.4-1.16-0.26-1.73 c0.14-0.57,0.5-1.09,1.04-1.41c3.76-2.07,7.64-4.66,11.35-6.89c0.43-0.26,0.81-0.55,1.13-0.84c0.3-0.28,0.55-0.56,0.72-0.83 c0.07-0.11,0.12-0.2,0.15-0.29c-0.08-0.06-0.17-0.11-0.3-0.17c-0.19-0.09-0.44-0.17-0.73-0.25L67.51,50.77L88.39,97.8 c0.12,0.26,0.24,0.49,0.37,0.68l0.03,0.05c0.07,0.09,0.13,0.17,0.18,0.22c0.08-0.04,0.16-0.11,0.26-0.2 c0.24-0.21,0.48-0.5,0.7-0.84c0.24-0.36,0.46-0.79,0.65-1.27l5-12.28l0.05-0.1c0.04-0.08,0.08-0.16,0.12-0.23l0.03-0.05 c0.05-0.08,0.11-0.16,0.18-0.24c0.41-0.48,0.98-0.76,1.56-0.8c0.58-0.05,1.18,0.13,1.67,0.54L112.24,94.34L112.24,94.34z M50.89,109.83c-8.16-6.85-14.7-13.77-19.54-20.79H15.39c1.52,2.08,3.22,4.01,5.05,5.85c2.39,2.39,4.95,4.5,7.75,6.36 c2.77,1.87,5.78,3.49,9.03,4.88c0.03,0.03,0.07,0.03,0.1,0.07c3.15,1.31,6.4,2.35,9.79,3.01c1.25,0.24,2.53,0.45,3.8,0.62H50.89 L50.89,109.83z M12.07,83.99h16.05c-4.46-7.82-6.88-15.77-7.16-23.8H5.12c0.14,2.77,0.45,5.43,0.97,8.06 c0.69,3.42,1.69,6.71,3.08,9.89C10.03,80.18,11,82.12,12.07,83.99L12.07,83.99z M5.12,55.14h15.95c0.59-7.89,3.22-15.81,7.89-23.8 H12.07c-1.07,1.87-2.04,3.8-2.91,5.85c-0.03,0.03-0.03,0.07-0.07,0.1c-1.31,3.15-2.35,6.4-3.01,9.79 C5.57,49.71,5.22,52.37,5.12,55.14L5.12,55.14z M15.36,26.29h16.85c4.81-6.92,11.14-13.87,19.03-20.86 c-1.42,0.17-2.8,0.38-4.15,0.66c-3.42,0.69-6.71,1.7-9.89,3.08c-3.22,1.38-6.23,3.01-9.03,4.88c-2.8,1.87-5.36,3.98-7.75,6.36 c-1.83,1.83-3.53,3.77-5.05,5.85L15.36,26.29L15.36,26.29z M64.1,5.43c7.92,6.99,14.25,13.94,19.03,20.86h16.85 c-1.52-2.08-3.22-4.01-5.05-5.85c-2.39-2.39-4.95-4.5-7.75-6.37c-2.77-1.87-5.78-3.49-9.03-4.88c-0.03-0.03-0.07-0.03-0.1-0.07 c-3.15-1.31-6.4-2.35-9.79-3.01c-1.38-0.28-2.77-0.48-4.15-0.66V5.43L64.1,5.43z M60.19,8.72v17.57h16.74 C72.54,20.48,66.97,14.63,60.19,8.72L60.19,8.72z M55.14,106.82V89.04H37.53C42.06,94.99,47.94,100.94,55.14,106.82L55.14,106.82z M55.14,83.99v-23.8H26.01c0.31,7.99,3.01,15.91,7.99,23.8H55.14L55.14,83.99z M55.14,55.14v-23.8H34.87 c-5.19,8.06-8.09,15.98-8.75,23.8H55.14L55.14,55.14z M55.14,26.29V8.72c-6.78,5.92-12.35,11.76-16.74,17.57H55.14L55.14,26.29z"/></g></svg>
+                    <h3 class="text-xl font-bold mb-2">Subdominios Gratis</h3><p class="text-gray-400">Crea una dirección fácil de recordar para tu servidor (ej: miservidor.voltix.host) sin costo.</p>
+                </div>
+                <div class="feature-block bg-gray-800/50 p-6 rounded-lg">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 102.5 122.88" style="enable-background:new 0 0 102.5 122.88" xml:space="preserve" class="feature-icon mx-auto h-16 w-16 text-white mb-4"><g><path d="M69.78,0.72C69.3,0.29,68.62,0,67.95,0c-0.14,0-0.29,0-0.43,0.05l-61.42,0c-1.64,0-3.19,0.68-4.3,1.79 C0.68,2.95,0,4.45,0,6.14v110.65c0,1.69,0.68,3.19,1.79,4.3c1.11,1.11,2.61,1.79,4.3,1.79c31.03,0,59.35,0,90.22,0 c1.69,0,3.19-0.68,4.3-1.79c1.11-1.11,1.79-2.61,1.79-4.3V35.52c0.05-0.24,0.1-0.43,0.1-0.68c0-0.82-0.39-1.55-0.92-2.08 L70.12,0.92c-0.1-0.1-0.15-0.14-0.24-0.19H69.78L69.78,0.72z M48.51,83.75V48.86c0-1.49,1.2-2.69,2.73-2.69 c1.49,0,2.73,1.2,2.73,2.69v34.86l12.52-10.93c1.11-0.98,2.82-0.89,3.8,0.22c0.98,1.11,0.89,2.79-0.22,3.77L53.05,91.64 c-1.05,0.92-2.6,0.89-3.61-0.03L32.45,76.77c-1.11-0.98-1.24-2.66-0.22-3.77c0.98-1.11,2.69-1.2,3.8-0.22l12.52,10.93L48.51,83.75 L48.51,83.75z M65.19,5.51v23.83c0,2.27,0.92,4.35,2.42,5.85c1.5,1.5,3.58,2.42,5.85,2.42h23.39v79.19c0,0.15-0.05,0.34-0.19,0.43 c-0.1,0.1-0.24,0.19-0.43,0.19c-24.57,0-66.28,0-90.18,0c-0.15,0-0.34-0.05-0.43-0.19c-0.1-0.1-0.19-0.29-0.19-0.43V6.14 c0-0.19,0.05-0.34,0.19-0.43c0.1-0.1,0.24-0.19,0.43-0.19h59.1H65.19L65.19,5.51z M70.65,29.34V9.38l22.47,22.76H73.45 c-0.77,0-1.45-0.34-1.98-0.82C70.99,30.83,70.65,30.11,70.65,29.34L70.65,29.34z"/></g></svg>
+                    <h3 class="text-xl font-bold mb-2">Backups Automáticos</h3><p class="text-gray-400">Configura copias de seguridad automáticas para que nunca pierdas el progreso de tu mundo.</p>
+                </div>
+                <div class="feature-block bg-gray-800/50 p-6 rounded-lg">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 121.93 122.88" style="enable-background:new 0 0 121.93 122.88" xml:space="preserve" class="feature-icon mx-auto h-16 w-16 text-white mb-4"><g><path d="M93.8,36.02c0,1.13-0.92,2.05-2.05,2.05s-2.05-0.92-2.05-2.05v-7.99c0-3.13-0.81-6.33-2.21-9.25 c-1.46-3.04-3.54-5.8-6.01-7.89c-5.27-4.47-12.18-6.72-19.13-6.8c-7.04-0.08-14.09,2.07-19.51,6.39c-2.62,2.09-5.01,4.82-6.68,7.88 c-1.45,2.66-2.35,5.57-2.35,8.5v9.24l0.06-0.02l1.85,2.29c-0.14-3.67-0.16-7.61,0-11.08c0.12-1.19,0.35-2.38,0.68-3.57 c2.99-10.7,15.2-16.95,25.82-16.37c8.22,0.45,15.94,3.46,20.82,9.08C89.84,24.3,88.08,34,87.85,43.6v0c1.53,0.47,2.51,1.43,2.91,3 c0.44,1.74-0.04,4.18-1.51,7.52l0,0c-0.03,0.06-0.06,0.12-0.09,0.18l-6.28,10.34c-2.42,3.98-4.88,7.98-8.15,11.05l-0.1,0.09 c0.38,0.59,0.8,1.26,1.23,1.97c1.02,1.65,2.17,3.49,3.28,5.06c6.89,5.19,24.54,6.38,31.25,10.12c2.2,1.23,4.19,2.79,5.78,4.9 c3.95,5.22,4.26,12.44,5.77,18.81c-0.35,3.76-2.48,5.92-6.68,6.24H6.68c-4.19-0.32-6.32-2.48-6.68-6.24 c1.51-6.37,1.81-13.59,5.77-18.81c1.6-2.11,3.58-3.67,5.78-4.9c6.72-3.75,24.38-4.94,31.26-10.13c1.08-2.4,2.2-6.13,2.9-8.44 l0.01-0.05h0L46,73.42c0.03-0.11,0.08-0.2,0.13-0.3c-1.97-2.35-3.67-4.99-5.3-7.58l-5.39-8.57c-0.41-0.03-0.81-0.1-1.21-0.23 c-4.32-1.36-7.9-10.96-7.2-15.49c0.4-2.57,1.31-3.49,2.78-4.05c-0.07-0.21-0.11-0.43-0.11-0.66v-9.68c0-3.64,1.09-7.21,2.86-10.45 c1.94-3.56,4.71-6.73,7.72-9.13C46.44,2.36,54.43-0.08,62.37,0c7.88,0.09,15.73,2.65,21.75,7.76c2.9,2.46,5.35,5.69,7.06,9.26 c1.66,3.48,2.63,7.28,2.63,11.02V36.02L93.8,36.02z M72.65,77.41c-3,2.2-6.62,3.57-11.23,3.56c-5.34-0.01-9.36-2.05-12.66-5.07 c-0.24-0.22-0.48-0.44-0.71-0.67c-0.91,3.03-2.52,8.37-4.03,10.67c1.74,10,5.61,17.15,9.14,24.76l4.86-16.87 c-0.62-1.05-0.91-1.97-0.95-2.76c-2.49,1.4-5.17,2.33-7.96,2.95c-3.04-3.46-3.3-7.07,0-10.9c3.73,0.94,7.16,2.54,10.31,4.7 c0.75-0.25,1.6-0.31,2.42-0.18c3.35-2.41,7.65-3.36,11.4-5.16c4.45,4.33,3.97,8.32-0.4,12.03c-2.64-0.61-5.14-1.57-7.52-2.83 c-0.03,0.64-0.19,1.36-0.5,2.15l4.86,16.87c3.76-7.91,7.67-15.76,8.56-24.74c-1.49-1.92-3.07-4.44-4.43-6.64 C73.4,78.62,73.01,77.99,72.65,77.41L72.65,77.41z M45.71,74.35L45.71,74.35l0.01-0.05h0L45.71,74.35L45.71,74.35L45.71,74.35z M38.43,45.63l2.39,6.55c0.26,0.76,0.34,1.42,0.23,1.99l0.02-0.02c3.74,4.15,8.35,7.15,13.9,8.91c0.28-0.64,0.67-1.2,1.24-1.64 c1.69-1.31,6.65-1.19,8.18,0.08c1.28,1.06,1.3,3.5,0.35,4.77c-1.98,2.65-10.22,0.42-12.98-0.47c-4.4-1.42-8.41-4.83-12.06-7.89 l3.75,5.96c2.21,3.51,4.52,7.09,7.4,9.72c2.77,2.53,6.12,4.24,10.56,4.25c4.81,0.01,8.32-1.77,11.18-4.44 c2.97-2.78,5.31-6.59,7.62-10.39l6.2-10.22c1.16-2.64,1.58-4.41,1.31-5.44c-0.16-0.62-0.84-0.92-2-0.98 c-0.25-0.01-0.5-0.01-0.76-0.01c-0.28,0.01-0.57,0.03-0.87,0.05c-0.17,0.01-0.33,0-0.48-0.03c-0.55,0.03-1.12-0.01-1.7-0.09 l2.13-9.4c-15.77,2.48-27.56-9.22-44.22-2.34l1.2,11.08c-0.67,0.03-1.31,0.01-1.9-0.08v0C38.89,45.59,38.65,45.61,38.43,45.63 L38.43,45.63z"/></g></svg>
+                    <h3 class="text-xl font-bold mb-2">Soporte 24/7</h3><p class="text-gray-400">Nuestro equipo de soporte está disponible en Discord para ayudarte con cualquier duda que tengas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Contacto -->
+    <section class="container mx-auto px-4 pb-16 md:pb-24">
+        <div class="bg-menu-gradient max-w-4xl mx-auto rounded-2xl p-8 md:p-12 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold">¿Necesitas un Plan a tu Medida?</h2>
+            <p class="text-gray-300 mt-4 mb-6 max-w-xl mx-auto">Si ninguno de nuestros planes se ajusta a tus necesidades, contáctanos en nuestro Discord y crearemos una oferta personalizada solo para ti.</p>
+            <a href="https://discord.gg/mEfpjUd7" target="_blank" rel="noopener noreferrer" class="inline-block bg-button-gradient-secondary font-bold py-3 px-8 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300">
+                Contactar en Discord
+            </a>
+        </div>
+    </section>
+
+    <!-- Pie de Página -->
+    <footer class="footer-container py-8">
+        <div class="relative text-center text-gray-400">
+            <p>Copyright © 2025 VoltixHost. Todos los derechos reservados.</p>
+        </div>
+        <!-- Contenedor para la animación de burbujas -->
+        <ul class="bubbles">
+            <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+        </ul>
+    </footer>
+
+    <!-- Scripts de JavaScript -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        
+        // --- LÓGICA DEL MENÚ MÓVIL ---
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileServicesLink = document.getElementById('mobile-services-link');
+        const mobileSubmenu = document.getElementById('mobile-submenu');
+        const menuOpenIcon = document.getElementById('menu-open-icon');
+        const menuCloseIcon = document.getElementById('menu-close-icon');
+
+        menuBtn.addEventListener('click', (e) => { 
+            e.stopPropagation(); 
+            mobileMenu.classList.toggle('open'); 
+            menuOpenIcon.classList.toggle('hidden');
+            menuCloseIcon.classList.toggle('hidden');
+        });
+        
+        mobileServicesLink.addEventListener('click', (e) => { 
+            e.preventDefault(); 
+            e.stopPropagation(); 
+            mobileSubmenu.classList.toggle('open'); 
+        });
+        
+        document.addEventListener('click', (e) => { 
+            if (mobileMenu.classList.contains('open') && !mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) { 
+                mobileMenu.classList.remove('open');
+                menuOpenIcon.classList.remove('hidden');
+                menuCloseIcon.classList.add('hidden');
+            } 
+        });
+        
+        // --- ANIMACIÓN DE LETRAS EN ENLACES DE NAVEGACIÓN ---
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            const text = link.textContent;
+            link.innerHTML = '';
+            text.split('').forEach(char => {
+                const span = document.createElement('span');
+                span.innerHTML = (char === ' ') ? '&nbsp;' : char;
+                span.style.display = 'inline-block';
+                link.appendChild(span);
+            });
+            link.addEventListener('mouseenter', function() {
+                this.querySelectorAll('span').forEach((letter, index) => {
+                    letter.style.animation = `drop 0.5s ease-out forwards ${index * 0.05}s`;
+                });
+            });
+            link.addEventListener('mouseleave', function() {
+                this.querySelectorAll('span').forEach(letter => {
+                    letter.style.animation = 'none';
+                });
+            });
+        });
+
+        // --- EFECTO 3D EN TARJETAS (SOLO PARA ESCRITORIO) ---
+        // Se activa solo si el dispositivo tiene un puntero fino (como un mouse)
+        if (window.matchMedia('(pointer: fine)').matches) {
+            const cards = document.querySelectorAll('.plan-card-3d');
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const width = rect.width;
+                    const height = rect.height;
+                    const rotateY = 20 * ((x - width / 2) / width);
+                    const rotateX = -20 * ((y - height / 2) / height);
+                    const scale = card.classList.contains('recommended-plan') ? 'scale(1.05)' : '';
+                    card.style.transform = `${scale} rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+                card.addEventListener('mouseleave', () => {
+                    const scale = card.classList.contains('recommended-plan') ? 'scale(1.05)' : 'scale(1)';
+                    card.style.transform = `rotateX(0) rotateY(0) ${scale}`;
+                });
+            });
+        }
+        
+        // --- ANIMACIÓN DE ELEMENTOS AL HACER SCROLL ---
+        const animatedElements = document.querySelectorAll('.plan-card-base, .feature-block');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // Agrega un pequeño retraso para un efecto escalonado
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
+                    // Deja de observar el elemento una vez que es visible
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 }); // El elemento se anima cuando es visible en un 10%
+        
+        animatedElements.forEach(el => observer.observe(el));
+    });
+    </script>
+</body>
+</html>
