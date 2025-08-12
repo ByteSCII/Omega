@@ -6,22 +6,20 @@
     <title>Planes de Hosting para Minecraft | VoltixHost</title>
     <meta name="description" content="Explora nuestros planes de hosting para Minecraft con tarjetas interactivas 3D. Elige el servidor perfecto para tu aventura. Rendimiento y diseño de alta gama.">
     
-    <!-- Favicon de la página -->
     <link rel="icon" href="./images/favi.webp" type="image/webp">
     
-    <!-- Fuentes de Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap"></noscript>
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Estilos CSS personalizados -->
     <style>
         /* --- ESTILOS GENERALES --- */
         body { 
             font-family: 'Inter', sans-serif; 
+            /* OPTIMIZACIÓN: Asegúrate de que la imagen 'fondo.webp' esté muy bien comprimida */
             background-image: url('./images/fondo.webp'); 
             background-size: cover; 
             background-position: center; 
@@ -139,13 +137,10 @@
 </head>
 <body class="bg-gray-900">
 
-    <!-- Encabezado y Navegación -->
     <header class="relative z-40">
         <div class="flex items-center justify-between p-4">
             <div class="flex-grow"></div>
-            <!-- Menú de escritorio -->
             <div class="hidden md:flex items-center space-x-4">
-                <!-- Cartel de Oferta con animación de balanceo -->
                 <div class="bg-menu-gradient p-2 rounded-xl text-center swinging-sign">
                     <h1 class="text-xl font-extrabold text-gradient">30% OFF</h1>
                     <p class="text-xs text-gray-300">¡Hosting de Minecraft ahora más barato!</p>
@@ -177,15 +172,12 @@
                     </div>
                 </div>
             </div>
-            <!-- Botón de menú para móviles -->
             <button id="menu-btn" class="md:hidden block text-white z-50" aria-label="Abrir menú">
                 <svg id="menu-open-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                 <svg id="menu-close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
         </div>
-        <!-- Menú desplegable para móviles -->
         <div id="mobile-menu" class="absolute top-0 left-0 w-full bg-menu-gradient md:hidden pt-16">
-            <!-- Cartel de Oferta para móvil -->
             <div class="p-4">
                  <div class="bg-menu-gradient p-2 rounded-xl text-center swinging-sign mx-auto w-2/3">
                     <h1 class="text-lg font-extrabold text-gradient">30% OFF</h1>
@@ -219,19 +211,16 @@
         </div>
     </header>
 
-    <!-- Contenido Principal -->
     <main class="container mx-auto px-4 py-16 md:py-20 text-center">
         
         <h1 class="text-4xl md:text-6xl font-bold">Planes de Hosting para <span class="text-gradient">Minecraft</span></h1>
         <p class="text-lg text-gray-300 mt-4 max-w-2xl mx-auto">Elige el plan perfecto para tu aventura. Todos incluyen activación instantánea y la mejor protección Anti-DDoS.</p>
 
-        <!-- Sección de Planes -->
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mt-16">
             
-            <!-- Plan Spark -->
             <div class="plan-container-3d">
                 <div class="plan-card-base plan-card-3d rounded-xl flex flex-col h-full">
-                    <div class="plan-image-3d"><img src="./images/spark.webp" alt="Plan Spark Host" class="w-full h-auto" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1f2937/e5e7eb?text=Spark';"></div>
+                    <div class="plan-image-3d"><img src="./images/spark.webp" alt="Plan Spark Host" class="w-full h-auto" loading="lazy" width="600" height="400" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1f2937/e5e7eb?text=Spark';"></div>
                     <div class="plan-card-3d-content p-6 flex flex-col flex-grow">
                         <p class="text-5xl font-extrabold mb-4">$1.80<span class="text-lg font-medium text-gray-400">/mes</span></p>
                         <ul class="space-y-4 text-left my-8 flex-grow">
@@ -243,10 +232,9 @@
                 </div>
             </div>
 
-            <!-- Plan Spark+ -->
             <div class="plan-container-3d">
                 <div class="plan-card-base plan-card-3d rounded-xl flex flex-col h-full">
-                    <div class="plan-image-3d"><img src="./images/spark-plus.webp" alt="Plan Spark Host+" class="w-full h-auto" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1f2937/e5e7eb?text=Spark+';"></div>
+                    <div class="plan-image-3d"><img src="./images/spark-plus.webp" alt="Plan Spark Host+" class="w-full h-auto" loading="lazy" width="600" height="400" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1f2937/e5e7eb?text=Spark+';"></div>
                     <div class="plan-card-3d-content p-6 flex flex-col flex-grow">
                         <p class="text-5xl font-extrabold mb-4">$3.60<span class="text-lg font-medium text-gray-400">/mes</span></p>
                         <ul class="space-y-4 text-left my-8 flex-grow">
@@ -258,11 +246,10 @@
                 </div>
             </div>
 
-            <!-- Plan Surge (Recomendado) -->
             <div class="plan-container-3d">
                 <div class="plan-card-base plan-card-3d recommended-plan lg:scale-105 rounded-xl flex flex-col h-full relative">
                     <div class="absolute top-0 right-0 bg-green-500 text-white text-xs font-bold px-8 py-1 transform translate-x-1/4 rotate-45 translate-y-4 z-10">Más Popular</div>
-                    <div class="plan-image-3d"><img src="./images/surge.webp" alt="Plan Surge Host" class="w-full h-auto" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1f2937/e5e7eb?text=Surge';"></div>
+                    <div class="plan-image-3d"><img src="./images/surge.webp" alt="Plan Surge Host" class="w-full h-auto" loading="lazy" width="600" height="400" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1f2937/e5e7eb?text=Surge';"></div>
                     <div class="plan-card-3d-content p-6 flex flex-col flex-grow">
                         <p class="text-5xl font-extrabold mb-4">$7.20<span class="text-lg font-medium text-gray-400">/mes</span></p>
                         <ul class="space-y-4 text-left my-8 flex-grow">
@@ -274,10 +261,9 @@
                 </div>
             </div>
 
-            <!-- Plan Volt -->
             <div class="plan-container-3d">
                 <div class="plan-card-base plan-card-3d rounded-xl flex flex-col h-full">
-                    <div class="plan-image-3d"><img src="./images/volt.webp" alt="Plan Volt Host" class="w-full h-auto" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1f2937/e5e7eb?text=Volt';"></div>
+                    <div class="plan-image-3d"><img src="./images/volt.webp" alt="Plan Volt Host" class="w-full h-auto" loading="lazy" width="600" height="400" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1f2937/e5e7eb?text=Volt';"></div>
                     <div class="plan-card-3d-content p-6 flex flex-col flex-grow">
                         <p class="text-5xl font-extrabold mb-4">$10.80<span class="text-lg font-medium text-gray-400">/mes</span></p>
                         <ul class="space-y-4 text-left my-8 flex-grow">
@@ -290,11 +276,10 @@
             </div>
         </div>
 
-        <!-- Plan Overload -->
         <div class="mt-8 flex justify-center">
             <div class="plan-container-3d lg:w-1/4 md:w-1/2 w-full">
                 <div class="plan-card-base plan-card-3d rounded-xl flex flex-col h-full">
-                    <div class="plan-image-3d"><img src="./images/overload.webp" alt="Plan Overload Host" class="w-full h-auto" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1f2937/e5e7eb?text=Overload';"></div>
+                    <div class="plan-image-3d"><img src="./images/overload.webp" alt="Plan Overload Host" class="w-full h-auto" loading="lazy" width="600" height="400" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1f2937/e5e7eb?text=Overload';"></div>
                     <div class="plan-card-3d-content p-6 flex flex-col flex-grow">
                         <p class="text-5xl font-extrabold mb-4">$14.40<span class="text-lg font-medium text-gray-400">/mes</span></p>
                         <ul class="space-y-4 text-left my-8 flex-grow">
@@ -308,7 +293,6 @@
         </div>
     </main>
     
-    <!-- Sección de Características -->
     <section class="py-16 md:py-24">
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-3xl md:text-4xl font-bold mb-12">Siempre Incluido en tu <span class="text-gradient">Servidor</span></h2>
@@ -341,7 +325,6 @@
         </div>
     </section>
 
-    <!-- Sección de Contacto -->
     <section class="container mx-auto px-4 pb-16 md:pb-24">
         <div class="bg-menu-gradient max-w-4xl mx-auto rounded-2xl p-8 md:p-12 text-center">
             <h2 class="text-3xl md:text-4xl font-bold">¿Necesitas un Plan a tu Medida?</h2>
@@ -352,18 +335,15 @@
         </div>
     </section>
 
-    <!-- Pie de Página -->
     <footer class="footer-container py-8">
         <div class="relative text-center text-gray-400">
             <p>Copyright © 2025 VoltixHost. Todos los derechos reservados.</p>
         </div>
-        <!-- Contenedor para la animación de burbujas -->
         <ul class="bubbles">
             <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
         </ul>
     </footer>
 
-    <!-- Scripts de JavaScript -->
     <script>
     document.addEventListener("DOMContentLoaded", function() {
         
