@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planes de Web Hosting | VoltixHost</title>
+    <meta name="description" content="Descubre nuestros planes de Web Hosting con almacenamiento SSD, SSL gratis y el mejor rendimiento. Elige el plan perfecto para tu proyecto web.">
+    
+    <link rel="icon" href="./images/favi.webp" type="image/webp">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* --- ESTILOS GENERALES --- */
+        body { font-family: 'Inter', sans-serif; background-image: url('./images/fondo.webp'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; color: #e5e7eb; overflow-x: hidden; }
+        body::-webkit-scrollbar { width: 10px; }
+        body::-webkit-scrollbar-track { background: #1f2937; border-radius: 10px; }
+        body::-webkit-scrollbar-thumb { background-image: linear-gradient(to bottom, #6A0DAD, #C71585); border-radius: 10px; border: 2px solid #1f2937; }
+        
+        h1, h2, h3 { font-family: 'Montserrat', sans-serif; font-weight: 800; }
+        .bg-menu-gradient { background: linear-gradient(to right, rgba(255, 0, 255, 0.2), rgba(255, 0, 0, 0.2), rgba(0, 0, 255, 0.2)); backdrop-filter: blur(10px); }
+        .bg-button-gradient-primary { background-image: linear-gradient(to right, #6A0DAD, #C71585); }
+        .bg-button-gradient-secondary { background-image: linear-gradient(to right, #0076c7, #228B22); }
+        .bg-button-gradient-home {
+            background-image: linear-gradient(to right, #8A2BE2, #C71585);
+            color: white;
+            transition-property: transform, box-shadow;
+            transition-duration: 300ms;
+        }
+        .bg-button-gradient-home:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px -5px rgba(138, 43, 226, 0.6);
+        }
+
+        .text-gradient { background-image: linear-gradient(to right, #ff00ff, #ff0000, #0000ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        
+        /* Dropdown y Animaciones de Menú */
+        .nav-link { position: relative; text-decoration: none; display: inline-block; overflow: hidden; }
+        .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: linear-gradient(to right, #ff00ff, #ff0000, #0000ff); transition: width 0.3s ease-in-out; }
+        .nav-link:hover::after { width: 100%; }
+        @keyframes drop { 0% { transform: translateY(-20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content { display: none; position: absolute; background-color: rgba(0, 0, 0, 0.8); min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4); z-index: 1; border-radius: 0.5rem; overflow: hidden; top: 100%; left: 50%; transform: translateX(-50%) translateY(10px); opacity: 0; transition: transform 0.3s ease-out, opacity 0.3s ease-out; transform-origin: top center; padding: 0.5rem 0; }
+        .dropdown:hover .dropdown-content { display: block; transform: translateX(-50%) translateY(0); opacity: 1; }
+        @keyframes ladder-unfold { 0% { transform: translateY(-20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+        .dropdown-content a { color: #e5e7eb; padding: 0.75rem 1rem; text-decoration: none; display: block; text-align: left; transition: background-color 0.2s ease-in-out; transform: translateY(-10px); opacity: 0; }
+        .dropdown-content a:hover { background-color: rgba(255, 255, 255, 0.1); }
+        .dropdown:hover .dropdown-content a { animation: ladder-unfold 0.4s ease-out forwards; }
+        .dropdown:hover .dropdown-content a:nth-child(1) { animation-delay: 0.05s; }
+        .dropdown:hover .dropdown-content a:nth-child(2) { animation-delay: 0.1s; }
+        .dropdown:hover .dropdown-content a:nth-child(3) { animation-delay: 0.15s; }
+        .dropdown:hover .dropdown-content a:nth-child(4) { animation-delay: 0.2s; }
+        
+        #mobile-menu { transform: translateY(-100%); opacity: 0; transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.4s ease-in-out; pointer-events: none; }
+        #mobile-menu.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+        #mobile-submenu { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-in-out; background-color: rgba(0, 0, 0, 0.3); border-radius: 0.5rem; margin-top: 0.5rem; }
+        #mobile-submenu.open { max-height: 500px; }
+        
+        /* Animación para el cartel de 30% OFF */
+        @keyframes pulse-glow {
+          0%, 100% { transform: scale(1); box-shadow: 0 0 5px rgba(255, 0, 255, 0.4), 0 0 10px rgba(255, 0, 0, 0.3); }
+          50% { transform: scale(1.03); box-shadow: 0 0 15px rgba(255, 0, 255, 0.7), 0 0 25px rgba(255, 0, 0, 0.5); }
+        }
+        .animated-promo { animation: pulse-glow 3s infinite ease-in-out; }
+
+        /* --- ESTILOS PARA LAS TARJETAS CON IMAGEN SUPERIOR --- */
+        .plan-card-base { background: rgba(17, 24, 39, 0.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(122, 59, 204, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.3s ease, box-shadow 0.3s ease; opacity: 0; overflow: hidden; }
+        .recommended-plan { border-color: #34d399; box-shadow: 0 0 20px 0 rgba(52, 211, 153, 0.4); }
+        @keyframes reveal-up { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+        .plan-card-base.visible, .feature-block.visible { animation: reveal-up 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+
+        /* ESTILOS 3D SOLO PARA ESCRITORIO */
+        @media (min-width: 1024px) {
+            .plan-container-3d { perspective: 1500px; }
+            .plan-card-3d { transform-style: preserve-3d; transition: transform 0.1s linear; }
+            .plan-card-3d-content { transform: translateZ(20px); }
+            .plan-image-3d { transform: translateZ(50px) scale(1.05); }
+        }
+
+        /* --- ESTILOS PARA EL FOOTER Y BURBUJAS --- */
+        .footer-container { position: relative; overflow: hidden; }
+        .bubbles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; margin: 0; padding: 0; }
+        .bubbles li { position: absolute; list-style: none; display: block; width: 20px; height: 20px; background: rgba(199, 21, 133, 0.2); animation: rise 25s infinite; bottom: -150px; }
+        .bubbles li:nth-child(1) { left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
+        .bubbles li:nth-child(2) { left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
+        .bubbles li:nth-child(3) { left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
+        .bubbles li:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
+        .bubbles li:nth-child(5) { left: 65%; width: 20px; height: 20px; animation-delay: 0s; }
+        .bubbles li:nth-child(6) { left: 75%; width: 110px; height: 110px; animation-delay: 3s; }
+        .bubbles li:nth-child(7) { left: 35%; width: 150px; height: 150px; animation-delay: 7s; }
+        .bubbles li:nth-child(8) { left: 50%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 45s; }
+
+        @keyframes rise {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; border-radius: 0; }
+            100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; border-radius: 50%; }
+        }
+    </style>
+</head>
+<body class="bg-gray-900">
+
+    <header class="relative z-40">
+        <div class="flex items-center justify-between p-4">
+            <div class="flex-grow"></div>
+            <div class="hidden md:flex items-center space-x-4">
+                <div class="bg-menu-gradient p-2 rounded-xl text-center animated-promo">
+                    <h1 class="text-xl font-extrabold text-gradient">30% OFF</h1>
+                    <p class="text-xs text-gray-300">¡Tu nuevo sitio web más barato!</p>
+                </div>
+                <div class="flex items-center space-x-4 bg-menu-gradient p-2 rounded-xl shadow-visible">
+                    <ul class="flex space-x-4 text-xs font-medium">
+                        <li class="dropdown">
+                            <a href="#" id="desktop-services-link" class="nav-link p-2">SERVICIOS</a>
+                            <div class="dropdown-content">
+                                <a href="planes-minecraft.html">Minecraft Hosting</a>
+                                <a href="#">Web Hosting</a>
+                                <a href="#">Bot Discord Hosting</a>
+                                <a href="#">Diseño Web</a>
+                            </div>
+                        </li>
+                        <li><a href="#" class="nav-link p-2">CENTRO DE INFORMACIÓN</a></li>
+                        <li><a href="#" class="nav-link p-2">CONTACTO</a></li>
+                        <li><a href="#" class="nav-link p-2">PARTNERS</a></li>
+                        <li><a href="#" class="nav-link p-2">ACERCA DE</a></li>
+                    </ul>
+                    <div class="flex items-center space-x-2">
+                        <button class="bg-button-gradient-secondary font-bold py-1.5 px-4 rounded-md shadow-lg transition-all duration-300 transform hover:scale-105">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block -mt-1 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                            CLIENTES
+                        </button>
+                        <a href="index.html" class="bg-button-gradient-home font-bold py-1.5 px-4 rounded-md shadow-lg transition-all duration-300 transform">
+                            INICIO
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <button id="menu-btn" class="md:hidden block text-white z-50" aria-label="Abrir menú">
+                <svg id="menu-open-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                <svg id="menu-close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="absolute top-0 left-0 w-full bg-menu-gradient md:hidden pt-16">
+            <ul class="flex flex-col items-center text-center p-4 space-y-2">
+                <li class="w-full">
+                    <a href="#" id="mobile-services-link" class="nav-link py-3 px-4 text-white">SERVICIOS</a>
+                    <div id="mobile-submenu" class="w-full">
+                        <a href="planes-minecraft.html" class="block py-3 px-2 text-gray-300 hover:text-white">Minecraft Hosting</a>
+                        <a href="#" class="block py-3 px-2 text-gray-300 hover:text-white">Web Hosting</a>
+                        <a href="#" class="block py-3 px-2 text-gray-300 hover:text-white">Bot Discord Hosting</a>
+                        <a href="#" class="block py-3 px-2 text-gray-300 hover:text-white">Diseño Web</a>
+                    </div>
+                </li>
+                <li class="w-full"><a href="#" class="nav-link py-3 px-4 text-white">CENTRO DE INFORMACIÓN</a></li>
+                <li class="w-full"><a href="#" class="nav-link py-3 px-4 text-white">CONTACTO</a></li>
+                <li class="w-full"><a href="#" class="nav-link py-3 px-4 text-white">PARTNERS</a></li>
+                <li class="w-full"><a href="#" class="nav-link py-3 px-4 text-white">ACERCA DE NOSOTROS</a></li>
+            </ul>
+            <div class="p-4 space-y-3">
+                <button class="w-full bg-button-gradient-secondary font-bold py-2 px-4 rounded-md shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block -mt-1 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    CLIENTES
+                </button>
+                <a href="index.html" class="block w-full bg-button-gradient-home font-bold py-2 px-4 rounded-md shadow-lg text-center">
+                    INICIO
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-16 md:py-20 text-center">
+        
+        <h1 class="text-4xl md:text-6xl font-bold">Planes de <span class="text-gradient">Web Hosting</span></h1>
+        <p class="text-lg text-gray-300 mt-4 max-w-2xl mx-auto">Elige el plan perfecto para tu proyecto. Todos incluyen almacenamiento SSD, activación instantánea y SSL Gratis.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mt-16">
+            
+            <div class="plan-container-3d">
+                <div class="plan-card-base plan-card-3d rounded-xl flex flex-col h-full">
+                    <div class="plan-image-3d"><img src="./images/web-starter.webp" alt="Plan Web Starter" class="w-full h-auto"></div>
+                    <div class="plan-card-3d-content p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-bold mb-2">Web Starter</h3>
+                        <p class="text-5xl font-extrabold mb-4">$2.50<span class="text-lg font-medium text-gray-400">/mes</span></p>
+                        <ul class="space-y-4 text-left my-8 flex-grow">
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>5 GB Almacenamiento SSD</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>1 Sitio Web</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>10 Cuentas de Email</li>
+                        </ul>
+                        <button class="w-full bg-button-gradient-primary font-bold py-3 px-6 rounded-md shadow-lg mt-auto transform hover:scale-105 transition-transform">Contratar Ahora</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="plan-container-3d">
+                <div class="plan-card-base plan-card-3d recommended-plan lg:scale-105 rounded-xl flex flex-col h-full relative">
+                    <div class="absolute top-0 right-0 bg-green-500 text-white text-xs font-bold px-8 py-1 transform translate-x-1/4 rotate-45 translate-y-4 z-10">Más Popular</div>
+                    <div class="plan-image-3d"><img src="./images/web-business.webp" alt="Plan Web Business" class="w-full h-auto"></div>
+                    <div class="plan-card-3d-content p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-bold mb-2">Web Business</h3>
+                        <p class="text-5xl font-extrabold mb-4">$5.90<span class="text-lg font-medium text-gray-400">/mes</span></p>
+                        <ul class="space-y-4 text-left my-8 flex-grow">
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>20 GB Almacenamiento SSD</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>5 Sitios Web</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Email Ilimitado</li>
+                        </ul>
+                        <button class="w-full bg-button-gradient-primary font-bold py-3 px-6 rounded-md shadow-lg mt-auto transform hover:scale-105 transition-transform">Contratar Ahora</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="plan-container-3d">
+                <div class="plan-card-base plan-card-3d rounded-xl flex flex-col h-full">
+                    <div class="plan-image-3d"><img src="./images/web-pro.webp" alt="Plan Web Pro" class="w-full h-auto"></div>
+                    <div class="plan-card-3d-content p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-bold mb-2">Web Pro</h3>
+                        <p class="text-5xl font-extrabold mb-4">$9.90<span class="text-lg font-medium text-gray-400">/mes</span></p>
+                        <ul class="space-y-4 text-left my-8 flex-grow">
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>50 GB Almacenamiento SSD</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Sitios Ilimitados</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Email Ilimitado</li>
+                        </ul>
+                        <button class="w-full bg-button-gradient-primary font-bold py-3 px-6 rounded-md shadow-lg mt-auto transform hover:scale-105 transition-transform">Contratar Ahora</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <section class="py-16 md:py-24">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12">Siempre Incluido en tu <span class="text-gradient">Hosting</span></h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="feature-block bg-gray-800/50 p-6 rounded-lg"><svg class="mx-auto h-16 w-16 text-white mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.2 15c.7-1.2 1-2.5.7-3.9-.6-2.4-3.4-4-6.2-4.2-1-.1-2-.1-3 .2-2.2.5-4.3 2-5.5 4-.7 1.2-1 2.5-.7 3.9.6 2.4 3.4 4 6.2 4.2 1 .1 2 .1 3-.2 2.2-.5 4.3-2 5.5-4zM8.5 13.5l2-2 2 2M12 11.5v4"/><path d="M12 22v-2M22 12h-2M2 12H0M16.5 5.5l-1-1M7.5 5.5l1-1M5.5 16.5l-1 1M18.5 16.5l1 1"/></svg><h3 class="text-xl font-bold mb-2">Panel cPanel</h3><p class="text-gray-400">Gestiona tu hosting web de forma fácil e intuitiva con el panel de control líder en la industria.</p></div>
+                <div class="feature-block bg-gray-800/50 p-6 rounded-lg"><svg class="mx-auto h-16 w-16 text-white mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg><h3 class="text-xl font-bold mb-2">SSL Gratis</h3><p class="text-gray-400">Todos nuestros planes de hosting incluyen certificados SSL Let's Encrypt sin costo adicional.</p></div>
+                <div class="feature-block bg-gray-800/50 p-6 rounded-lg"><svg class="mx-auto h-16 w-16 text-white mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><h3 class="text-xl font-bold mb-2">Soporte 24/7</h3><p class="text-gray-400">Nuestro equipo de soporte está disponible en Discord y tickets para ayudarte con lo que necesites.</p></div>
+                <div class="feature-block bg-gray-800/50 p-6 rounded-lg"><svg class="mx-auto h-16 w-16 text-white mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg><h3 class="text-xl font-bold mb-2">Activación Instantánea</h3><p class="text-gray-400">Tu hosting se activa al instante una vez recibido el pago. ¡Sin esperas para empezar tu proyecto!</p></div>
+                <div class="feature-block bg-gray-800/50 p-6 rounded-lg"><svg class="mx-auto h-16 w-16 text-white mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h5M20 20v-5h-5M4 20h5v-5M20 4h-5v5"></path></svg><h3 class="text-xl font-bold mb-2">Backups Automáticos</h3><p class="text-gray-400">Realizamos copias de seguridad automáticas de tu sitio web para tu total tranquilidad.</p></div>
+                <div class="feature-block bg-gray-800/50 p-6 rounded-lg"><svg class="mx-auto h-16 w-16 text-white mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m0 0a9 9 0 019-9m-9 9a9 9 0 009 9"></path></svg><h3 class="text-xl font-bold mb-2">Instalador Softaculous</h3><p class="text-gray-400">Instala WordPress, Joomla, PrestaShop y +400 apps con un solo clic desde tu panel de control.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container mx-auto px-4 pb-16 md:pb-24">
+        <div class="bg-menu-gradient max-w-4xl mx-auto rounded-2xl p-8 md:p-12 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold">¿Necesitas un Plan a tu Medida?</h2>
+            <p class="text-gray-300 mt-4 mb-6 max-w-xl mx-auto">Si ninguno de nuestros planes se ajusta a tus necesidades, contáctanos en nuestro Discord y crearemos una oferta personalizada solo para ti.</p>
+            <a href="https://discord.gg/mEfpjUd7" target="_blank" rel="noopener noreferrer" class="inline-block bg-button-gradient-secondary font-bold py-3 px-8 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300">
+                Contactar en Discord
+            </a>
+        </div>
+    </section>
+
+    <footer class="footer-container py-8">
+        <div class="relative text-center text-gray-400">
+            <p>Copyright © 2025 VoltixHost. Todos los derechos reservados.</p>
+        </div>
+        <ul class="bubbles">
+            <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+        </ul>
+    </footer>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // --- SCRIPT DEL MENÚ COMPLETO Y RESTAURADO ---
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileServicesLink = document.getElementById('mobile-services-link');
+        const mobileSubmenu = document.getElementById('mobile-submenu');
+        menuBtn.addEventListener('click', (e) => { e.stopPropagation(); mobileMenu.classList.toggle('open'); });
+        mobileServicesLink.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); mobileSubmenu.classList.toggle('open'); });
+        document.addEventListener('click', (e) => { if (mobileMenu.classList.contains('open') && !mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) { mobileMenu.classList.remove('open'); } });
+        
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            const text = link.textContent;
+            link.innerHTML = '';
+            text.split('').forEach(char => {
+                const span = document.createElement('span');
+                span.innerHTML = (char === ' ') ? '&nbsp;' : char;
+                span.style.display = 'inline-block';
+                link.appendChild(span);
+            });
+            link.addEventListener('mouseenter', function() {
+                this.querySelectorAll('span').forEach((letter, index) => {
+                    letter.style.animation = `drop 0.5s ease-out forwards ${index * 0.05}s`;
+                });
+            });
+            link.addEventListener('mouseleave', function() {
+                this.querySelectorAll('span').forEach(letter => {
+                    letter.style.animation = 'none';
+                });
+            });
+        });
+
+        // --- SCRIPT PARA EFECTO 3D SOLO EN ESCRITORIO ---
+        if (window.matchMedia('(pointer: fine)').matches) {
+            const cards = document.querySelectorAll('.plan-card-3d');
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const width = rect.width;
+                    const height = rect.height;
+                    const rotateY = 20 * ((x - width / 2) / width);
+                    const rotateX = -20 * ((y - height / 2) / height);
+                    const scale = card.classList.contains('recommended-plan') ? 'scale(1.05)' : '';
+                    card.style.transform = `${scale} rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+                card.addEventListener('mouseleave', () => {
+                    const scale = card.classList.contains('recommended-plan') ? 'scale(1.05)' : 'scale(1)';
+                    card.style.transform = `rotateX(0) rotateY(0) ${scale}`;
+                });
+            });
+        }
+        
+        // --- SCRIPT PARA ANIMACIONES DE SCROLL ---
+        const animatedElements = document.querySelectorAll('.plan-card-base, .feature-block');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        animatedElements.forEach(el => observer.observe(el));
+    });
+    </script>
+</body>
+</html>
