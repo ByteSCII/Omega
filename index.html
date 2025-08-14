@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- CAMBIO: Se añade la metadescripción para mejorar el SEO -->
     <meta name="description" content="En VoltixHost ofrecemos hosting de alto rendimiento para servidores de Minecraft, sitios web y bots de Discord. ¡Activación instantánea, protección DDoS y el mejor rendimiento garantizado!">
     
     <title>VoltixHost | Hosting de Minecraft, Web, Discord | Diseño Web</title>
@@ -134,9 +133,9 @@
                         <li class="dropdown">
                             <a href="#" id="desktop-services-link" class="nav-link nav-link-hover-effect p-2">SERVICIOS</a>
                             <div class="dropdown-content">
-                                <!-- CAMBIO: Enlace actualizado -->
+                                <!-- CAMBIO: Enlaces actualizados -->
                                 <a href="minecraft.html">Minecraft Hosting</a>
-                                <a href="#">Web Hosting</a>
+                                <a href="webhosting.html">Web Hosting</a>
                                 <a href="#">Bot Discord Hosting</a>
                                 <a href="#">Diseño Web</a>
                             </div>
@@ -163,7 +162,6 @@
         </div>
 
         <div id="mobile-menu" class="absolute top-0 left-0 w-full bg-menu-gradient md:hidden pt-16">
-            <!-- CAMBIO: Cartel de 30% OFF añadido al menú móvil -->
             <div class="p-4">
                 <div class="bg-menu-gradient p-2 rounded-xl shadow-visible animated-discount text-center">
                     <h1 class="text-xl font-extrabold text-gradient">30% OFF</h1>
@@ -174,9 +172,9 @@
                 <li class="w-full">
                     <a href="#" id="mobile-services-link" class="py-3 px-4 text-white nav-link nav-link-hover-effect">SERVICIOS</a>
                     <div id="mobile-submenu" class="w-full">
-                        <!-- CAMBIO: Enlace actualizado -->
+                        <!-- CAMBIO: Enlaces actualizados -->
                         <a href="minecraft.html" class="block py-3 px-2 text-gray-300 hover:text-white">Minecraft Hosting</a>
-                        <a href="#" class="block py-3 px-2 text-gray-300 hover:text-white">Web Hosting</a>
+                        <a href="webhosting.html" class="block py-3 px-2 text-gray-300 hover:text-white">Web Hosting</a>
                         <a href="#" class="block py-3 px-2 text-gray-300 hover:text-white">Bot Discord Hosting</a>
                         <a href="#" class="block py-3 px-2 text-gray-300 hover:text-white">Diseño Web</a>
                     </div>
@@ -427,16 +425,19 @@
                 }
             });
 
+            // CAMBIO: Se añaden URLs a los objetos del carrusel
             const slides = [
                 { 
                     image: './images/minecraft.webp', 
                     title: 'Minecraft Hosting', 
-                    price: 'Precios desde <span class="line-through text-red-500">$1.99</span> <span class="font-bold text-xl">$0.90/GB</span>' 
+                    price: 'Precios desde <span class="line-through text-red-500">$1.99</span> <span class="font-bold text-xl">$0.90/GB</span>',
+                    url: 'minecraft.html'
                 },
                 { 
                     image: './images/webhosting.webp', 
                     title: 'Hosting Web', 
-                    price: 'Un plan accesible para tu sitio web, desde <span class="line-through text-red-500">$3.00</span> <span class="font-bold text-xl">$2.00/GB</span>' 
+                    price: 'Un plan accesible para tu sitio web, desde <span class="line-through text-red-500">$3.00</span> <span class="font-bold text-xl">$2.00/GB</span>',
+                    url: 'webhosting.html'
                 }
             ];
 
@@ -507,6 +508,15 @@
 
             prevArrow.addEventListener('click', () => { resetInterval(); advanceCarousel(-1); });
             nextArrow.addEventListener('click', () => { resetInterval(); advanceCarousel(1); });
+
+            // CAMBIO: Se añaden los event listeners para los botones del carrusel
+            btnVerPlanes.addEventListener('click', () => {
+                window.location.href = slides[currentIndex].url;
+            });
+
+            btnComprar.addEventListener('click', () => {
+                window.location.href = slides[currentIndex].url;
+            });
             
             carouselContainer.addEventListener('wheel', (event) => {
                 const carouselRect = carouselContainer.getBoundingClientRect();
