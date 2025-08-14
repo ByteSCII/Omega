@@ -80,6 +80,23 @@
             .plan-image-3d { transform: translateZ(50px) scale(1.05); }
         }
 
+        /* --- ESTILOS PARA LAS TARJETAS DE CARACTERÍSTICAS --- */
+        .feature-block {
+            background: rgba(17, 24, 39, 0.6); /* Color de la página */
+            border: 1px solid rgba(122, 59, 204, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature-block:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(138, 43, 226, 0.3);
+        }
+        .feature-block svg {
+            transition: transform 0.3s ease;
+        }
+        .feature-block:hover svg {
+            transform: scale(1.1) rotate(3deg);
+        }
+
         /* --- ESTILOS PARA EL FOOTER Y BURBUJAS --- */
         .footer-container { position: relative; overflow: hidden; }
         .bubbles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; margin: 0; padding: 0; }
@@ -114,7 +131,7 @@
                         <li class="dropdown">
                             <a href="#" id="desktop-services-link" class="nav-link p-2">SERVICIOS</a>
                             <div class="dropdown-content">
-                                <a href="planes-minecraft.html">Minecraft Hosting</a>
+                                <a href="minecraft.html">Minecraft Hosting</a>
                                 <a href="#">Web Hosting</a>
                                 <a href="#">Bot Discord Hosting</a>
                                 <a href="#">Diseño Web</a>
@@ -146,7 +163,7 @@
                 <li class="w-full">
                     <a href="#" id="mobile-services-link" class="nav-link py-3 px-4 text-white">SERVICIOS</a>
                     <div id="mobile-submenu" class="w-full">
-                        <a href="planes-minecraft.html" class="block py-3 px-2 text-gray-300 hover:text-white">Minecraft Hosting</a>
+                        <a href="minecraft.html" class="block py-3 px-2 text-gray-300 hover:text-white">Minecraft Hosting</a>
                         <a href="#" class="block py-3 px-2 text-gray-300 hover:text-white">Web Hosting</a>
                         <a href="#" class="block py-3 px-2 text-gray-300 hover:text-white">Bot Discord Hosting</a>
                         <a href="#" class="block py-3 px-2 text-gray-300 hover:text-white">Diseño Web</a>
@@ -178,9 +195,9 @@
             
             <div class="plan-container-3d">
                 <div class="plan-card-base plan-card-3d rounded-xl flex flex-col h-full">
-                    <div class="plan-image-3d"><img src="./images/web-starter.webp" alt="Plan Web Starter" class="w-full h-auto"></div>
+                    <div class="plan-image-3d"><img src="./images/core.webp" alt="Plan Core" class="w-full h-auto" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1f2937/e5e7eb?text=Imagen+no+encontrada';"></div>
                     <div class="plan-card-3d-content p-6 flex flex-col flex-grow">
-                        <h3 class="text-2xl font-bold mb-2">Web Starter</h3>
+                        <h3 class="text-2xl font-bold mb-2">Core</h3>
                         <p class="text-5xl font-extrabold mb-4">$2.50<span class="text-lg font-medium text-gray-400">/mes</span></p>
                         <ul class="space-y-4 text-left my-8 flex-grow">
                             <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>5 GB Almacenamiento SSD</li>
@@ -195,9 +212,9 @@
             <div class="plan-container-3d">
                 <div class="plan-card-base plan-card-3d recommended-plan lg:scale-105 rounded-xl flex flex-col h-full relative">
                     <div class="absolute top-0 right-0 bg-green-500 text-white text-xs font-bold px-8 py-1 transform translate-x-1/4 rotate-45 translate-y-4 z-10">Más Popular</div>
-                    <div class="plan-image-3d"><img src="./images/web-business.webp" alt="Plan Web Business" class="w-full h-auto"></div>
+                    <div class="plan-image-3d"><img src="./images/edge.webp" alt="Plan Edge" class="w-full h-auto" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1f2937/e5e7eb?text=Imagen+no+encontrada';"></div>
                     <div class="plan-card-3d-content p-6 flex flex-col flex-grow">
-                        <h3 class="text-2xl font-bold mb-2">Web Business</h3>
+                        <h3 class="text-2xl font-bold mb-2">Edge</h3>
                         <p class="text-5xl font-extrabold mb-4">$5.90<span class="text-lg font-medium text-gray-400">/mes</span></p>
                         <ul class="space-y-4 text-left my-8 flex-grow">
                             <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>20 GB Almacenamiento SSD</li>
@@ -211,9 +228,9 @@
 
             <div class="plan-container-3d">
                 <div class="plan-card-base plan-card-3d rounded-xl flex flex-col h-full">
-                    <div class="plan-image-3d"><img src="./images/web-pro.webp" alt="Plan Web Pro" class="w-full h-auto"></div>
+                    <div class="plan-image-3d"><img src="./images/apex.webp" alt="Plan Apex" class="w-full h-auto" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1f2937/e5e7eb?text=Imagen+no+encontrada';"></div>
                     <div class="plan-card-3d-content p-6 flex flex-col flex-grow">
-                        <h3 class="text-2xl font-bold mb-2">Web Pro</h3>
+                        <h3 class="text-2xl font-bold mb-2">Apex</h3>
                         <p class="text-5xl font-extrabold mb-4">$9.90<span class="text-lg font-medium text-gray-400">/mes</span></p>
                         <ul class="space-y-4 text-left my-8 flex-grow">
                             <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>50 GB Almacenamiento SSD</li>
@@ -231,12 +248,43 @@
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-3xl md:text-4xl font-bold mb-12">Siempre Incluido en tu <span class="text-gradient">Hosting</span></h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="feature-block bg-gray-800/50 p-6 rounded-lg"><svg class="mx-auto h-16 w-16 text-white mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.2 15c.7-1.2 1-2.5.7-3.9-.6-2.4-3.4-4-6.2-4.2-1-.1-2-.1-3 .2-2.2.5-4.3 2-5.5 4-.7 1.2-1 2.5-.7 3.9.6 2.4 3.4 4 6.2 4.2 1 .1 2 .1 3-.2 2.2-.5 4.3-2 5.5-4zM8.5 13.5l2-2 2 2M12 11.5v4"/><path d="M12 22v-2M22 12h-2M2 12H0M16.5 5.5l-1-1M7.5 5.5l1-1M5.5 16.5l-1 1M18.5 16.5l1 1"/></svg><h3 class="text-xl font-bold mb-2">Panel cPanel</h3><p class="text-gray-400">Gestiona tu hosting web de forma fácil e intuitiva con el panel de control líder en la industria.</p></div>
-                <div class="feature-block bg-gray-800/50 p-6 rounded-lg"><svg class="mx-auto h-16 w-16 text-white mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg><h3 class="text-xl font-bold mb-2">SSL Gratis</h3><p class="text-gray-400">Todos nuestros planes de hosting incluyen certificados SSL Let's Encrypt sin costo adicional.</p></div>
-                <div class="feature-block bg-gray-800/50 p-6 rounded-lg"><svg class="mx-auto h-16 w-16 text-white mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><h3 class="text-xl font-bold mb-2">Soporte 24/7</h3><p class="text-gray-400">Nuestro equipo de soporte está disponible en Discord y tickets para ayudarte con lo que necesites.</p></div>
-                <div class="feature-block bg-gray-800/50 p-6 rounded-lg"><svg class="mx-auto h-16 w-16 text-white mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg><h3 class="text-xl font-bold mb-2">Activación Instantánea</h3><p class="text-gray-400">Tu hosting se activa al instante una vez recibido el pago. ¡Sin esperas para empezar tu proyecto!</p></div>
-                <div class="feature-block bg-gray-800/50 p-6 rounded-lg"><svg class="mx-auto h-16 w-16 text-white mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h5M20 20v-5h-5M4 20h5v-5M20 4h-5v5"></path></svg><h3 class="text-xl font-bold mb-2">Backups Automáticos</h3><p class="text-gray-400">Realizamos copias de seguridad automáticas de tu sitio web para tu total tranquilidad.</p></div>
-                <div class="feature-block bg-gray-800/50 p-6 rounded-lg"><svg class="mx-auto h-16 w-16 text-white mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m0 0a9 9 0 019-9m-9 9a9 9 0 009 9"></path></svg><h3 class="text-xl font-bold mb-2">Instalador Softaculous</h3><p class="text-gray-400">Instala WordPress, Joomla, PrestaShop y +400 apps con un solo clic desde tu panel de control.</p></div>
+                <div class="feature-block p-6 rounded-lg">
+                    <svg class="mx-auto h-16 w-16 text-white mb-4" fill="currentColor" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.515 14.21c-0.28-1.24-1.345-2.060-2.55-2.060h-1.85c-0.355 0-0.625 0.225-0.715 0.545l-1.745 6.505 1.235-0.005c0.34 0 0.615-0.225 0.71-0.535l1.29-4.785h0.99c0.42 0 0.81 0.28 0.915 0.74 0.125 0.545-0.295 1.13-0.915 1.13h-0.515c-0.35 0-0.625 0.23-0.715 0.54l-0.32 1.19h1.6c1.86 0 2.915-1.81 2.585-3.265zM2.69 15.61h0.93c0.345 0 0.62-0.22 0.715-0.545l0.31-1.18h-2c-1.145 0-2.195 0.705-2.56 2.055-0.435 1.69 0.84 3.26 2.515 3.26h0.62l0.355-1.305c0.060-0.22-0.11-0.415-0.32-0.415h-0.565c-1.235 0-1.245-1.87 0-1.87zM15.065 13.87h-3.895l-0.175 0.67c-0.12 0.48 0.225 0.925 0.71 0.925h2.875c0.2 0 0.12 0.215 0.105 0.265l-0.43 1.59c-0.020 0.070-0.045 0.265-0.275 0.265h-1.745c-0.265 0-0.265-0.395 0-0.395h1.080c0.34 0 0.615-0.23 0.71-0.54l0.175-0.66h-2.42c-1.96 0-2.18 3.19-0.035 3.19l2.875 0.010c0.56 0 1.030-0.36 1.17-0.89l0.7-2.59c0.24-0.96-0.485-1.84-1.425-1.84zM31.655 12.15h-0.945c-0.245 0-0.46 0.16-0.52 0.395l-1.78 6.655c1.035 0 1.99-0.69 2.245-1.725l1.325-4.91c0.060-0.215-0.1-0.415-0.325-0.415zM19.84 13.885v0.005h-2.415l-1.31 4.9c-0.060 0.22 0.11 0.415 0.32 0.415h0.945c0.24 0 0.46-0.15 0.52-0.39l0.86-3.2h0.99c0.625 0 1.070 0.59 0.905 1.17l-0.53 2c-0.060 0.215 0.095 0.415 0.32 0.415h0.955c0.23 0 0.455-0.145 0.515-0.39l0.44-1.655c0.45-1.655-0.795-3.27-2.515-3.27zM24.755 17.615c-0.18 0-0.3-0.17-0.255-0.335l0.4-1.5c0.045-0.195 0.185-0.3 0.39-0.3h1.645c0.13 0 0.23 0.12 0.195 0.255l-0.035 0.13c-0.030 0.1-0.095 0.15-0.195 0.15h-1.080c-0.35 0-0.63 0.23-0.71 0.54l-0.175 0.65h2.67c0.525 0 1.015-0.33 1.16-0.88l0.16-0.6c0.245-0.955-0.465-1.84-1.415-1.84h-2.365c-0.895 0-1.69 0.6-1.93 1.48l-0.54 2c-0.25 0.885 0.415 1.835 1.415 1.835h3.335c0.34 0 0.615-0.225 0.71-0.535l0.285-1.050z"/>
+                    </svg>
+                    <h3 class="text-xl font-bold mb-2">Panel cPanel</h3>
+                    <p class="text-gray-400">Gestiona tu hosting web de forma fácil e intuitiva con el panel de control líder en la industria.</p>
+                </div>
+                <div class="feature-block p-6 rounded-lg">
+                    <svg class="mx-auto h-16 w-16 text-white mb-4" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 122.88 80.4" xml:space="preserve"><style type="text/css">.st0,.st1{fill-rule:evenodd;clip-rule:evenodd;fill:currentColor;}</style><g><path class="st0" d="M24.52,0h73.84c1.4,0,2.69,0.58,3.62,1.51l0,0l0.01,0.01L102,1.53L102,1.53c0.93,0.94,1.51,2.22,1.51,3.62 v10.49h11.48c2.18,0,4.15,0.89,5.57,2.32c1.43,1.43,2.32,3.41,2.32,5.58v33.32c0,2.16-0.89,4.14-2.32,5.57 c-0.11,0.11-0.22,0.21-0.34,0.3c-1.4,1.25-3.24,2.02-5.23,2.02h-11.48v10.49c0,1.42-0.58,2.71-1.51,3.64 c-0.93,0.93-2.22,1.51-3.63,1.51H24.52c-1.4,0-2.69-0.57-3.63-1.51l-0.01-0.01l-0.01-0.01l-0.01-0.01 c-0.93-0.94-1.51-2.22-1.51-3.62V64.75H7.89c-2.16,0-4.14-0.89-5.58-2.32C0.89,61.01,0,59.04,0,56.86V23.54 c0-2.18,0.89-4.15,2.31-5.58c0.11-0.11,0.22-0.21,0.34-0.31c1.4-1.25,3.23-2.01,5.24-2.01h11.47V5.14c0.01-1.42,0.59-2.7,1.52-3.64 C20.94,1.45,21,1.4,21.06,1.35C21.98,0.51,23.19,0,24.52,0L24.52,0L24.52,0z M98.86,64.75H24.03v10.48c0,0.14,0.05,0.26,0.14,0.35 l0,0l0.01,0.01c0.09,0.09,0.21,0.14,0.35,0.14h73.84c0.13,0,0.25-0.05,0.35-0.15c0.09-0.09,0.15-0.21,0.15-0.35V64.75L98.86,64.75z"/><path class="st1" d="M7.89,19.92h107.09c1.99,0,3.62,1.65,3.62,3.62v33.32c0,1.97-1.65,3.62-3.62,3.62H7.89 c-1.97,0-3.62-1.63-3.62-3.62V23.54C4.27,21.54,5.9,19.92,7.89,19.92L7.89,19.92z"/><path class="st1" d="M24.12,64.75H98.8c0.05,0,0.09,0.04,0.09,0.09v10.39c0,0.27-0.22,0.49-0.49,0.49H24.52 c-0.27,0-0.49-0.22-0.49-0.49V64.84C24.03,64.79,24.07,64.75,24.12,64.75L24.12,64.75z"/><path class="st1" d="M30.24,6.61c1.83,0,3.32,1.49,3.32,3.32s-1.49,3.32-3.32,3.32c-1.83,0-3.31-1.49-3.31-3.32 S28.41,6.61,30.24,6.61L30.24,6.61z"/><path class="st1" d="M41.96,6.61c1.83,0,3.32,1.49,3.32,3.32s-1.49,3.32-3.32,3.32c-1.83,0-3.31-1.49-3.31-3.32 S40.13,6.61,41.96,6.61L41.96,6.61z"/><path class="st1" d="M53.69,6.61C55.52,6.61,57,8.1,57,9.93s-1.49,3.32-3.32,3.32s-3.32-1.49-3.32-3.32S51.86,6.61,53.69,6.61 L53.69,6.61z"/><path d="M9.88,28.71h5.73v7.58c0.78-0.81,1.55-1.39,2.32-1.74c0.76-0.35,1.67-0.52,2.72-0.52c1.55,0,2.78,0.48,3.67,1.42 c0.89,0.95,1.34,2.4,1.34,4.36v9.49h-5.75V41.1c0-0.94-0.17-1.6-0.52-1.99c-0.35-0.39-0.83-0.58-1.45-0.58 c-0.69,0-1.25,0.26-1.67,0.79c-0.43,0.53-0.64,1.47-0.64,2.83v7.17H9.88V28.71L9.88,28.71z M35.22,28.71v5.67h3.14v4.2h-3.14v5.28 c0,0.63,0.06,1.06,0.18,1.26c0.18,0.31,0.52,0.47,0.99,0.47c0.42,0,1.01-0.12,1.77-0.37l0.42,3.96c-1.41,0.31-2.73,0.47-3.96,0.47 c-1.42,0-2.48-0.19-3.15-0.55c-0.67-0.36-1.18-0.92-1.5-1.66c-0.32-0.74-0.48-1.95-0.48-3.62v-5.25h-2.1v-4.2h2.1v-2.74 L35.22,28.71L35.22,28.71z M47.99,28.71v5.67h3.14v4.2h-3.14v5.28c0,0.63,0.06,1.06,0.18,1.26c0.18,0.31,0.52,0.47,0.99,0.47 c0.42,0,1.01-0.12,1.77-0.37l0.42,3.96c-1.41,0.31-2.73,0.47-3.96,0.47c-1.42,0-2.48-0.19-3.15-0.55c-0.67-0.36-1.18-0.92-1.5-1.66 c-0.32-0.74-0.48-1.95-0.48-3.62v-5.25h-2.1v-4.2h2.1v-2.74L47.99,28.71L47.99,28.71z M53.32,54.98v-20.6h5.36v2.2 c0.74-0.93,1.43-1.56,2.04-1.88c0.83-0.43,1.75-0.66,2.77-0.66c1.99,0,3.54,0.77,4.63,2.29c1.09,1.52,1.64,3.42,1.64,5.67 c0,2.49-0.6,4.39-1.79,5.7c-1.18,1.3-2.69,1.96-4.51,1.96c-0.88,0-1.69-0.15-2.41-0.45c-0.72-0.29-1.38-0.74-1.95-1.33v7.1H53.32 L53.32,54.98z M59.06,41.89c0,1.19,0.25,2.07,0.74,2.64c0.49,0.57,1.12,0.86,1.88,0.86c0.66,0,1.22-0.28,1.67-0.83 c0.44-0.54,0.67-1.48,0.67-2.8c0-1.22-0.24-2.12-0.7-2.68c-0.46-0.57-1.04-0.85-1.71-0.85c-0.73,0-1.34,0.29-1.82,0.86 C59.31,39.67,59.06,40.6,59.06,41.89L59.06,41.89z M71.05,45.17l5.67-0.52c0.23,0.67,0.56,1.15,0.98,1.44s0.98,0.43,1.69,0.43 c0.77,0,1.37-0.18,1.79-0.49c0.32-0.24,0.49-0.55,0.49-0.91c0-0.41-0.22-0.74-0.65-0.96c-0.3-0.15-1.13-0.36-2.46-0.59 c-1.98-0.34-3.37-0.68-4.14-0.96c-0.76-0.29-1.43-0.8-1.95-1.49c-0.52-0.7-0.79-1.51-0.79-2.41c0-0.98,0.29-1.84,0.85-2.54 c0.56-0.71,1.36-1.25,2.36-1.6c1-0.35,2.35-0.53,4.03-0.53c1.78,0,3.1,0.14,3.93,0.41c0.84,0.27,1.56,0.7,2.12,1.27 c0.56,0.57,1.04,1.35,1.41,2.33l-5.41,0.52c-0.14-0.47-0.38-0.83-0.7-1.05c-0.44-0.29-0.99-0.45-1.63-0.45 c-0.64,0-1.12,0.12-1.4,0.35s-0.44,0.51-0.44,0.83c0,0.37,0.2,0.65,0.56,0.83c0.36,0.18,1.19,0.37,2.44,0.51 c1.9,0.21,3.32,0.52,4.24,0.9c0.92,0.38,1.64,0.94,2.12,1.65c0.49,0.71,0.74,1.5,0.74,2.35c0,0.86-0.27,1.71-0.78,2.52 c-0.51,0.81-1.35,1.47-2.46,1.95s-2.64,0.72-4.57,0.72c-2.72,0-4.67-0.4-5.82-1.17C72.13,47.71,71.38,46.6,71.05,45.17L71.05,45.17 z M89.1,34.38h6.1v5.73h-6.1V34.38L89.1,34.38z M89.1,43.59h6.1v5.72h-6.1V43.59L89.1,43.59z M102.12,28.37h2.89l-5.19,21.29h-2.89 L102.12,28.37L102.12,28.37z M110.11,28.37H113l-5.19,21.29h-2.89L110.11,28.37L110.11,28.37z"/></g></svg>
+                    <h3 class="text-xl font-bold mb-2">SSL Gratis</h3><p class="text-gray-400">Todos nuestros planes de hosting incluyen certificados SSL Let's Encrypt sin costo adicional.</p>
+                </div>
+                <div class="feature-block p-6 rounded-lg">
+                    <svg class="mx-auto h-16 w-16 text-white mb-4" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 121.93 122.88" xml:space="preserve"><g><path style="fill:currentColor;" d="M93.8,36.02c0,1.13-0.92,2.05-2.05,2.05s-2.05-0.92-2.05-2.05v-7.99c0-3.13-0.81-6.33-2.21-9.25 c-1.46-3.04-3.54-5.8-6.01-7.89c-5.27-4.47-12.18-6.72-19.13-6.8c-7.04-0.08-14.09,2.07-19.51,6.39c-2.62,2.09-5.01,4.82-6.68,7.88 c-1.45,2.66-2.35,5.57-2.35,8.5v9.24l0.06-0.02l1.85,2.29c-0.14-3.67-0.16-7.61,0-11.08c0.12-1.19,0.35-2.38,0.68-3.57 c2.99-10.7,15.2-16.95,25.82-16.37c8.22,0.45,15.94,3.46,20.82,9.08C89.84,24.3,88.08,34,87.85,43.6v0c1.53,0.47,2.51,1.43,2.91,3 c0.44,1.74-0.04,4.18-1.51,7.52l0,0c-0.03,0.06-0.06,0.12-0.09,0.18l-6.28,10.34c-2.42,3.98-4.88,7.98-8.15,11.05l-0.1,0.09 c0.38,0.59,0.8,1.26,1.23,1.97c1.02,1.65,2.17,3.49,3.28,5.06c6.89,5.19,24.54,6.38,31.25,10.12c2.2,1.23,4.19,2.79,5.78,4.9 c3.95,5.22,4.26,12.44,5.77,18.81c-0.35,3.76-2.48,5.92-6.68,6.24H6.68c-4.19-0.32-6.32-2.48-6.68-6.24 c1.51-6.37,1.81-13.59,5.77-18.81c1.6-2.11,3.58-3.67,5.78-4.9c6.72-3.75,24.38-4.94,31.26-10.13c1.08-2.4,2.2-6.13,2.9-8.44 l0.01-0.05h0L46,73.42c0.03-0.11,0.08-0.2,0.13-0.3c-1.97-2.35-3.67-4.99-5.3-7.58l-5.39-8.57c-0.41-0.03-0.81-0.1-1.21-0.23 c-4.32-1.36-7.9-10.96-7.2-15.49c0.4-2.57,1.31-3.49,2.78-4.05c-0.07-0.21-0.11-0.43-0.11-0.66v-9.68c0-3.64,1.09-7.21,2.86-10.45 c1.94-3.56,4.71-6.73,7.72-9.13C46.44,2.36,54.43-0.08,62.37,0c7.88,0.09,15.73,2.65,21.75,7.76c2.9,2.46,5.35,5.69,7.06,9.26 c1.66,3.48,2.63,7.28,2.63,11.02V36.02L93.8,36.02z M72.65,77.41c-3,2.2-6.62,3.57-11.23,3.56c-5.34-0.01-9.36-2.05-12.66-5.07 c-0.24-0.22-0.48-0.44-0.71-0.67c-0.91,3.03-2.52,8.37-4.03,10.67c1.74,10,5.61,17.15,9.14,24.76l4.86-16.87 c-0.62-1.05-0.91-1.97-0.95-2.76c-2.49,1.4-5.17,2.33-7.96,2.95c-3.04-3.46-3.3-7.07,0-10.9c3.73,0.94,7.16,2.54,10.31,4.7 c0.75-0.25,1.6-0.31,2.42-0.18c3.35-2.41,7.65-3.36,11.4-5.16c4.45,4.33,3.97,8.32-0.4,12.03c-2.64-0.61-5.14-1.57-7.52-2.83 c-0.03,0.64-0.19,1.36-0.5,2.15l4.86,16.87c3.76-7.91,7.67-15.76,8.56-24.74c-1.49-1.92-3.07-4.44-4.43-6.64 C73.4,78.62,73.01,77.99,72.65,77.41L72.65,77.41z M45.71,74.35L45.71,74.35l0.01-0.05h0L45.71,74.35L45.71,74.35L45.71,74.35z M38.43,45.63l2.39,6.55c0.26,0.76,0.34,1.42,0.23,1.99l0.02-0.02c3.74,4.15,8.35,7.15,13.9,8.91c0.28-0.64,0.67-1.2,1.24-1.64 c1.69-1.31,6.65-1.19,8.18,0.08c1.28,1.06,1.3,3.5,0.35,4.77c-1.98,2.65-10.22,0.42-12.98-0.47c-4.4-1.42-8.41-4.83-12.06-7.89 l3.75,5.96c2.21,3.51,4.52,7.09,7.4,9.72c2.77,2.53,6.12,4.24,10.56,4.25c4.81,0.01,8.32-1.77,11.18-4.44 c2.97-2.78,5.31-6.59,7.62-10.39l6.2-10.22c1.16-2.64,1.58-4.41,1.31-5.44c-0.16-0.62-0.84-0.92-2-0.98 c-0.25-0.01-0.5-0.01-0.76-0.01c-0.28,0.01-0.57,0.03-0.87,0.05c-0.17,0.01-0.33,0-0.48-0.03c-0.55,0.03-1.12-0.01-1.7-0.09 l2.13-9.4c-15.77,2.48-27.56-9.22-44.22-2.34l1.2,11.08c-0.67,0.03-1.31,0.01-1.9-0.08v0C38.89,45.59,38.65,45.61,38.43,45.63 L38.43,45.63z"/></g></svg>
+                    <h3 class="text-xl font-bold mb-2">Soporte 24/7</h3><p class="text-gray-400">Nuestro equipo de soporte está disponible en Discord y tickets para ayudarte con lo que necesites.</p>
+                </div>
+                <div class="feature-block p-6 rounded-lg">
+                    <svg class="mx-auto h-16 w-16 text-white mb-4" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 122.88 99.54" style="enable-background:new 0 0 122.88 99.54" xml:space="preserve">
+                        <style type="text/css"><![CDATA[
+                            .st0{fill:currentColor;}
+                            .st1{fill-rule:evenodd;clip-rule:evenodd;fill:#6BBE66;}
+                        ]]></style>
+                        <g>
+                            <path class="st0" d="M73.12,0c6.73,0,13.16,1.34,19.03,3.77c6.09,2.52,11.57,6.22,16.16,10.81l0,0c4.58,4.58,8.28,10.06,10.8,16.17 c2.43,5.87,3.77,12.3,3.77,19.02c0,6.73-1.34,13.16-3.77,19.03c-2.52,6.09-6.22,11.57-10.81,16.16l0,0 c-4.58,4.58-10.06,8.28-16.17,10.8c-5.87,2.43-12.3,3.77-19.02,3.77c-6.73,0-13.16-1.34-19.03-3.77 c-6.09-2.52-11.57-6.22-16.15-10.8l-0.01-0.01c-4.59-4.59-8.28-10.07-10.8-16.15c-0.78-1.89-1.45-3.83-2-5.82 c1.04,0.1,2.1,0.15,3.17,0.15c2.03,0,4.01-0.18,5.94-0.53c0.32,0.96,0.67,1.91,1.05,2.84c2.07,5,5.11,9.5,8.89,13.28 c3.78,3.78,8.29,6.82,13.28,8.89c4.81,1.99,10.1,3.1,15.66,3.1s10.84-1.1,15.66-3.1c5-2.07,9.5-5.11,13.28-8.89 c3.78-3.78,6.82-8.29,8.89-13.28c1.99-4.81,3.1-10.1,3.1-15.66s-1.1-10.84-3.1-15.66c-2.07-5-5.11-9.5-8.89-13.28 s-8.29-6.82-13.28-8.89c-4.81-1.99-10.1-3.1-15.66-3.1s-10.84,1.1-15.66,3.1c-0.43,0.18-0.86,0.37-1.28,0.56 c-1.64-2.58-3.62-4.92-5.89-6.95c1.24-0.64,2.51-1.23,3.8-1.77C59.97,1.34,66.39,0,73.12,0L73.12,0L73.12,0z M67.41,26.11 c0-1.22,0.5-2.32,1.29-3.12c0.8-0.8,1.9-1.29,3.12-1.29c1.22,0,2.32,0.49,3.12,1.29c0.8,0.8,1.29,1.9,1.29,3.12v23.22l17.35,10.29 c1.04,0.62,1.74,1.61,2.02,2.7c0.28,1.09,0.15,2.29-0.47,3.33v0.01l0,0c-0.62,1.04-1.61,1.74-2.7,2.02s-2.29,0.15-3.33-0.47h-0.01 l0,0L69.68,55.7c-0.67-0.37-1.22-0.91-1.62-1.55c-0.41-0.67-0.65-1.46-0.65-2.3V26.11L67.41,26.11L67.41,26.11z"/>
+                            <path class="st1" d="M26.98,2.64c14.9,0,26.98,12.08,26.98,26.98c0,14.9-12.08,26.98-26.98,26.98S0,44.52,0,29.62 C0,14.72,12.08,2.64,26.98,2.64L26.98,2.64L26.98,2.64z M26.98,13.72l14.48,17.9h-8.99v9.52H21.49v-9.52H12.5L26.98,13.72 L26.98,13.72z"/>
+                        </g>
+                    </svg>
+                    <h3 class="text-xl font-bold mb-2">Activación Instantánea</h3>
+                    <p class="text-gray-400">Tu hosting se activa al instante una vez recibido el pago. ¡Sin esperas para empezar tu proyecto!</p>
+                </div>
+                <div class="feature-block p-6 rounded-lg">
+                    <svg class="mx-auto h-16 w-16 text-white mb-4" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 121.06 122.88"><defs><style>.cls-1{fill-rule:evenodd;fill:currentColor;}</style></defs><title>database-server</title><path class="cls-1" d="M18,27.16c8.25,2.76,19.74,4.46,32.5,4.46S74.75,29.92,83,27.16c7.24-2.42,11.72-5.35,11.72-8.21S90.24,13.16,83,10.74C74.75,8,63.26,6.28,50.51,6.28S26.26,8,18,10.74C2.65,15.87,2.22,21.89,18,27.16Zm103.05,94c0-.14,0-.26,0-.39V51.37c0-.13,0-.27,0-.39a2.14,2.14,0,0,0-.59-1.11,2.12,2.12,0,0,0-1.5-.63H78.9a2.15,2.15,0,0,0-2.13,2.13v69.37a2.08,2.08,0,0,0,.63,1.5,2,2,0,0,0,1.5.63H119a2.12,2.12,0,0,0,1.5-.63,2.28,2.28,0,0,0,.58-1.12Zm-16.47-15a6.34,6.34,0,0,1-12.41.71l6.78-4.2,5.63,3.49ZM113.2,61.4v5.33H84.67V61.4Zm0,14.74v5.33H99.14L99,81l-.18.44H84.67V76.14ZM6.35,48.73c.57,2.67,4.92,5.36,11.66,7.61,8.25,2.76,19.74,4.46,32.5,4.46,4.45,0,8.75-.21,12.81-.6v6.32c-4.08.38-8.38.58-12.8.58-13.4,0-25.59-1.83-34.48-4.8a39.61,39.61,0,0,1-9.67-4.56V76.57c.57,2.67,4.92,5.36,11.66,7.61,8.25,2.75,19.74,4.46,32.5,4.46,4.44,0,8.74-.21,12.79-.59v6.29c-4.09.37-8.39.57-12.81.57-13.4,0-25.59-1.83-34.48-4.81a39.61,39.61,0,0,1-9.67-4.55v18.83c.57,2.67,4.92,5.36,11.66,7.61,8.25,2.75,19.74,4.46,32.5,4.46,4.45,0,8.75-.21,12.8-.6v4.89c0,.47,0,.94.07,1.41-4.11.38-8.43.58-12.87.58-13.4,0-25.59-1.83-34.48-4.81-4.69-1.56-16-6.7-16-12.85v-2Q0,61,0,19C0,13.08,6.12,8.11,16,4.8,24.91,1.83,37.11,0,50.51,0S76.09,1.83,85,4.81s14.89,7.4,15.88,12.59a3.06,3.06,0,0,1,.18,1.06V35.79H94.75V28.48A39.71,39.71,0,0,1,85,33.09c-8.89,3-21.08,4.81-34.47,4.81S24.92,36.07,16,33.09a39.61,39.61,0,0,1-9.67-4.55V48.73Z"/></svg>
+                    <h3 class="text-xl font-bold mb-2">Backups Automáticos</h3><p class="text-gray-400">Realizamos copias de seguridad automáticas de tu sitio web para tu total tranquilidad.</p>
+                </div>
+                <div class="feature-block p-6 rounded-lg">
+                    <svg class="mx-auto h-16 w-16 text-white mb-4" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 119.09 123.12" xml:space="preserve"><style type="text/css">.st0{fill-rule:evenodd;clip-rule:evenodd;fill:currentColor;}</style><g><path class="st0" d="M86.56,48.74c17.97,0,32.53,14.57,32.53,32.53c0,17.97-14.57,32.53-32.53,32.53 c-17.97,0-32.53-14.56-32.53-32.53C54.03,63.31,68.59,48.74,86.56,48.74L86.56,48.74z M10.06,63.5l0.16-12.93 c0-0.26,0.22-0.47,0.48-0.47c0.07,0,0.13,0.02,0.19,0.04l8.2,3.45c0.18,0.08,0.29,0.25,0.29,0.44l0,13.76 c0,0.26-0.21,0.48-0.48,0.48c-0.09,0-0.18-0.03-0.26-0.07l-8.33-4.26C10.15,63.84,10.06,63.67,10.06,63.5L10.06,63.5z M15.18,18.05 L4.66,14.15l3.98,10.55l10.49,5.68L15.18,18.05L15.18,18.05z M10.81,107.05c-0.3-0.17-0.5-0.45-0.59-0.75 c-0.08-0.29-0.06-0.62,0.09-0.91l0.05-0.08c0.17-0.28,0.44-0.47,0.73-0.55c0.29-0.08,0.62-0.06,0.9,0.09l7.52,4.29 c0.3,0.17,0.5,0.45,0.59,0.75c0.08,0.29,0.06,0.62-0.09,0.91l-0.05,0.09c-0.17,0.28-0.44,0.47-0.73,0.55 c-0.29,0.08-0.62,0.06-0.91-0.09L10.81,107.05L10.81,107.05z M10.94,101.3c-0.3-0.17-0.5-0.45-0.59-0.76 c-0.08-0.31-0.05-0.65,0.12-0.95c0.17-0.3,0.45-0.5,0.76-0.59c0.31-0.08,0.65-0.05,0.95,0.12l7.34,4.2c0.3,0.17,0.5,0.45,0.59,0.76 l0.01,0.04c0.07,0.3,0.03,0.62-0.13,0.91c-0.17,0.3-0.45,0.5-0.76,0.59c-0.31,0.08-0.65,0.05-0.95-0.12L10.94,101.3L10.94,101.3z M47.23,65.08l-12.12,1.73l0.25,37.81l13.84-3.12c0.21-0.05,0.43,0.06,0.52,0.24c0.22,0.36,0.45,0.72,0.68,1.08 c0.25,0.37,0.49,0.73,0.74,1.08c0.15,0.22,0.1,0.51-0.12,0.66c-0.06,0.04-0.12,0.07-0.19,0.08l-16.81,3.79 c-0.06,0.01-0.12,0.02-0.18,0.03l-0.19,0.01l-0.05,0c-0.45-0.01-0.86-0.2-1.17-0.5c-0.31-0.31-0.5-0.74-0.51-1.21l-0.27-41.33 c-0.03-0.44,0.11-0.87,0.38-1.2l0.01-0.01c0.26-0.32,0.64-0.54,1.08-0.61l15.32-2.18c0.26-0.04,0.5,0.14,0.54,0.4 c0.02,0.11-0.01,0.23-0.07,0.32c-0.23,0.42-0.47,0.86-0.69,1.3c-0.23,0.45-0.45,0.9-0.65,1.35C47.52,64.96,47.38,65.06,47.23,65.08 L47.23,65.08z M23.88,38.53l0.49,80.73l33.65-7.59c0.15-0.03,0.31,0.01,0.42,0.11c0.39,0.32,0.81,0.65,1.24,0.98 c0.44,0.33,0.88,0.65,1.31,0.95c0.22,0.15,0.27,0.45,0.12,0.66c-0.07,0.1-0.17,0.17-0.29,0.19l-37.77,8.52 c-0.26,0.06-0.53,0.05-0.77-0.01c-0.25-0.06-0.48-0.17-0.68-0.33L6.33,111.02c-0.23-0.17-0.4-0.4-0.52-0.64 c-0.12-0.25-0.17-0.53-0.16-0.81L5.55,26.22l-5.4-14.31c-0.19-0.44-0.19-0.89-0.04-1.27l0.02-0.04c0.08-0.2,0.2-0.39,0.34-0.54 c0.15-0.17,0.34-0.31,0.55-0.4c0.38-0.17,0.84-0.21,1.3-0.04l1.33,0.49c-0.14-0.67-0.2-1.35-0.09-1.99 C3.74,7.13,4.33,6.3,5.71,5.89c0.07-0.02,0.14-0.04,0.21-0.05C25.3,3.26,46.23,1.92,65.83,0.02c0.68-0.06,1.31,0.14,1.81,0.52 c0.51,0.39,0.87,0.97,1,1.64l1.53,11L76.78,0.9c0.2-0.37,0.52-0.64,0.89-0.79c0.37-0.14,0.79-0.16,1.18-0.03l20.41,5.58 c0.46,0.12,0.82,0.42,1.04,0.8c0.22,0.38,0.29,0.84,0.16,1.3c-1.58,5.08-5.01,12.11-7.14,17.26l11.2,9.39 c0.36,0.3,0.57,0.73,0.61,1.17c0.04,0.44-0.09,0.89-0.39,1.25l-0.03,0.03c-0.15,0.17-0.32,0.3-0.5,0.39 c-0.21,0.11-0.43,0.17-0.66,0.19l-10.56,1.39l0.04,3.57c0,0.26-0.21,0.48-0.47,0.48c-0.04,0-0.08,0-0.11-0.01 c-0.4-0.09-0.81-0.18-1.23-0.27l-0.04-0.01c-0.38-0.08-0.77-0.15-1.19-0.22c-0.24-0.04-0.41-0.25-0.4-0.49l-0.03-2.61l-57.19,7.51 c-0.29,0.06-0.6,0.04-0.88-0.06c-0.28-0.09-0.53-0.25-0.74-0.49L23.88,38.53L23.88,38.53z M8.98,28.78l0.1,80.03l11.85,9.1 l-0.57-82.97L8.98,28.78L8.98,28.78z M17.05,15.08l0.15,0.06c0.22,0.09,0.43,0.23,0.6,0.4c0.17,0.18,0.31,0.4,0.39,0.65l1.11,3.4 l0.98,3.02l46.88-6.11L65.36,3.51L6.92,9.19c0.1,0.48,0.39,1.47,0.55,2.03l0.04,0.13L17.05,15.08L17.05,15.08z M32.72,43.28 l66.6-8.75l-8.6-7.21l-65.18,7.89L32.72,43.28L32.72,43.28z M67.4,23.51l0-3.59l-46.03,6l1.91,6.1l44.12-5.64L67.4,23.51 L67.4,23.51z M70.84,25.98l12.51-1.33l-12.51-4.27V25.98L70.84,25.98z M71.98,17.04l18.3,6.34l6.19-14.93L79.16,3.73L71.98,17.04 L71.98,17.04z M86.56,76.77c2.49,0,4.5,2.02,4.5,4.5c0,2.49-2.02,4.5-4.5,4.5c-2.49,0-4.5-2.02-4.5-4.5 C82.05,78.79,84.07,76.77,86.56,76.77L86.56,76.77z M86.56,71.93c5.16,0,9.34,4.18,9.34,9.34c0,5.16-4.18,9.34-9.34,9.34 c-5.16,0-9.34-4.18-9.34-9.34C77.22,76.12,81.4,71.93,86.56,71.93L86.56,71.93z M86.56,69.86c6.3,0,11.41,5.11,11.41,11.41 c0,6.3-5.11,11.41-11.41,11.41c-6.3,0-11.41-5.11-11.41-11.41C75.14,74.97,80.25,69.86,86.56,69.86L86.56,69.86z"/></g></svg>
+                    <h3 class="text-xl font-bold mb-2">Instalador Softaculous</h3><p class="text-gray-400">Instala WordPress, Joomla, PrestaShop y +400 apps con un solo clic desde tu panel de control.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -267,10 +315,31 @@
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileServicesLink = document.getElementById('mobile-services-link');
         const mobileSubmenu = document.getElementById('mobile-submenu');
-        menuBtn.addEventListener('click', (e) => { e.stopPropagation(); mobileMenu.classList.toggle('open'); });
-        mobileServicesLink.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); mobileSubmenu.classList.toggle('open'); });
-        document.addEventListener('click', (e) => { if (mobileMenu.classList.contains('open') && !mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) { mobileMenu.classList.remove('open'); } });
+        const menuOpenIcon = document.getElementById('menu-open-icon');
+        const menuCloseIcon = document.getElementById('menu-close-icon');
+
+        menuBtn.addEventListener('click', (e) => { 
+            e.stopPropagation(); 
+            mobileMenu.classList.toggle('open'); 
+            menuOpenIcon.classList.toggle('hidden');
+            menuCloseIcon.classList.toggle('hidden');
+        });
         
+        mobileServicesLink.addEventListener('click', (e) => { 
+            e.preventDefault(); 
+            e.stopPropagation(); 
+            mobileSubmenu.classList.toggle('open'); 
+        });
+
+        document.addEventListener('click', (e) => { 
+            if (mobileMenu.classList.contains('open') && !mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) { 
+                mobileMenu.classList.remove('open');
+                menuOpenIcon.classList.remove('hidden');
+                menuCloseIcon.classList.add('hidden');
+            } 
+        });
+        
+        // --- Animación de letras en el menú ---
         const navLinks = document.querySelectorAll('.nav-link');
         navLinks.forEach(link => {
             const text = link.textContent;
