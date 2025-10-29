@@ -3,445 +3,723 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR-15 / M4 - Con Disparo</title>
+    <title>MineStore - Tu Tienda Oficial de Minecraft</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Variables y reset */
+        :root {
+            --primary: #2E7D32;
+            --primary-dark: #1B5E20;
+            --primary-light: #4CAF50;
+            --accent: #FF9800;
+            --dark: #1A1A1A;
+            --light: #F5F5F5;
+            --gray: #757575;
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
-        body { 
-            background: linear-gradient(135deg, #636363, #a5a5a5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            font-family: Arial, sans-serif;
-            overflow: hidden;
-            padding: 10px;
-            touch-action: manipulation;
+        body {
+            background-color: #121212;
+            color: var(--light);
+            line-height: 1.6;
         }
         
-        #container {
-            width: 100%;
-            max-width: 600px;
-            height: 70vh;
-            min-height: 400px;
-            border: 4px solid #333;
-            border-radius: 15px;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
-            cursor: crosshair;
-            background: linear-gradient(135deg, #8a8a8a, #c0c0c0);
-        }
-        
-        #info {
-            position: absolute;
-            top: 15px;
-            color: #000;
-            text-align: center;
-            width: 100%;
-            font-size: clamp(18px, 4vw, 24px);
-            font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
-            padding: 0 10px;
-        }
-        
-        #controls {
-            position: absolute;
-            bottom: 15px;
-            color: #333;
-            text-align: center;
-            width: 100%;
-            font-size: clamp(12px, 3vw, 14px);
-            padding: 0 10px;
-        }
-        
-        #message {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #ff0000;
-            font-size: clamp(24px, 6vw, 32px);
-            font-weight: bold;
-            text-shadow: 0 0 10px #ff4444;
-            opacity: 0;
-            transition: opacity 0.3s;
+        /* Header y navegación */
+        header {
+            background-color: var(--dark);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
             z-index: 100;
         }
         
-        #shotCounter {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            color: #000;
-            font-size: clamp(16px, 4vw, 20px);
-            font-weight: bold;
-            background: rgba(255, 215, 0, 0.8);
-            padding: 5px 10px;
-            border-radius: 10px;
-            border: 2px solid #333;
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
         }
         
-        /* Botón para disparar en móvil */
-        #shootButton {
-            position: absolute;
-            bottom: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, #ff4444, #cc0000);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-size: 18px;
-            font-weight: bold;
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            color: var(--accent);
+            font-size: 28px;
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--light);
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .nav-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.5);
-            display: none;
-            z-index: 50;
         }
         
-        /* Mostrar botón solo en móvil */
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: 2px solid var(--primary);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            color: #e0e0e0;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background-color: #1E1E1E;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--light);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: #2A2A2A;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s;
+            border: 1px solid #333;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+        }
+        
+        .feature-icon {
+            font-size: 40px;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+        
+        .feature-card p {
+            color: var(--gray);
+        }
+        
+        /* Products Section */
+        .products {
+            padding: 80px 0;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .product-card {
+            background-color: #2A2A2A;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            border: 1px solid #333;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+        
+        .product-image {
+            height: 180px;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            color: var(--accent);
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-info h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--light);
+        }
+        
+        .product-info p {
+            color: var(--gray);
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .product-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+        
+        .price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        /* Servers Section */
+        .servers {
+            padding: 80px 0;
+            background-color: #1E1E1E;
+        }
+        
+        .servers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .server-card {
+            background-color: #2A2A2A;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+        
+        .server-icon {
+            font-size: 50px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .server-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+        
+        .server-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--light);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            border-radius: 50%;
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            color: var(--gray);
+            font-size: 14px;
+        }
+        
+        /* Responsive */
         @media (max-width: 768px) {
-            #shootButton {
-                display: block;
+            .navbar {
+                flex-direction: column;
+                gap: 20px;
             }
             
-            #container {
-                height: 60vh;
+            .nav-links {
+                gap: 15px;
+            }
+            
+            .hero h2 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h2 {
+                font-size: 28px;
+            }
+            
+            .section-title h2 {
+                font-size: 28px;
             }
         }
     </style>
 </head>
 <body>
-    <div id="info">🔫 AR-15 / M4 - ¡TOCA PARA DISPARAR!</div>
-    <div id="container"></div>
-    <div id="controls">🖱️ Toca el arma para disparar • Arrastra para rotar</div>
-    <div id="message">¡BANG!</div>
-    <div id="shotCounter">Disparos: 0</div>
-    <button id="shootButton">🔫 DISPARAR</button>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    
-    <script>
-        // 1. Configuración inicial responsive
-        const container = document.getElementById('container');
-        let width = container.clientWidth;
-        let height = container.clientHeight;
-        
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ 
-            antialias: true,
-            alpha: true 
-        });
-        
-        renderer.setSize(width, height);
-        renderer.setClearColor(0x000000, 0); // Fondo transparente
-        renderer.shadowMap.enabled = true;
-        container.appendChild(renderer.domElement);
-
-        // Variables para la animación
-        let isFiring = false;
-        let bullets = [];
-        let shotCount = 0;
-        const message = document.getElementById('message');
-        const shotCounter = document.getElementById('shotCounter');
-        const shootButton = document.getElementById('shootButton');
-
-        // 2. Sistema de luces mejorado para fondo claro
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-        scene.add(ambientLight);
-
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.2);
-        directionalLight.position.set(10, 10, 5);
-        directionalLight.castShadow = true;
-        scene.add(directionalLight);
-
-        const pointLight = new THREE.PointLight(0xffaa00, 0.6);
-        pointLight.position.set(-5, 0, 0);
-        scene.add(pointLight);
-
-        // 3. Crear grupo para el arma completa
-        const weapon = new THREE.Group();
-        scene.add(weapon);
-
-        // Materiales MEJORADOS para contraste
-        const blackMetal = new THREE.MeshPhongMaterial({ 
-            color: 0x111111, 
-            shininess: 120,
-            specular: 0x333333
-        });
-        
-        const goldMaterial = new THREE.MeshPhongMaterial({ 
-            color: 0xFFD700,
-            shininess: 180,
-            specular: 0xFFEC8B
-        });
-
-        // 4. Partes del AR-15/M4 - MÁS DEFINIDAS
-        // Culata (Stock) - DORADA
-        const stockGeometry = new THREE.BoxGeometry(1.0, 0.4, 0.3);
-        const stock = new THREE.Mesh(stockGeometry, goldMaterial);
-        stock.position.set(-2.3, 0, 0);
-        weapon.add(stock);
-
-        // Receptor inferior - NEGRO BRILLANTE
-        const lowerReceiverGeometry = new THREE.BoxGeometry(1.7, 0.5, 0.4);
-        const lowerReceiver = new THREE.Mesh(lowerReceiverGeometry, blackMetal);
-        lowerReceiver.position.set(-0.6, 0, 0);
-        weapon.add(lowerReceiver);
-
-        // Empuñadura - NEGRO
-        const gripGeometry = new THREE.BoxGeometry(0.4, 0.8, 0.4);
-        const grip = new THREE.Mesh(gripGeometry, blackMetal);
-        grip.position.set(-0.6, -0.7, 0);
-        grip.rotation.x = Math.PI / 6;
-        weapon.add(grip);
-
-        // Receptor superior - NEGRO
-        const upperReceiverGeometry = new THREE.BoxGeometry(2.0, 0.45, 0.45);
-        const upperReceiver = new THREE.Mesh(upperReceiverGeometry, blackMetal);
-        upperReceiver.position.set(0.7, 0.1, 0);
-        weapon.add(upperReceiver);
-
-        // Cañón - NEGRO CON BORDES DEFINIDOS
-        const barrelGeometry = new THREE.CylinderGeometry(0.12, 0.14, 2.8, 12);
-        const barrel = new THREE.Mesh(barrelGeometry, blackMetal);
-        barrel.position.set(2.2, 0.1, 0);
-        barrel.rotation.z = Math.PI / 2;
-        weapon.add(barrel);
-
-        // Guardamanos - NEGRO
-        const handguardGeometry = new THREE.CylinderGeometry(0.18, 0.18, 2.0, 8);
-        const handguard = new THREE.Mesh(handguardGeometry, blackMetal);
-        handguard.position.set(1.3, 0.1, 0);
-        handguard.rotation.z = Math.PI / 2;
-        weapon.add(handguard);
-
-        // Cargador - NEGRO
-        const magazineGeometry = new THREE.BoxGeometry(0.35, 1.0, 0.25);
-        const magazine = new THREE.Mesh(magazineGeometry, blackMetal);
-        magazine.position.set(-0.6, -1.0, 0);
-        weapon.add(magazine);
-
-        // 5. Configurar cámara
-        camera.position.set(0, 0.5, 7);
-        camera.lookAt(0, 0, 0);
-
-        // 6. Función para crear bala
-        function createBullet() {
-            const bulletGeometry = new THREE.SphereGeometry(0.08, 12, 12);
-            const bulletMaterial = new THREE.MeshPhongMaterial({ 
-                color: 0xFFD700,
-                emissive: 0xFF4500,
-                shininess: 100
-            });
-            const bullet = new THREE.Mesh(bulletGeometry, bulletMaterial);
-            
-            // Posicionar bala en la punta del cañón
-            bullet.position.set(3.8, 0.1, 0);
-            bullet.userData = { speed: 0.7, life: 80 };
-            
-            scene.add(bullet);
-            bullets.push(bullet);
-            return bullet;
-        }
-
-        // 7. Función de disparo
-        function fireWeapon() {
-            if (isFiring) return;
-            
-            isFiring = true;
-            shotCount++;
-            shotCounter.textContent = `Disparos: ${shotCount}`;
-            
-            // Efecto de sonido visual
-            message.style.opacity = 1;
-            setTimeout(() => {
-                message.style.opacity = 0;
-            }, 200);
-            
-            // Crear bala
-            const bullet = createBullet();
-            
-            // Animación del arma (retroceso)
-            const originalY = weapon.position.y;
-            weapon.position.y -= 0.15;
-            weapon.rotation.x -= 0.05;
-            
-            // Animación de la bala
-            function animateBullet() {
-                if (bullet.userData.life <= 0) {
-                    scene.remove(bullet);
-                    bullets = bullets.filter(b => b !== bullet);
-                    return;
-                }
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <i class="fas fa-cube"></i>
+                    <h1>Mine<span>Store</span></h1>
+                </div>
                 
-                // Mover bala hacia adelante
-                bullet.position.x += bullet.userData.speed;
-                bullet.position.y += Math.sin(Date.now() * 0.02) * 0.15;
+                <div class="nav-links">
+                    <a href="#">Inicio</a>
+                    <a href="#">Tienda</a>
+                    <a href="#">Rangos</a>
+                    <a href="#">Servidores</a>
+                    <a href="#">Soporte</a>
+                </div>
                 
-                // Rotar bala en 3D
-                bullet.rotation.x += 0.15;
-                bullet.rotation.y += 0.15;
-                bullet.rotation.z += 0.1;
+                <div class="nav-actions">
+                    <a href="#" class="btn btn-outline">Iniciar Sesión</a>
+                    <a href="#" class="btn btn-primary">Registrarse</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>La Mejor Tienda de Minecraft</h2>
+                <p>Mejora tu experiencia de juego con rangos exclusivos, items personalizados y mucho más. Soporte 24/7 y entrega instantánea.</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary">Ver Tienda</a>
+                    <a href="#" class="btn btn-outline">Nuestros Servidores</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>¿Por Qué Elegirnos?</h2>
+                <p>Ofrecemos la mejor experiencia de compra para la comunidad de Minecraft</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Entrega Instantánea</h3>
+                    <p>Recibe tus compras al instante después del pago, sin esperas.</p>
+                </div>
                 
-                // Reducir vida y tamaño
-                bullet.userData.life--;
-                bullet.scale.multiplyScalar(0.985);
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Pagos Seguros</h3>
+                    <p>Transacciones protegidas con los más altos estándares de seguridad.</p>
+                </div>
                 
-                requestAnimationFrame(animateBullet);
-            }
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>Soporte 24/7</h3>
+                    <p>Nuestro equipo de soporte está disponible en todo momento para ayudarte.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products">
+        <div class="container">
+            <div class="section-title">
+                <h2>Productos Populares</h2>
+                <p>Los favoritos de nuestra comunidad</p>
+            </div>
             
-            animateBullet();
-            
-            // Restaurar posición del arma
-            setTimeout(() => {
-                weapon.position.y = originalY;
-                weapon.rotation.x += 0.05;
-            }, 150);
-            
-            // Permitir otro disparo
-            setTimeout(() => {
-                isFiring = false;
-            }, 300);
-        }
-
-        // 8. Controles para desktop y móvil
-        let isDragging = false;
-        let previousMousePosition = { x: 0, y: 0 };
-        let isTouch = false;
-
-        // Disparar al hacer clic (desktop)
-        container.addEventListener('click', (e) => {
-            if (!isDragging && !isTouch) {
-                fireWeapon();
-            }
-        });
-
-        // Botón de disparo para móvil
-        shootButton.addEventListener('click', fireWeapon);
-        shootButton.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            fireWeapon();
-        });
-
-        // Rotación al arrastrar (desktop)
-        container.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            isTouch = false;
-            container.style.cursor = 'grabbing';
-            previousMousePosition = { x: e.clientX, y: e.clientY };
-        });
-
-        container.addEventListener('mousemove', (e) => {
-            if (isDragging) {
-                const deltaX = e.clientX - previousMousePosition.x;
-                const deltaY = e.clientY - previousMousePosition.y;
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3>Rango Diamante</h3>
+                        <p>Acceso a comandos exclusivos y áreas VIP en el servidor.</p>
+                        <div class="product-price">
+                            <span class="price">$12.99</span>
+                            <a href="#" class="btn btn-primary">Comprar</a>
+                        </div>
+                    </div>
+                </div>
                 
-                weapon.rotation.y += deltaX * 0.01;
-                weapon.rotation.x += deltaY * 0.01;
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3>Rango Esmeralda</h3>
+                        <p>Beneficios premium y prioridad en el soporte.</p>
+                        <div class="product-price">
+                            <span class="price">$19.99</span>
+                            <a href="#" class="btn btn-primary">Comprar</a>
+                        </div>
+                    </div>
+                </div>
                 
-                previousMousePosition = { x: e.clientX, y: e.clientY };
-            }
-        });
-
-        container.addEventListener('mouseup', () => {
-            isDragging = false;
-            container.style.cursor = 'crosshair';
-        });
-
-        // Controles táctiles para móvil
-        container.addEventListener('touchstart', (e) => {
-            isTouch = true;
-            isDragging = true;
-            previousMousePosition = { 
-                x: e.touches[0].clientX, 
-                y: e.touches[0].clientY 
-            };
-            e.preventDefault();
-        });
-
-        container.addEventListener('touchmove', (e) => {
-            if (isDragging) {
-                const deltaX = e.touches[0].clientX - previousMousePosition.x;
-                const deltaY = e.touches[0].clientY - previousMousePosition.y;
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-dragon"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3>Kit Dragón</h3>
+                        <p>Kit completo con armadura, herramientas y objetos especiales.</p>
+                        <div class="product-price">
+                            <span class="price">$8.99</span>
+                            <a href="#" class="btn btn-primary">Comprar</a>
+                        </div>
+                    </div>
+                </div>
                 
-                weapon.rotation.y += deltaX * 0.015;
-                weapon.rotation.x += deltaY * 0.015;
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3>Monedas VIP</h3>
+                        <p>Paquete de 5000 monedas para la tienda del servidor.</p>
+                        <div class="product-price">
+                            <span class="price">$5.99</span>
+                            <a href="#" class="btn btn-primary">Comprar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servers Section -->
+    <section class="servers">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nuestros Servidores</h2>
+                <p>Únete a nuestra comunidad y disfruta de la mejor experiencia Minecraft</p>
+            </div>
+            
+            <div class="servers-grid">
+                <div class="server-card">
+                    <div class="server-icon">
+                        <i class="fas fa-fist-raised"></i>
+                    </div>
+                    <h3>Survival</h3>
+                    <p>El modo clásico de Minecraft con economía, misiones y eventos.</p>
+                    <div class="server-stats">
+                        <div class="stat">
+                            <div class="stat-value">125</div>
+                            <div class="stat-label">Jugadores</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">1.19.2</div>
+                            <div class="stat-label">Versión</div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-primary">Conectar</a>
+                </div>
                 
-                previousMousePosition = { 
-                    x: e.touches[0].clientX, 
-                    y: e.touches[0].clientY 
-                };
-            }
-            e.preventDefault();
-        });
+                <div class="server-card">
+                    <div class="server-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>SkyWars</h3>
+                    <p>Combates épicos en islas flotantes. ¿Serás el último en pie?</p>
+                    <div class="server-stats">
+                        <div class="stat">
+                            <div class="stat-value">85</div>
+                            <div class="stat-label">Jugadores</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">1.19.2</div>
+                            <div class="stat-label">Versión</div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-primary">Conectar</a>
+                </div>
+                
+                <div class="server-card">
+                    <div class="server-icon">
+                        <i class="fas fa-bed"></i>
+                    </div>
+                    <h3>BedWars</h3>
+                    <p>Protege tu cama y destruye la de tus enemigos en este emocionante modo.</p>
+                    <div class="server-stats">
+                        <div class="stat">
+                            <div class="stat-value">210</div>
+                            <div class="stat-label">Jugadores</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">1.19.2</div>
+                            <div class="stat-label">Versión</div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-primary">Conectar</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        container.addEventListener('touchend', () => {
-            isDragging = false;
-        });
-
-        // 9. Animación principal
-        function animate() {
-            requestAnimationFrame(animate);
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>MineStore</h3>
+                    <p>La tienda líder para la comunidad de Minecraft. Ofrecemos productos de calidad con entrega instantánea.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Inicio</a></li>
+                        <li><a href="#">Tienda</a></li>
+                        <li><a href="#">Rangos</a></li>
+                        <li><a href="#">Servidores</a></li>
+                        <li><a href="#">Soporte</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Términos de Servicio</a></li>
+                        <li><a href="#">Política de Privacidad</a></li>
+                        <li><a href="#">Política de Reembolsos</a></li>
+                        <li><a href="#">DMCA</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-envelope"></i> soporte@minestore.com</a></li>
+                        <li><a href="#"><i class="fab fa-discord"></i> Discord</a></li>
+                        <li><a href="#"><i class="fas fa-ticket-alt"></i> Sistema de Tickets</a></li>
+                    </ul>
+                </div>
+            </div>
             
-            // Rotación automática suave
-            if (!isDragging && !isFiring) {
-                weapon.rotation.y += 0.004;
-            }
-            
-            // Efecto de respiración en la luz
-            pointLight.intensity = 0.4 + Math.sin(Date.now() * 0.001) * 0.2;
-            
-            renderer.render(scene, camera);
-        }
-
-        // 10. Efecto de aparición
-        weapon.scale.set(0.1, 0.1, 0.1);
-        let scale = 0.1;
-
-        function appearAnimation() {
-            if (scale < 1) {
-                scale += 0.02;
-                weapon.scale.set(scale, scale, scale);
-                requestAnimationFrame(appearAnimation);
-            }
-        }
-
-        // 11. Responsive
-        window.addEventListener('resize', () => {
-            width = container.clientWidth;
-            height = container.clientHeight;
-            
-            camera.aspect = width / height;
-            camera.updateProjectionMatrix();
-            renderer.setSize(width, height);
-        });
-
-        appearAnimation();
-        animate();
-
-        // Efecto de luz de disparo
-        const muzzleFlash = new THREE.PointLight(0xff4500, 3, 3);
-        muzzleFlash.position.set(3.8, 0.1, 0);
-        scene.add(muzzleFlash);
-        muzzleFlash.visible = false;
-
-        // Mejorar la función de disparo con flash
-        const originalFireWeapon = fireWeapon;
-        fireWeapon = function() {
-            // Mostrar flash
-            muzzleFlash.visible = true;
-            setTimeout(() => {
-                muzzleFlash.visible = false;
-            }, 80);
-            
-            originalFireWeapon();
-        };
-    </script>
+            <div class="footer-bottom">
+                <p>&copy; 2023 MineStore. Todos los derechos reservados. Minecraft es una marca registrada de Mojang Studios.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
