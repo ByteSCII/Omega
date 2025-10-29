@@ -3,722 +3,485 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MineStore - Tu Tienda Oficial de Minecraft</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>⚔️ CRAFTSTORE - Tienda Oficial</title>
     <style>
-        /* Variables y reset */
-        :root {
-            --primary: #2E7D32;
-            --primary-dark: #1B5E20;
-            --primary-light: #4CAF50;
-            --accent: #FF9800;
-            --dark: #1A1A1A;
-            --light: #F5F5F5;
-            --gray: #757575;
-        }
-        
+        /* RESET MINECRAFT STYLE */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
         }
-        
+
         body {
-            background-color: #121212;
-            color: var(--light);
-            line-height: 1.6;
+            background: #1a1a1a;
+            font-family: 'Courier New', monospace;
+            color: #fff;
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="%231a1a1a" width="100" height="100"/><rect fill="%23222222" x="50" width="50" height="50"/><rect fill="%23222222" y="50" width="50" height="50"/></svg>');
         }
-        
-        /* Header y navegación */
-        header {
-            background-color: var(--dark);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .logo i {
-            color: var(--accent);
-            font-size: 28px;
-        }
-        
-        .logo h1 {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--light);
-        }
-        
-        .logo span {
-            color: var(--accent);
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-        
-        .nav-links a {
-            color: var(--light);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-        
-        .nav-actions {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-        
-        .btn {
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            display: inline-block;
-            cursor: pointer;
-        }
-        
-        .btn-outline {
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            background: transparent;
-        }
-        
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-            border: 2px solid var(--primary);
-        }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--primary-dark);
-        }
-        
-        .btn-outline:hover {
-            background-color: var(--primary);
-            color: white;
-        }
-        
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                        url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            padding: 100px 0;
+
+        /* HEADER ESTILO MINECRAFT */
+        .minecraft-header {
+            background: linear-gradient(to bottom, #3a3a3a, #2a2a2a);
+            border-bottom: 4px solid #5a5a5a;
+            padding: 15px 0;
             text-align: center;
+            box-shadow: 0 4px 0 #1a1a1a;
         }
-        
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
+
+        .logo {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #55FF55;
+            text-shadow: 3px 3px 0 #1a5a1a, 6px 6px 0 #000;
+            margin-bottom: 10px;
         }
-        
-        .hero h2 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            color: white;
+
+        .subtitle {
+            color: #FFFF55;
+            font-size: 1.2em;
+            text-shadow: 2px 2px 0 #5a5a00;
         }
-        
-        .hero p {
-            font-size: 20px;
-            margin-bottom: 30px;
-            color: #e0e0e0;
-        }
-        
-        .hero-buttons {
+
+        /* NAVEGACIÓN ESTILO BOTONES MINECRAFT */
+        .minecraft-nav {
             display: flex;
-            gap: 15px;
             justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
             flex-wrap: wrap;
         }
-        
-        /* Features Section */
-        .features {
-            padding: 80px 0;
-            background-color: #1E1E1E;
-        }
-        
-        .section-title {
+
+        .mc-button {
+            background: linear-gradient(to bottom, #727272, #525252);
+            border: 2px solid #000;
+            color: white;
+            padding: 12px 20px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 1.1em;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 0 #2a2a2a;
+            transition: all 0.1s;
             text-align: center;
-            margin-bottom: 50px;
         }
-        
-        .section-title h2 {
-            font-size: 36px;
-            color: var(--light);
-            margin-bottom: 15px;
+
+        .mc-button:hover {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #2a2a2a;
+            background: linear-gradient(to bottom, #626262, #424242);
         }
-        
-        .section-title p {
-            color: var(--gray);
-            max-width: 600px;
-            margin: 0 auto;
+
+        .mc-button.primary {
+            background: linear-gradient(to bottom, #47a847, #2d682d);
+            box-shadow: 0 4px 0 #1a451a;
         }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+
+        .mc-button.primary:hover {
+            background: linear-gradient(to bottom, #3d8f3d, #255725);
+            box-shadow: 0 2px 0 #1a451a;
         }
-        
-        .feature-card {
-            background-color: #2A2A2A;
-            border-radius: 10px;
-            padding: 30px;
-            text-align: center;
-            transition: transform 0.3s;
-            border: 1px solid #333;
+
+        /* CONTENEDOR PRINCIPAL ESTILO MENÚ MINECRAFT */
+        .minecraft-container {
+            max-width: 1000px;
+            margin: 20px auto;
+            background: #3a3a3a;
+            border: 8px solid #5a5a5a;
+            border-image: 
+                linear-gradient(45deg, #5a5a5a, #7a7a7a, #5a5a5a) 1;
+            padding: 20px;
+            box-shadow: 
+                inset 0 0 0 4px #2a2a2a,
+                0 8px 0 #1a1a1a;
         }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-        }
-        
-        .feature-icon {
-            font-size: 40px;
-            color: var(--accent);
-            margin-bottom: 20px;
-        }
-        
-        .feature-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: var(--light);
-        }
-        
-        .feature-card p {
-            color: var(--gray);
-        }
-        
-        /* Products Section */
-        .products {
-            padding: 80px 0;
-        }
-        
-        .products-grid {
+
+        /* CATEGORÍAS DE RANGOS */
+        .ranks-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
+            gap: 15px;
+            margin: 30px 0;
         }
-        
-        .product-card {
-            background-color: #2A2A2A;
-            border-radius: 10px;
-            overflow: hidden;
-            transition: transform 0.3s;
-            border: 1px solid #333;
-        }
-        
-        .product-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-        }
-        
-        .product-image {
-            height: 180px;
-            background-color: #333;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 50px;
-            color: var(--accent);
-        }
-        
-        .product-info {
+
+        .rank-card {
+            background: linear-gradient(135deg, #4a4a4a, #2a2a2a);
+            border: 4px solid;
             padding: 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 0 #1a1a1a;
         }
-        
-        .product-info h3 {
-            font-size: 18px;
+
+        .rank-card.diamond {
+            border-color: #55FFFF;
+            background: linear-gradient(135deg, #4a7a7a, #2a4a4a);
+        }
+
+        .rank-card.emerald {
+            border-color: #55FF55;
+            background: linear-gradient(135deg, #4a7a4a, #2a4a2a);
+        }
+
+        .rank-card.gold {
+            border-color: #FFFF55;
+            background: linear-gradient(135deg, #7a7a4a, #4a4a2a);
+        }
+
+        .rank-icon {
+            font-size: 3em;
             margin-bottom: 10px;
-            color: var(--light);
+            display: block;
         }
-        
-        .product-info p {
-            color: var(--gray);
-            margin-bottom: 15px;
-            font-size: 14px;
+
+        .rank-name {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
         }
-        
-        .product-price {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 15px;
+
+        .rank-price {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #FFFF55;
+            margin: 15px 0;
+            text-shadow: 2px 2px 0 #5a5a00;
         }
-        
-        .price {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--accent);
+
+        .rank-features {
+            list-style: none;
+            text-align: left;
+            margin: 15px 0;
         }
-        
-        /* Servers Section */
-        .servers {
-            padding: 80px 0;
-            background-color: #1E1E1E;
+
+        .rank-features li {
+            padding: 5px 0;
+            border-bottom: 1px solid #555;
         }
-        
-        .servers-grid {
+
+        .rank-features li:before {
+            content: "►";
+            color: #55FF55;
+            margin-right: 8px;
+        }
+
+        /* SERVIDORES ONLINE */
+        .servers-section {
+            margin: 40px 0;
+        }
+
+        .server-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .server-card {
-            background-color: #2A2A2A;
-            border-radius: 10px;
-            padding: 30px;
-            text-align: center;
-            border: 1px solid #333;
-        }
-        
-        .server-icon {
-            font-size: 50px;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-        
-        .server-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: var(--light);
-        }
-        
-        .server-stats {
-            display: flex;
-            justify-content: space-around;
-            margin: 20px 0;
-        }
-        
-        .stat {
-            text-align: center;
-        }
-        
-        .stat-value {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--accent);
-        }
-        
-        .stat-label {
-            font-size: 14px;
-            color: var(--gray);
-        }
-        
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            padding: 60px 0 30px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-        
-        .footer-column h3 {
-            font-size: 18px;
-            margin-bottom: 20px;
-            color: var(--light);
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-links a {
-            color: var(--gray);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: var(--accent);
-        }
-        
-        .social-links {
-            display: flex;
             gap: 15px;
-            margin-top: 20px;
         }
-        
-        .social-links a {
+
+        .server-card {
+            background: #2a2a2a;
+            border: 4px solid #5a5a5a;
+            padding: 15px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: #333;
+            gap: 15px;
+        }
+
+        .server-status {
+            width: 20px;
+            height: 20px;
+            background: #55FF55;
+            border: 2px solid #2a7a2a;
+            box-shadow: 0 0 10px #55FF55;
             border-radius: 50%;
-            color: var(--light);
-            text-decoration: none;
-            transition: all 0.3s;
         }
-        
-        .social-links a:hover {
-            background-color: var(--primary);
-            transform: translateY(-3px);
+
+        .server-info h3 {
+            color: #55FFFF;
+            margin-bottom: 5px;
         }
-        
-        .footer-bottom {
+
+        .server-players {
+            color: #FFFF55;
+            font-size: 0.9em;
+        }
+
+        /* ITEMS DE TIENDA */
+        .shop-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin: 30px 0;
+        }
+
+        .shop-item {
+            background: #4a4a4a;
+            border: 3px solid #5a5a5a;
+            padding: 15px;
             text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid #333;
-            color: var(--gray);
-            font-size: 14px;
+            transition: all 0.2s;
         }
-        
-        /* Responsive */
+
+        .shop-item:hover {
+            border-color: #FFFF55;
+            transform: translateY(-2px);
+        }
+
+        .item-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .item-price {
+            color: #55FF55;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        /* FOOTER ESTILO MINECRAFT */
+        .minecraft-footer {
+            background: #2a2a2a;
+            border-top: 4px solid #5a5a5a;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+
+        .footer-links a {
+            color: #55FFFF;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: #FFFF55;
+        }
+
+        /* TÍTULOS CON ESTILO MINECRAFT */
+        .mc-title {
+            color: #FFFF55;
+            font-size: 1.8em;
+            text-align: center;
+            margin: 30px 0 20px 0;
+            text-shadow: 2px 2px 0 #5a5a00;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .mc-title:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            width: 50%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #FFFF55, transparent);
+        }
+
+        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-                gap: 20px;
-            }
-            
-            .nav-links {
-                gap: 15px;
-            }
-            
-            .hero h2 {
-                font-size: 36px;
-            }
-            
-            .hero p {
-                font-size: 18px;
-            }
-            
-            .hero-buttons {
+            .minecraft-nav {
                 flex-direction: column;
                 align-items: center;
             }
             
-            .btn {
-                width: 100%;
-                max-width: 250px;
-                text-align: center;
+            .mc-button {
+                width: 200px;
+            }
+            
+            .ranks-grid {
+                grid-template-columns: 1fr;
             }
         }
-        
-        @media (max-width: 480px) {
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .hero h2 {
-                font-size: 28px;
-            }
-            
-            .section-title h2 {
-                font-size: 28px;
-            }
+
+        /* EFECTO DE TEXTO PARPADEANTE */
+        .blinking {
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        /* BADGE NUEVO */
+        .new-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #FF5555;
+            color: white;
+            padding: 5px 10px;
+            font-size: 0.8em;
+            transform: rotate(15deg);
+            box-shadow: 2px 2px 0 #7a2a2a;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <nav class="navbar">
-                <div class="logo">
-                    <i class="fas fa-cube"></i>
-                    <h1>Mine<span>Store</span></h1>
-                </div>
-                
-                <div class="nav-links">
-                    <a href="#">Inicio</a>
-                    <a href="#">Tienda</a>
-                    <a href="#">Rangos</a>
-                    <a href="#">Servidores</a>
-                    <a href="#">Soporte</a>
-                </div>
-                
-                <div class="nav-actions">
-                    <a href="#" class="btn btn-outline">Iniciar Sesión</a>
-                    <a href="#" class="btn btn-primary">Registrarse</a>
-                </div>
-            </nav>
-        </div>
+    <!-- HEADER -->
+    <header class="minecraft-header">
+        <div class="logo">⚔️ CRAFTSTORE</div>
+        <div class="subtitle">TIENDA OFICIAL DEL SERVIDOR</div>
+        
+        <nav class="minecraft-nav">
+            <a href="#" class="mc-button">🏠 INICIO</a>
+            <a href="#" class="mc-button">🛒 TIENDA</a>
+            <a href="#" class="mc-button">⭐ RANGOS</a>
+            <a href="#" class="mc-button">🎮 SERVIDORES</a>
+            <a href="#" class="mc-button primary">💎 COMPRAR AHORA</a>
+        </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h2>La Mejor Tienda de Minecraft</h2>
-                <p>Mejora tu experiencia de juego con rangos exclusivos, items personalizados y mucho más. Soporte 24/7 y entrega instantánea.</p>
-                <div class="hero-buttons">
-                    <a href="#" class="btn btn-primary">Ver Tienda</a>
-                    <a href="#" class="btn btn-outline">Nuestros Servidores</a>
-                </div>
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="minecraft-container">
+        <!-- RANGOS VIP -->
+        <h2 class="mc-title">🎯 RANGOS VIP</h2>
+        <div class="ranks-grid">
+            <!-- RANGO DIAMANTE -->
+            <div class="rank-card diamond">
+                <span class="new-badge">NUEVO!</span>
+                <span class="rank-icon">💎</span>
+                <div class="rank-name">Diamante</div>
+                <div class="rank-price">$12.99</div>
+                <ul class="rank-features">
+                    <li>Acceso a zonas VIP</li>
+                    <li>Comandos exclusivos</li>
+                    <li>Prefix colorido</li>
+                    <li>+100 monedas mensuales</li>
+                    <li>Soporte prioritario</li>
+                </ul>
+                <a href="#" class="mc-button primary">COMPRAR</a>
+            </div>
+
+            <!-- RANGO ESMERALDA -->
+            <div class="rank-card emerald">
+                <span class="rank-icon">🔮</span>
+                <div class="rank-name">Esmeralda</div>
+                <div class="rank-price">$8.99</div>
+                <ul class="rank-features">
+                    <li>Prefix personalizado</li>
+                    <li>Comandos básicos VIP</li>
+                    <li>+50 monedas mensuales</li>
+                    <li>Acceso a eventos</li>
+                </ul>
+                <a href="#" class="mc-button primary">COMPRAR</a>
+            </div>
+
+            <!-- RANGO ORO -->
+            <div class="rank-card gold">
+                <span class="rank-icon">🥇</span>
+                <div class="rank-name">Oro</div>
+                <div class="rank-price">$4.99</div>
+                <ul class="rank-features">
+                    <li>Prefix dorado</li>
+                    <li>Comandos esenciales</li>
+                    <li>+25 monedas mensuales</li>
+                    <li>Fly en lobby</li>
+                </ul>
+                <a href="#" class="mc-button primary">COMPRAR</a>
             </div>
         </div>
-    </section>
 
-    <!-- Features Section -->
-    <section class="features">
-        <div class="container">
-            <div class="section-title">
-                <h2>¿Por Qué Elegirnos?</h2>
-                <p>Ofrecemos la mejor experiencia de compra para la comunidad de Minecraft</p>
-            </div>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3>Entrega Instantánea</h3>
-                    <p>Recibe tus compras al instante después del pago, sin esperas.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Pagos Seguros</h3>
-                    <p>Transacciones protegidas con los más altos estándares de seguridad.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <h3>Soporte 24/7</h3>
-                    <p>Nuestro equipo de soporte está disponible en todo momento para ayudarte.</p>
+        <!-- SERVIDORES ONLINE -->
+        <h2 class="mc-title">🌐 SERVIDORES ONLINE</h2>
+        <div class="server-list">
+            <div class="server-card">
+                <div class="server-status"></div>
+                <div class="server-info">
+                    <h3>Survival RPG</h3>
+                    <div class="server-players">🎮 125/200 jugadores</div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Products Section -->
-    <section class="products">
-        <div class="container">
-            <div class="section-title">
-                <h2>Productos Populares</h2>
-                <p>Los favoritos de nuestra comunidad</p>
-            </div>
-            
-            <div class="products-grid">
-                <div class="product-card">
-                    <div class="product-image">
-                        <i class="fas fa-crown"></i>
-                    </div>
-                    <div class="product-info">
-                        <h3>Rango Diamante</h3>
-                        <p>Acceso a comandos exclusivos y áreas VIP en el servidor.</p>
-                        <div class="product-price">
-                            <span class="price">$12.99</span>
-                            <a href="#" class="btn btn-primary">Comprar</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="product-card">
-                    <div class="product-image">
-                        <i class="fas fa-gem"></i>
-                    </div>
-                    <div class="product-info">
-                        <h3>Rango Esmeralda</h3>
-                        <p>Beneficios premium y prioridad en el soporte.</p>
-                        <div class="product-price">
-                            <span class="price">$19.99</span>
-                            <a href="#" class="btn btn-primary">Comprar</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="product-card">
-                    <div class="product-image">
-                        <i class="fas fa-dragon"></i>
-                    </div>
-                    <div class="product-info">
-                        <h3>Kit Dragón</h3>
-                        <p>Kit completo con armadura, herramientas y objetos especiales.</p>
-                        <div class="product-price">
-                            <span class="price">$8.99</span>
-                            <a href="#" class="btn btn-primary">Comprar</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="product-card">
-                    <div class="product-image">
-                        <i class="fas fa-coins"></i>
-                    </div>
-                    <div class="product-info">
-                        <h3>Monedas VIP</h3>
-                        <p>Paquete de 5000 monedas para la tienda del servidor.</p>
-                        <div class="product-price">
-                            <span class="price">$5.99</span>
-                            <a href="#" class="btn btn-primary">Comprar</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Servers Section -->
-    <section class="servers">
-        <div class="container">
-            <div class="section-title">
-                <h2>Nuestros Servidores</h2>
-                <p>Únete a nuestra comunidad y disfruta de la mejor experiencia Minecraft</p>
-            </div>
-            
-            <div class="servers-grid">
-                <div class="server-card">
-                    <div class="server-icon">
-                        <i class="fas fa-fist-raised"></i>
-                    </div>
-                    <h3>Survival</h3>
-                    <p>El modo clásico de Minecraft con economía, misiones y eventos.</p>
-                    <div class="server-stats">
-                        <div class="stat">
-                            <div class="stat-value">125</div>
-                            <div class="stat-label">Jugadores</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-value">1.19.2</div>
-                            <div class="stat-label">Versión</div>
-                        </div>
-                    </div>
-                    <a href="#" class="btn btn-primary">Conectar</a>
-                </div>
-                
-                <div class="server-card">
-                    <div class="server-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
+            <div class="server-card">
+                <div class="server-status"></div>
+                <div class="server-info">
                     <h3>SkyWars</h3>
-                    <p>Combates épicos en islas flotantes. ¿Serás el último en pie?</p>
-                    <div class="server-stats">
-                        <div class="stat">
-                            <div class="stat-value">85</div>
-                            <div class="stat-label">Jugadores</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-value">1.19.2</div>
-                            <div class="stat-label">Versión</div>
-                        </div>
-                    </div>
-                    <a href="#" class="btn btn-primary">Conectar</a>
+                    <div class="server-players">🎮 85/100 jugadores</div>
                 </div>
-                
-                <div class="server-card">
-                    <div class="server-icon">
-                        <i class="fas fa-bed"></i>
-                    </div>
+            </div>
+            <div class="server-card">
+                <div class="server-status"></div>
+                <div class="server-info">
                     <h3>BedWars</h3>
-                    <p>Protege tu cama y destruye la de tus enemigos en este emocionante modo.</p>
-                    <div class="server-stats">
-                        <div class="stat">
-                            <div class="stat-value">210</div>
-                            <div class="stat-label">Jugadores</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-value">1.19.2</div>
-                            <div class="stat-label">Versión</div>
-                        </div>
-                    </div>
-                    <a href="#" class="btn btn-primary">Conectar</a>
+                    <div class="server-players">🎮 210/300 jugadores</div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>MineStore</h3>
-                    <p>La tienda líder para la comunidad de Minecraft. Ofrecemos productos de calidad con entrega instantánea.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-discord"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-tiktok"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Enlaces Rápidos</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Inicio</a></li>
-                        <li><a href="#">Tienda</a></li>
-                        <li><a href="#">Rangos</a></li>
-                        <li><a href="#">Servidores</a></li>
-                        <li><a href="#">Soporte</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Legal</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Términos de Servicio</a></li>
-                        <li><a href="#">Política de Privacidad</a></li>
-                        <li><a href="#">Política de Reembolsos</a></li>
-                        <li><a href="#">DMCA</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Contacto</h3>
-                    <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-envelope"></i> soporte@minestore.com</a></li>
-                        <li><a href="#"><i class="fab fa-discord"></i> Discord</a></li>
-                        <li><a href="#"><i class="fas fa-ticket-alt"></i> Sistema de Tickets</a></li>
-                    </ul>
-                </div>
+        <!-- ITEMS DE TIENDA -->
+        <h2 class="mc-title">🎁 ITEMS POPULARES</h2>
+        <div class="shop-items">
+            <div class="shop-item">
+                <span class="item-icon">🛡️</span>
+                <div class="item-name">Kit Legendario</div>
+                <div class="item-price">$5.99</div>
+                <a href="#" class="mc-button">COMPRAR</a>
             </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2023 MineStore. Todos los derechos reservados. Minecraft es una marca registrada de Mojang Studios.</p>
+            <div class="shop-item">
+                <span class="item-icon">💰</span>
+                <div class="item-name">10,000 Monedas</div>
+                <div class="item-price">$7.99</div>
+                <a href="#" class="mc-button">COMPRAR</a>
             </div>
+            <div class="shop-item">
+                <span class="item-icon">🎨</span>
+                <div class="item-name">Prefix Épico</div>
+                <div class="item-price">$3.99</div>
+                <a href="#" class="mc-button">COMPRAR</a>
+            </div>
+            <div class="shop-item">
+                <span class="item-icon">🔑</span>
+                <div class="item-name">Llave Misteriosa</div>
+                <div class="item-price">$1.99</div>
+                <a href="#" class="mc-button">COMPRAR</a>
+            </div>
+        </div>
+
+        <!-- INFORMACIÓN DEL SERVIDOR -->
+        <h2 class="mc-title">📊 ESTADÍSTICAS</h2>
+        <div style="text-align: center; margin: 30px 0;">
+            <div style="display: inline-block; margin: 0 20px;">
+                <div style="font-size: 2em; color: #55FFFF;">1,250</div>
+                <div style="color: #AAAAAA;">Jugadores Totales</div>
+            </div>
+            <div style="display: inline-block; margin: 0 20px;">
+                <div style="font-size: 2em; color: #55FF55;">420</div>
+                <div style="color: #AAAAAA;">En Línea Ahora</div>
+            </div>
+            <div style="display: inline-block; margin: 0 20px;">
+                <div style="font-size: 2em; color: #FFFF55;">98%</div>
+                <div style="color: #AAAAAA;">Uptime</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="minecraft-footer">
+        <div style="color: #FFFF55; font-weight: bold; margin-bottom: 15px;">
+            ⚔️ CRAFTSTORE - TIENDA OFICIAL
+        </div>
+        <div class="footer-links">
+            <a href="#">📖 Términos de Servicio</a>
+            <a href="#">🛡️ Política de Privacidad</a>
+            <a href="#">🎫 Soporte</a>
+            <a href="#">📱 Discord</a>
+        </div>
+        <div style="margin-top: 15px; color: #888;">
+            Minecraft es una marca registrada de Mojang Studios<br>
+            © 2024 CRAFTSTORE - Todos los derechos reservados
         </div>
     </footer>
 </body>
