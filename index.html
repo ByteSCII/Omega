@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bloque de Tierra - Minecraft</title>
+    <title>AR-15 / M4 - Con Disparo</title>
     <style>
         body { 
             margin: 0; 
-            background: #1a1a2e;
+            background: linear-gradient(135deg, #0a0a1a, #1a1a2e);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -16,134 +16,234 @@
             overflow: hidden;
         }
         #container {
-            width: 500px;
-            height: 500px;
-            border: 4px solid #8B4513;
-            border-radius: 15px;
-            box-shadow: 0 0 30px rgba(139, 69, 19, 0.6);
+            width: 600px;
+            height: 400px;
+            border: 3px solid #444;
+            border-radius: 10px;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+            cursor: crosshair;
         }
         #info {
             position: absolute;
-            top: 30px;
-            color: white;
+            top: 20px;
+            color: gold;
             text-align: center;
             width: 100%;
             font-size: 24px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-weight: bold;
         }
         #controls {
             position: absolute;
-            bottom: 30px;
-            color: white;
+            bottom: 20px;
+            color: #ccc;
             text-align: center;
             width: 100%;
             font-size: 14px;
         }
+        #message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: gold;
+            font-size: 32px;
+            font-weight: bold;
+            text-shadow: 0 0 10px red;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
     </style>
 </head>
 <body>
-    <div id="info">🌿 Bloque de Tierra - Minecraft</div>
+    <div id="info">🔫 AR-15 / M4 - ¡TOCA PARA DISPARAR!</div>
     <div id="container"></div>
-    <div id="controls">🖱️ Pasa el mouse para pausar</div>
+    <div id="controls">🖱️ Toca el arma para disparar • Arrastra para rotar</div>
+    <div id="message">¡BANG!</div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     
     <script>
-        // 1. Crear escena, cámara y renderizador
+        // 1. Configuración inicial
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(60, 500 / 500, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ 
-            antialias: true,
-            alpha: true 
-        });
+        const camera = new THREE.PerspectiveCamera(45, 600 / 400, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
         
-        renderer.setSize(500, 500);
-        renderer.setClearColor(0x1a1a2e);
+        renderer.setSize(600, 400);
+        renderer.setClearColor(0x000000);
+        renderer.shadowMap.enabled = true;
         document.getElementById('container').appendChild(renderer.domElement);
 
-        // 2. Cargador de texturas
-        const textureLoader = new THREE.TextureLoader();
-        
-        // Texturas locales - bloque de tierra
-        const tierraTexture = textureLoader.load('tierra.jpg');
-        const gramaTexture = textureLoader.load('grama.jpg');
+        // Variables para la animación
+        let isFiring = false;
+        let bullets = [];
+        const message = document.getElementById('message');
 
-        // Hacer que las texturas se repitan para mejor calidad
-        [tierraTexture, gramaTexture].forEach(texture => {
-            texture.wrapS = THREE.RepeatWrapping;
-            texture.wrapT = THREE.RepeatWrapping;
-            texture.repeat.set(1, 1);
-        });
-
-        const materials = [
-            new THREE.MeshLambertMaterial({ map: tierraTexture }), // Derecha
-            new THREE.MeshLambertMaterial({ map: tierraTexture }), // Izquierda
-            new THREE.MeshLambertMaterial({ map: gramaTexture }),  // Arriba (hierba)
-            new THREE.MeshLambertMaterial({ map: tierraTexture }), // Abajo
-            new THREE.MeshLambertMaterial({ map: tierraTexture }), // Frente
-            new THREE.MeshLambertMaterial({ map: tierraTexture })  // Atrás
-        ];
-
-        // 3. Crear cubo con texturas
-        const geometry = new THREE.BoxGeometry(2.2, 2.2, 2.2); // Un poco más grande
-        const cube = new THREE.Mesh(geometry, materials);
-        
-        // Suavizar un poco las esquinas (sin hacerlo muy redondo)
-        geometry.computeVertexNormals();
-        
-        scene.add(cube);
-
-        // 4. Posicionar cámara con mejor ángulo
-        camera.position.set(4, 3, 5);
-        camera.lookAt(0, 0, 0);
-
-        // 5. Sistema de luces mejorado
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        // 2. Sistema de luces
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
         scene.add(ambientLight);
 
-        const directionalLight1 = new THREE.DirectionalLight(0xffffff, 0.8);
-        directionalLight1.position.set(5, 5, 3);
-        scene.add(directionalLight1);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(10, 10, 5);
+        directionalLight.castShadow = true;
+        scene.add(directionalLight);
 
-        const directionalLight2 = new THREE.DirectionalLight(0xffaa33, 0.3);
-        directionalLight2.position.set(-3, -2, -4);
-        scene.add(directionalLight2);
+        const pointLight = new THREE.PointLight(0xffaa00, 0.8);
+        pointLight.position.set(-5, 0, 0);
+        scene.add(pointLight);
 
-        // 6. Animación mejorada - solo rotación Y (lados)
-        let rotationSpeed = 0.01;
-        let autoRotate = true;
+        // 3. Crear grupo para el arma completa
+        const weapon = new THREE.Group();
+        scene.add(weapon);
 
-        function animate() {
-            requestAnimationFrame(animate);
+        // Materiales
+        const blackMetal = new THREE.MeshPhongMaterial({ 
+            color: 0x111111, 
+            shininess: 150 
+        });
+        
+        const goldMaterial = new THREE.MeshPhongMaterial({ 
+            color: 0xFFD700,
+            shininess: 200
+        });
+
+        // 4. Partes del AR-15/M4
+        // Culata (Stock) - DORADA
+        const stockGeometry = new THREE.BoxGeometry(0.9, 0.35, 0.25);
+        const stock = new THREE.Mesh(stockGeometry, goldMaterial);
+        stock.position.set(-2.2, 0, 0);
+        weapon.add(stock);
+
+        // Receptor inferior - NEGRO
+        const lowerReceiverGeometry = new THREE.BoxGeometry(1.6, 0.45, 0.35);
+        const lowerReceiver = new THREE.Mesh(lowerReceiverGeometry, blackMetal);
+        lowerReceiver.position.set(-0.7, 0, 0);
+        weapon.add(lowerReceiver);
+
+        // Empuñadura - NEGRO
+        const gripGeometry = new THREE.BoxGeometry(0.35, 0.7, 0.35);
+        const grip = new THREE.Mesh(gripGeometry, blackMetal);
+        grip.position.set(-0.7, -0.6, 0);
+        grip.rotation.x = Math.PI / 6;
+        weapon.add(grip);
+
+        // Receptor superior - NEGRO
+        const upperReceiverGeometry = new THREE.BoxGeometry(1.8, 0.4, 0.4);
+        const upperReceiver = new THREE.Mesh(upperReceiverGeometry, blackMetal);
+        upperReceiver.position.set(0.5, 0.1, 0);
+        weapon.add(upperReceiver);
+
+        // Cañón - NEGRO
+        const barrelGeometry = new THREE.CylinderGeometry(0.1, 0.12, 2.5, 8);
+        const barrel = new THREE.Mesh(barrelGeometry, blackMetal);
+        barrel.position.set(2, 0.1, 0);
+        barrel.rotation.z = Math.PI / 2;
+        weapon.add(barrel);
+
+        // Guardamanos - NEGRO
+        const handguardGeometry = new THREE.CylinderGeometry(0.16, 0.16, 1.8, 6);
+        const handguard = new THREE.Mesh(handguardGeometry, blackMetal);
+        handguard.position.set(1.2, 0.1, 0);
+        handguard.rotation.z = Math.PI / 2;
+        weapon.add(handguard);
+
+        // Cargador - NEGRO
+        const magazineGeometry = new THREE.BoxGeometry(0.3, 0.9, 0.2);
+        const magazine = new THREE.Mesh(magazineGeometry, blackMetal);
+        magazine.position.set(-0.7, -0.9, 0);
+        weapon.add(magazine);
+
+        // 5. Configurar cámara
+        camera.position.set(0, 0, 6);
+
+        // 6. Función para crear bala
+        function createBullet() {
+            const bulletGeometry = new THREE.SphereGeometry(0.05, 8, 8);
+            const bulletMaterial = new THREE.MeshBasicMaterial({ 
+                color: 0xFFD700,
+                emissive: 0xFF4500
+            });
+            const bullet = new THREE.Mesh(bulletGeometry, bulletMaterial);
             
-            if (autoRotate) {
-                // Solo rotación horizontal (eje Y) - más natural para Minecraft
-                cube.rotation.y += rotationSpeed;
-                
-                // Pequeño movimiento flotante suave
-                cube.position.y = Math.sin(Date.now() * 0.001) * 0.1;
-            }
+            // Posicionar bala en la punta del cañón
+            bullet.position.set(3.5, 0.1, 0);
+            bullet.userData = { speed: 0.5, life: 100 };
             
-            renderer.render(scene, camera);
+            scene.add(bullet);
+            bullets.push(bullet);
+            return bullet;
         }
 
-        // 7. Controles interactivos
-        const container = document.getElementById('container');
+        // 7. Función de disparo
+        function fireWeapon() {
+            if (isFiring) return;
+            
+            isFiring = true;
+            
+            // Efecto de sonido visual
+            message.style.opacity = 1;
+            setTimeout(() => {
+                message.style.opacity = 0;
+            }, 300);
+            
+            // Crear bala
+            const bullet = createBullet();
+            
+            // Animación del arma (retroceso)
+            const originalY = weapon.position.y;
+            weapon.position.y -= 0.1;
+            
+            // Animación de la bala
+            function animateBullet() {
+                if (bullet.userData.life <= 0) {
+                    scene.remove(bullet);
+                    bullets = bullets.filter(b => b !== bullet);
+                    return;
+                }
+                
+                // Mover bala hacia adelante
+                bullet.position.x += bullet.userData.speed;
+                bullet.position.y += Math.sin(Date.now() * 0.01) * 0.1; // Efecto onda
+                
+                // Rotar bala
+                bullet.rotation.x += 0.1;
+                bullet.rotation.y += 0.1;
+                
+                // Reducir vida
+                bullet.userData.life--;
+                
+                // Hacer bala más pequeña mientras vuela
+                bullet.scale.multiplyScalar(0.99);
+                
+                requestAnimationFrame(animateBullet);
+            }
+            
+            animateBullet();
+            
+            // Restaurar posición del arma
+            setTimeout(() => {
+                weapon.position.y = originalY;
+            }, 100);
+            
+            // Permitir otro disparo después de 500ms
+            setTimeout(() => {
+                isFiring = false;
+            }, 500);
+        }
 
-        container.addEventListener('mouseenter', () => {
-            autoRotate = false;
-            container.style.cursor = 'grab';
-        });
-
-        container.addEventListener('mouseleave', () => {
-            autoRotate = true;
-            container.style.cursor = 'default';
-        });
-
-        // Rotación manual al arrastrar
+        // 8. Controles
         let isDragging = false;
         let previousMousePosition = { x: 0, y: 0 };
+        const container = document.getElementById('container');
 
+        // Disparar al hacer clic
+        container.addEventListener('click', (e) => {
+            if (!isDragging) { // Solo disparar si no estábamos arrastrando
+                fireWeapon();
+            }
+        });
+
+        // Rotación al arrastrar
         container.addEventListener('mousedown', (e) => {
             isDragging = true;
             container.style.cursor = 'grabbing';
@@ -153,23 +253,67 @@
         container.addEventListener('mousemove', (e) => {
             if (isDragging) {
                 const deltaX = e.clientX - previousMousePosition.x;
-                cube.rotation.y += deltaX * 0.01;
+                const deltaY = e.clientY - previousMousePosition.y;
+                
+                weapon.rotation.y += deltaX * 0.01;
+                weapon.rotation.x += deltaY * 0.01;
+                
                 previousMousePosition = { x: e.clientX, y: e.clientY };
             }
         });
 
         container.addEventListener('mouseup', () => {
             isDragging = false;
-            container.style.cursor = 'grab';
+            container.style.cursor = 'crosshair';
         });
 
-        // Iniciar animación
+        // 9. Animación principal
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Rotación automática suave cuando no hay interacción
+            if (!isDragging && !isFiring) {
+                weapon.rotation.y += 0.005;
+            }
+            
+            // Efecto de respiración en la luz
+            pointLight.intensity = 0.5 + Math.sin(Date.now() * 0.001) * 0.3;
+            
+            renderer.render(scene, camera);
+        }
+
+        // 10. Efecto de aparición
+        weapon.scale.set(0.1, 0.1, 0.1);
+        let scale = 0.1;
+
+        function appearAnimation() {
+            if (scale < 1) {
+                scale += 0.03;
+                weapon.scale.set(scale, scale, scale);
+                requestAnimationFrame(appearAnimation);
+            }
+        }
+
+        appearAnimation();
         animate();
 
-        // Efecto de carga suave
-        setTimeout(() => {
-            document.body.style.opacity = 1;
-        }, 100);
+        // Efecto de luz de disparo
+        const muzzleFlash = new THREE.PointLight(0xff4500, 2, 2);
+        muzzleFlash.position.set(3.5, 0.1, 0);
+        scene.add(muzzleFlash);
+        muzzleFlash.visible = false;
+
+        // Mejorar la función de disparo con flash
+        const originalFireWeapon = fireWeapon;
+        fireWeapon = function() {
+            // Mostrar flash
+            muzzleFlash.visible = true;
+            setTimeout(() => {
+                muzzleFlash.visible = false;
+            }, 100);
+            
+            originalFireWeapon();
+        };
     </script>
 </body>
 </html>
