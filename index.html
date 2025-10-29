@@ -3,485 +3,735 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚔️ CRAFTSTORE - Tienda Oficial</title>
+    <title>NEXUS | Tienda Gaming</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* RESET MINECRAFT STYLE */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            image-rendering: pixelated;
-            image-rendering: -moz-crisp-edges;
-            image-rendering: crisp-edges;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-purple: #b967ff;
+            --neon-pink: #ff2a6d;
+            --dark-bg: #0a0a14;
+            --card-bg: #1a1a2e;
+            --accent: #00ff88;
+            --text: #ffffff;
+            --text-secondary: #b8b8b8;
         }
 
         body {
-            background: #1a1a1a;
-            font-family: 'Courier New', monospace;
-            color: #fff;
+            background: var(--dark-bg);
+            color: var(--text);
+            overflow-x: hidden;
             background-image: 
-                linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="%231a1a1a" width="100" height="100"/><rect fill="%23222222" x="50" width="50" height="50"/><rect fill="%23222222" y="50" width="50" height="50"/></svg>');
+                radial-gradient(circle at 20% 30%, rgba(0, 243, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(185, 103, 255, 0.1) 0%, transparent 50%);
         }
 
-        /* HEADER ESTILO MINECRAFT */
-        .minecraft-header {
-            background: linear-gradient(to bottom, #3a3a3a, #2a2a2a);
-            border-bottom: 4px solid #5a5a5a;
-            padding: 15px 0;
-            text-align: center;
-            box-shadow: 0 4px 0 #1a1a1a;
+        /* Glassmorphism Header */
+        .glass-header {
+            background: rgba(26, 26, 46, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
         }
 
         .logo {
-            font-size: 2.5em;
-            font-weight: bold;
-            color: #55FF55;
-            text-shadow: 3px 3px 0 #1a5a1a, 6px 6px 0 #000;
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            color: #FFFF55;
-            font-size: 1.2em;
-            text-shadow: 2px 2px 0 #5a5a00;
-        }
-
-        /* NAVEGACIÓN ESTILO BOTONES MINECRAFT */
-        .minecraft-nav {
             display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin: 20px 0;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .mc-button {
-            background: linear-gradient(to bottom, #727272, #525252);
-            border: 2px solid #000;
-            color: white;
-            padding: 12px 20px;
-            font-family: 'Courier New', monospace;
-            font-weight: bold;
-            font-size: 1.1em;
-            cursor: pointer;
+        .logo i {
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text);
             text-decoration: none;
-            box-shadow: 0 4px 0 #2a2a2a;
-            transition: all 0.1s;
-            text-align: center;
-        }
-
-        .mc-button:hover {
-            transform: translateY(2px);
-            box-shadow: 0 2px 0 #2a2a2a;
-            background: linear-gradient(to bottom, #626262, #424242);
-        }
-
-        .mc-button.primary {
-            background: linear-gradient(to bottom, #47a847, #2d682d);
-            box-shadow: 0 4px 0 #1a451a;
-        }
-
-        .mc-button.primary:hover {
-            background: linear-gradient(to bottom, #3d8f3d, #255725);
-            box-shadow: 0 2px 0 #1a451a;
-        }
-
-        /* CONTENEDOR PRINCIPAL ESTILO MENÚ MINECRAFT */
-        .minecraft-container {
-            max-width: 1000px;
-            margin: 20px auto;
-            background: #3a3a3a;
-            border: 8px solid #5a5a5a;
-            border-image: 
-                linear-gradient(45deg, #5a5a5a, #7a7a7a, #5a5a5a) 1;
-            padding: 20px;
-            box-shadow: 
-                inset 0 0 0 4px #2a2a2a,
-                0 8px 0 #1a1a1a;
-        }
-
-        /* CATEGORÍAS DE RANGOS */
-        .ranks-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin: 30px 0;
-        }
-
-        .rank-card {
-            background: linear-gradient(135deg, #4a4a4a, #2a2a2a);
-            border: 4px solid;
-            padding: 20px;
-            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
             position: relative;
-            box-shadow: 0 4px 0 #1a1a1a;
         }
 
-        .rank-card.diamond {
-            border-color: #55FFFF;
-            background: linear-gradient(135deg, #4a7a7a, #2a4a4a);
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            transition: width 0.3s ease;
         }
 
-        .rank-card.emerald {
-            border-color: #55FF55;
-            background: linear-gradient(135deg, #4a7a4a, #2a4a2a);
+        .nav-links a:hover:after {
+            width: 100%;
         }
 
-        .rank-card.gold {
-            border-color: #FFFF55;
-            background: linear-gradient(135deg, #7a7a4a, #4a4a2a);
+        .nav-actions {
+            display: flex;
+            gap: 20px;
+            align-items: center;
         }
 
-        .rank-icon {
-            font-size: 3em;
-            margin-bottom: 10px;
-            display: block;
+        /* Modern Buttons */
+        .btn-modern {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .rank-name {
-            font-size: 1.5em;
-            font-weight: bold;
-            margin-bottom: 10px;
+        .btn-primary {
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            color: white;
+            box-shadow: 0 8px 25px rgba(0, 243, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(0, 243, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: var(--text);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, var(--text), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text p {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
             text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Cards Grid */
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cards-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .modern-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .modern-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+        }
+
+        .modern-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text);
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        /* Rank Cards */
+        .rank-card {
+            text-align: center;
+            background: linear-gradient(135deg, var(--card-bg), #16213e);
+        }
+
+        .rank-badge {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            border: 3px solid;
+        }
+
+        .rank-diamond .rank-badge {
+            background: rgba(0, 243, 255, 0.1);
+            border-color: var(--neon-blue);
+            color: var(--neon-blue);
+        }
+
+        .rank-emerald .rank-badge {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .rank-gold .rank-badge {
+            background: rgba(255, 42, 109, 0.1);
+            border-color: var(--neon-pink);
+            color: var(--neon-pink);
         }
 
         .rank-price {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: #FFFF55;
-            margin: 15px 0;
-            text-shadow: 2px 2px 0 #5a5a00;
+            font-size: 2rem;
+            font-weight: 800;
+            margin: 20px 0;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .rank-features {
             list-style: none;
+            margin: 24px 0;
             text-align: left;
-            margin: 15px 0;
         }
 
         .rank-features li {
-            padding: 5px 0;
-            border-bottom: 1px solid #555;
+            padding: 8px 0;
+            color: var(--text-secondary);
+            position: relative;
+            padding-left: 24px;
         }
 
         .rank-features li:before {
-            content: "►";
-            color: #55FF55;
-            margin-right: 8px;
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
         }
 
-        /* SERVIDORES ONLINE */
-        .servers-section {
-            margin: 40px 0;
-        }
-
-        .server-list {
+        /* Server Status */
+        .server-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 15px;
+            gap: 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
         .server-card {
-            background: #2a2a2a;
-            border: 4px solid #5a5a5a;
-            padding: 15px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .server-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-blue);
         }
 
         .server-status {
-            width: 20px;
-            height: 20px;
-            background: #55FF55;
-            border: 2px solid #2a7a2a;
-            box-shadow: 0 0 10px #55FF55;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 20px var(--accent);
+            flex-shrink: 0;
         }
 
         .server-info h3 {
-            color: #55FFFF;
-            margin-bottom: 5px;
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: var(--text);
         }
 
         .server-players {
-            color: #FFFF55;
-            font-size: 0.9em;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
         }
 
-        /* ITEMS DE TIENDA */
-        .shop-items {
+        /* Footer */
+        .modern-footer {
+            background: var(--card-bg);
+            padding: 60px 0 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
-            margin: 30px 0;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
         }
 
-        .shop-item {
-            background: #4a4a4a;
-            border: 3px solid #5a5a5a;
-            padding: 15px;
-            text-align: center;
-            transition: all 0.2s;
-        }
-
-        .shop-item:hover {
-            border-color: #FFFF55;
-            transform: translateY(-2px);
-        }
-
-        .item-icon {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .item-price {
-            color: #55FF55;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-
-        /* FOOTER ESTILO MINECRAFT */
-        .minecraft-footer {
-            background: #2a2a2a;
-            border-top: 4px solid #5a5a5a;
-            padding: 20px 0;
-            text-align: center;
-            margin-top: 40px;
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 24px;
+            color: var(--text);
         }
 
         .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin: 15px 0;
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
         }
 
         .footer-links a {
-            color: #55FFFF;
+            color: var(--text-secondary);
             text-decoration: none;
+            transition: color 0.3s ease;
         }
 
         .footer-links a:hover {
-            color: #FFFF55;
+            color: var(--neon-blue);
         }
 
-        /* TÍTULOS CON ESTILO MINECRAFT */
-        .mc-title {
-            color: #FFFF55;
-            font-size: 1.8em;
+        .social-links {
+            display: flex;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--neon-blue);
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
             text-align: center;
-            margin: 30px 0 20px 0;
-            text-shadow: 2px 2px 0 #5a5a00;
-            position: relative;
-            padding-bottom: 10px;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
         }
 
-        .mc-title:after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 25%;
-            width: 50%;
-            height: 2px;
-            background: linear-gradient(to right, transparent, #FFFF55, transparent);
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
         }
 
-        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .minecraft-nav {
-                flex-direction: column;
-                align-items: center;
+            .nav-links {
+                display: none;
             }
             
-            .mc-button {
-                width: 200px;
+            .hero-text h1 {
+                font-size: 2.5rem;
             }
             
-            .ranks-grid {
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .footer-content {
                 grid-template-columns: 1fr;
             }
-        }
-
-        /* EFECTO DE TEXTO PARPADEANTE */
-        .blinking {
-            animation: blink 2s infinite;
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0.3; }
-        }
-
-        /* BADGE NUEVO */
-        .new-badge {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background: #FF5555;
-            color: white;
-            padding: 5px 10px;
-            font-size: 0.8em;
-            transform: rotate(15deg);
-            box-shadow: 2px 2px 0 #7a2a2a;
         }
     </style>
 </head>
 <body>
-    <!-- HEADER -->
-    <header class="minecraft-header">
-        <div class="logo">⚔️ CRAFTSTORE</div>
-        <div class="subtitle">TIENDA OFICIAL DEL SERVIDOR</div>
-        
-        <nav class="minecraft-nav">
-            <a href="#" class="mc-button">🏠 INICIO</a>
-            <a href="#" class="mc-button">🛒 TIENDA</a>
-            <a href="#" class="mc-button">⭐ RANGOS</a>
-            <a href="#" class="mc-button">🎮 SERVIDORES</a>
-            <a href="#" class="mc-button primary">💎 COMPRAR AHORA</a>
-        </nav>
+    <!-- Modern Header -->
+    <header class="glass-header">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-gamepad"></i>
+                NEXUS
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Tienda</a></li>
+                <li><a href="#">Rangos</a></li>
+                <li><a href="#">Servidores</a></li>
+                <li><a href="#">Soporte</a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <button class="btn-modern btn-secondary">Ingresar</button>
+                <button class="btn-modern btn-primary">Registrarse</button>
+            </div>
+        </div>
     </header>
 
-    <!-- CONTENIDO PRINCIPAL -->
-    <div class="minecraft-container">
-        <!-- RANGOS VIP -->
-        <h2 class="mc-title">🎯 RANGOS VIP</h2>
-        <div class="ranks-grid">
-            <!-- RANGO DIAMANTE -->
-            <div class="rank-card diamond">
-                <span class="new-badge">NUEVO!</span>
-                <span class="rank-icon">💎</span>
-                <div class="rank-name">Diamante</div>
-                <div class="rank-price">$12.99</div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>La Evolución del Gaming en Minecraft</h1>
+                <p>Experimenta el siguiente nivel con rangos exclusivos, items épicos y una comunidad vibrante. Únete a miles de jugadores.</p>
+                <div class="hero-buttons">
+                    <button class="btn-modern btn-primary">Explorar Tienda</button>
+                    <button class="btn-modern btn-secondary">Ver Servidores</button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">15K+</div>
+                        <div class="stat-label">Jugadores</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">99.9%</div>
+                        <div class="stat-label">Uptime</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Soporte</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <!-- Aquí iría un graphic moderno -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section">
+        <div class="section-title">
+            <h2>¿Por Qué Elegirnos?</h2>
+            <p>Ofrecemos la experiencia gaming más premium del mercado</p>
+        </div>
+        
+        <div class="cards-grid">
+            <div class="modern-card">
+                <div class="card-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3 class="card-title">Entrega Instantánea</h3>
+                <p class="card-description">Recibe tus compras inmediatamente después del pago. Sin esperas, sin complicaciones.</p>
+            </div>
+            
+            <div class="modern-card">
+                <div class="card-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="card-title">Seguridad Total</h3>
+                <p class="card-description">Transacciones protegidas con encriptación de grado bancario y autenticación de dos factores.</p>
+            </div>
+            
+            <div class="modern-card">
+                <div class="card-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3 class="card-title">Soporte 24/7</h3>
+                <p class="card-description">Nuestro equipo de soporte está disponible en todo momento para resolver cualquier problema.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ranks Section -->
+    <section class="section">
+        <div class="section-title">
+            <h2>Rangos Exclusivos</h2>
+            <p>Mejora tu experiencia de juego con nuestros rangos premium</p>
+        </div>
+        
+        <div class="cards-grid">
+            <div class="modern-card rank-card rank-diamond">
+                <div class="rank-badge">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <h3 class="card-title">Diamante</h3>
+                <div class="rank-price">$14.99</div>
                 <ul class="rank-features">
-                    <li>Acceso a zonas VIP</li>
-                    <li>Comandos exclusivos</li>
-                    <li>Prefix colorido</li>
-                    <li>+100 monedas mensuales</li>
+                    <li>Acceso a zonas VIP exclusivas</li>
+                    <li>Comandos y permisos avanzados</li>
+                    <li>Prefix personalizado con colores</li>
+                    <li>+150 monedas mensuales</li>
+                    <li>Soporte prioritario 24/7</li>
+                    <li>Acceso a betas cerradas</li>
+                </ul>
+                <button class="btn-modern btn-primary">Seleccionar</button>
+            </div>
+            
+            <div class="modern-card rank-card rank-emerald">
+                <div class="rank-badge">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <h3 class="card-title">Esmeralda</h3>
+                <div class="rank-price">$9.99</div>
+                <ul class="rank-features">
+                    <li>Prefix colorido personalizable</li>
+                    <li>Comandos VIP esenciales</li>
+                    <li>+75 monedas mensuales</li>
+                    <li>Acceso a eventos especiales</li>
                     <li>Soporte prioritario</li>
                 </ul>
-                <a href="#" class="mc-button primary">COMPRAR</a>
+                <button class="btn-modern btn-primary">Seleccionar</button>
             </div>
-
-            <!-- RANGO ESMERALDA -->
-            <div class="rank-card emerald">
-                <span class="rank-icon">🔮</span>
-                <div class="rank-name">Esmeralda</div>
-                <div class="rank-price">$8.99</div>
-                <ul class="rank-features">
-                    <li>Prefix personalizado</li>
-                    <li>Comandos básicos VIP</li>
-                    <li>+50 monedas mensuales</li>
-                    <li>Acceso a eventos</li>
-                </ul>
-                <a href="#" class="mc-button primary">COMPRAR</a>
-            </div>
-
-            <!-- RANGO ORO -->
-            <div class="rank-card gold">
-                <span class="rank-icon">🥇</span>
-                <div class="rank-name">Oro</div>
+            
+            <div class="modern-card rank-card rank-gold">
+                <div class="rank-badge">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h3 class="card-title">Oro</h3>
                 <div class="rank-price">$4.99</div>
                 <ul class="rank-features">
-                    <li>Prefix dorado</li>
-                    <li>Comandos esenciales</li>
-                    <li>+25 monedas mensuales</li>
-                    <li>Fly en lobby</li>
+                    <li>Prefix dorado especial</li>
+                    <li>Comandos básicos VIP</li>
+                    <li>+30 monedas mensuales</li>
+                    <li>Fly en lobbies</li>
+                    <li>Soporte estándar</li>
                 </ul>
-                <a href="#" class="mc-button primary">COMPRAR</a>
+                <button class="btn-modern btn-primary">Seleccionar</button>
             </div>
         </div>
+    </section>
 
-        <!-- SERVIDORES ONLINE -->
-        <h2 class="mc-title">🌐 SERVIDORES ONLINE</h2>
-        <div class="server-list">
+    <!-- Servers Section -->
+    <section class="section">
+        <div class="section-title">
+            <h2>Servidores Activos</h2>
+            <p>Únete a nuestra comunidad en estos servidores</p>
+        </div>
+        
+        <div class="server-grid">
             <div class="server-card">
                 <div class="server-status"></div>
                 <div class="server-info">
-                    <h3>Survival RPG</h3>
-                    <div class="server-players">🎮 125/200 jugadores</div>
+                    <h3>Survival Extreme</h3>
+                    <div class="server-players">🎮 142/200 jugadores online</div>
                 </div>
             </div>
+            
             <div class="server-card">
                 <div class="server-status"></div>
                 <div class="server-info">
-                    <h3>SkyWars</h3>
-                    <div class="server-players">🎮 85/100 jugadores</div>
+                    <h3>SkyWars Arena</h3>
+                    <div class="server-players">🎮 98/120 jugadores online</div>
                 </div>
             </div>
+            
             <div class="server-card">
                 <div class="server-status"></div>
                 <div class="server-info">
-                    <h3>BedWars</h3>
-                    <div class="server-players">🎮 210/300 jugadores</div>
+                    <h3>BedWars Champions</h3>
+                    <div class="server-players">🎮 215/300 jugadores online</div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- ITEMS DE TIENDA -->
-        <h2 class="mc-title">🎁 ITEMS POPULARES</h2>
-        <div class="shop-items">
-            <div class="shop-item">
-                <span class="item-icon">🛡️</span>
-                <div class="item-name">Kit Legendario</div>
-                <div class="item-price">$5.99</div>
-                <a href="#" class="mc-button">COMPRAR</a>
+    <!-- Footer -->
+    <footer class="modern-footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <div class="logo">
+                    <i class="fas fa-gamepad"></i>
+                    NEXUS
+                </div>
+                <p style="color: var(--text-secondary); margin: 20px 0; line-height: 1.6;">
+                    La plataforma gaming más avanzada para servidores de Minecraft. Ofrecemos experiencias únicas y servicios premium.
+                </p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
             </div>
-            <div class="shop-item">
-                <span class="item-icon">💰</span>
-                <div class="item-name">10,000 Monedas</div>
-                <div class="item-price">$7.99</div>
-                <a href="#" class="mc-button">COMPRAR</a>
+            
+            <div class="footer-column">
+                <h3>Enlaces Rápidos</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Tienda</a></li>
+                    <li><a href="#">Rangos</a></li>
+                    <li><a href="#">Servidores</a></li>
+                    <li><a href="#">Soporte</a></li>
+                </ul>
             </div>
-            <div class="shop-item">
-                <span class="item-icon">🎨</span>
-                <div class="item-name">Prefix Épico</div>
-                <div class="item-price">$3.99</div>
-                <a href="#" class="mc-button">COMPRAR</a>
+            
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Términos de Servicio</a></li>
+                    <li><a href="#">Política de Privacidad</a></li>
+                    <li><a href="#">Política de Reembolsos</a></li>
+                    <li><a href="#">DMCA</a></li>
+                </ul>
             </div>
-            <div class="shop-item">
-                <span class="item-icon">🔑</span>
-                <div class="item-name">Llave Misteriosa</div>
-                <div class="item-price">$1.99</div>
-                <a href="#" class="mc-button">COMPRAR</a>
+            
+            <div class="footer-column">
+                <h3>Contacto</h3>
+                <ul class="footer-links">
+                    <li><a href="#">soporte@nexus.com</a></li>
+                    <li><a href="#">Discord Oficial</a></li>
+                    <li><a href="#">Sistema de Tickets</a></li>
+                </ul>
             </div>
         </div>
-
-        <!-- INFORMACIÓN DEL SERVIDOR -->
-        <h2 class="mc-title">📊 ESTADÍSTICAS</h2>
-        <div style="text-align: center; margin: 30px 0;">
-            <div style="display: inline-block; margin: 0 20px;">
-                <div style="font-size: 2em; color: #55FFFF;">1,250</div>
-                <div style="color: #AAAAAA;">Jugadores Totales</div>
-            </div>
-            <div style="display: inline-block; margin: 0 20px;">
-                <div style="font-size: 2em; color: #55FF55;">420</div>
-                <div style="color: #AAAAAA;">En Línea Ahora</div>
-            </div>
-            <div style="display: inline-block; margin: 0 20px;">
-                <div style="font-size: 2em; color: #FFFF55;">98%</div>
-                <div style="color: #AAAAAA;">Uptime</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- FOOTER -->
-    <footer class="minecraft-footer">
-        <div style="color: #FFFF55; font-weight: bold; margin-bottom: 15px;">
-            ⚔️ CRAFTSTORE - TIENDA OFICIAL
-        </div>
-        <div class="footer-links">
-            <a href="#">📖 Términos de Servicio</a>
-            <a href="#">🛡️ Política de Privacidad</a>
-            <a href="#">🎫 Soporte</a>
-            <a href="#">📱 Discord</a>
-        </div>
-        <div style="margin-top: 15px; color: #888;">
-            Minecraft es una marca registrada de Mojang Studios<br>
-            © 2024 CRAFTSTORE - Todos los derechos reservados
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 NEXUS Gaming. Todos los derechos reservados. Minecraft es una marca registrada de Mojang Studios.</p>
         </div>
     </footer>
 </body>
