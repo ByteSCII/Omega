@@ -5,53 +5,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AR-15 / M4 - Con Disparo</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body { 
-            margin: 0; 
-            background: linear-gradient(135deg, #0a0a1a, #1a1a2e);
+            background: linear-gradient(135deg, #636363, #a5a5a5);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             font-family: Arial, sans-serif;
             overflow: hidden;
+            padding: 10px;
+            touch-action: manipulation;
         }
+        
         #container {
-            width: 600px;
-            height: 400px;
-            border: 3px solid #444;
-            border-radius: 10px;
-            box-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+            width: 100%;
+            max-width: 600px;
+            height: 70vh;
+            min-height: 400px;
+            border: 4px solid #333;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
             cursor: crosshair;
+            background: linear-gradient(135deg, #8a8a8a, #c0c0c0);
         }
+        
         #info {
             position: absolute;
-            top: 20px;
-            color: gold;
+            top: 15px;
+            color: #000;
             text-align: center;
             width: 100%;
-            font-size: 24px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-size: clamp(18px, 4vw, 24px);
             font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+            padding: 0 10px;
         }
+        
         #controls {
             position: absolute;
-            bottom: 20px;
-            color: #ccc;
+            bottom: 15px;
+            color: #333;
             text-align: center;
             width: 100%;
-            font-size: 14px;
+            font-size: clamp(12px, 3vw, 14px);
+            padding: 0 10px;
         }
+        
         #message {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: gold;
-            font-size: 32px;
+            color: #ff0000;
+            font-size: clamp(24px, 6vw, 32px);
             font-weight: bold;
-            text-shadow: 0 0 10px red;
+            text-shadow: 0 0 10px #ff4444;
             opacity: 0;
-            transition: opacity 0.5s;
+            transition: opacity 0.3s;
+            z-index: 100;
+        }
+        
+        #shotCounter {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: #000;
+            font-size: clamp(16px, 4vw, 20px);
+            font-weight: bold;
+            background: rgba(255, 215, 0, 0.8);
+            padding: 5px 10px;
+            border-radius: 10px;
+            border: 2px solid #333;
+        }
+        
+        /* Botón para disparar en móvil */
+        #shootButton {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #ff4444, #cc0000);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.5);
+            display: none;
+            z-index: 50;
+        }
+        
+        /* Mostrar botón solo en móvil */
+        @media (max-width: 768px) {
+            #shootButton {
+                display: block;
+            }
+            
+            #container {
+                height: 60vh;
+            }
         }
     </style>
 </head>
@@ -60,35 +120,47 @@
     <div id="container"></div>
     <div id="controls">🖱️ Toca el arma para disparar • Arrastra para rotar</div>
     <div id="message">¡BANG!</div>
+    <div id="shotCounter">Disparos: 0</div>
+    <button id="shootButton">🔫 DISPARAR</button>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     
     <script>
-        // 1. Configuración inicial
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(45, 600 / 400, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        // 1. Configuración inicial responsive
+        const container = document.getElementById('container');
+        let width = container.clientWidth;
+        let height = container.clientHeight;
         
-        renderer.setSize(600, 400);
-        renderer.setClearColor(0x000000);
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ 
+            antialias: true,
+            alpha: true 
+        });
+        
+        renderer.setSize(width, height);
+        renderer.setClearColor(0x000000, 0); // Fondo transparente
         renderer.shadowMap.enabled = true;
-        document.getElementById('container').appendChild(renderer.domElement);
+        container.appendChild(renderer.domElement);
 
         // Variables para la animación
         let isFiring = false;
         let bullets = [];
+        let shotCount = 0;
         const message = document.getElementById('message');
+        const shotCounter = document.getElementById('shotCounter');
+        const shootButton = document.getElementById('shootButton');
 
-        // 2. Sistema de luces
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        // 2. Sistema de luces mejorado para fondo claro
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
         scene.add(ambientLight);
 
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.2);
         directionalLight.position.set(10, 10, 5);
         directionalLight.castShadow = true;
         scene.add(directionalLight);
 
-        const pointLight = new THREE.PointLight(0xffaa00, 0.8);
+        const pointLight = new THREE.PointLight(0xffaa00, 0.6);
         pointLight.position.set(-5, 0, 0);
         scene.add(pointLight);
 
@@ -96,78 +168,82 @@
         const weapon = new THREE.Group();
         scene.add(weapon);
 
-        // Materiales
+        // Materiales MEJORADOS para contraste
         const blackMetal = new THREE.MeshPhongMaterial({ 
             color: 0x111111, 
-            shininess: 150 
+            shininess: 120,
+            specular: 0x333333
         });
         
         const goldMaterial = new THREE.MeshPhongMaterial({ 
             color: 0xFFD700,
-            shininess: 200
+            shininess: 180,
+            specular: 0xFFEC8B
         });
 
-        // 4. Partes del AR-15/M4
+        // 4. Partes del AR-15/M4 - MÁS DEFINIDAS
         // Culata (Stock) - DORADA
-        const stockGeometry = new THREE.BoxGeometry(0.9, 0.35, 0.25);
+        const stockGeometry = new THREE.BoxGeometry(1.0, 0.4, 0.3);
         const stock = new THREE.Mesh(stockGeometry, goldMaterial);
-        stock.position.set(-2.2, 0, 0);
+        stock.position.set(-2.3, 0, 0);
         weapon.add(stock);
 
-        // Receptor inferior - NEGRO
-        const lowerReceiverGeometry = new THREE.BoxGeometry(1.6, 0.45, 0.35);
+        // Receptor inferior - NEGRO BRILLANTE
+        const lowerReceiverGeometry = new THREE.BoxGeometry(1.7, 0.5, 0.4);
         const lowerReceiver = new THREE.Mesh(lowerReceiverGeometry, blackMetal);
-        lowerReceiver.position.set(-0.7, 0, 0);
+        lowerReceiver.position.set(-0.6, 0, 0);
         weapon.add(lowerReceiver);
 
         // Empuñadura - NEGRO
-        const gripGeometry = new THREE.BoxGeometry(0.35, 0.7, 0.35);
+        const gripGeometry = new THREE.BoxGeometry(0.4, 0.8, 0.4);
         const grip = new THREE.Mesh(gripGeometry, blackMetal);
-        grip.position.set(-0.7, -0.6, 0);
+        grip.position.set(-0.6, -0.7, 0);
         grip.rotation.x = Math.PI / 6;
         weapon.add(grip);
 
         // Receptor superior - NEGRO
-        const upperReceiverGeometry = new THREE.BoxGeometry(1.8, 0.4, 0.4);
+        const upperReceiverGeometry = new THREE.BoxGeometry(2.0, 0.45, 0.45);
         const upperReceiver = new THREE.Mesh(upperReceiverGeometry, blackMetal);
-        upperReceiver.position.set(0.5, 0.1, 0);
+        upperReceiver.position.set(0.7, 0.1, 0);
         weapon.add(upperReceiver);
 
-        // Cañón - NEGRO
-        const barrelGeometry = new THREE.CylinderGeometry(0.1, 0.12, 2.5, 8);
+        // Cañón - NEGRO CON BORDES DEFINIDOS
+        const barrelGeometry = new THREE.CylinderGeometry(0.12, 0.14, 2.8, 12);
         const barrel = new THREE.Mesh(barrelGeometry, blackMetal);
-        barrel.position.set(2, 0.1, 0);
+        barrel.position.set(2.2, 0.1, 0);
         barrel.rotation.z = Math.PI / 2;
         weapon.add(barrel);
 
         // Guardamanos - NEGRO
-        const handguardGeometry = new THREE.CylinderGeometry(0.16, 0.16, 1.8, 6);
+        const handguardGeometry = new THREE.CylinderGeometry(0.18, 0.18, 2.0, 8);
         const handguard = new THREE.Mesh(handguardGeometry, blackMetal);
-        handguard.position.set(1.2, 0.1, 0);
+        handguard.position.set(1.3, 0.1, 0);
         handguard.rotation.z = Math.PI / 2;
         weapon.add(handguard);
 
         // Cargador - NEGRO
-        const magazineGeometry = new THREE.BoxGeometry(0.3, 0.9, 0.2);
+        const magazineGeometry = new THREE.BoxGeometry(0.35, 1.0, 0.25);
         const magazine = new THREE.Mesh(magazineGeometry, blackMetal);
-        magazine.position.set(-0.7, -0.9, 0);
+        magazine.position.set(-0.6, -1.0, 0);
         weapon.add(magazine);
 
         // 5. Configurar cámara
-        camera.position.set(0, 0, 6);
+        camera.position.set(0, 0.5, 7);
+        camera.lookAt(0, 0, 0);
 
         // 6. Función para crear bala
         function createBullet() {
-            const bulletGeometry = new THREE.SphereGeometry(0.05, 8, 8);
-            const bulletMaterial = new THREE.MeshBasicMaterial({ 
+            const bulletGeometry = new THREE.SphereGeometry(0.08, 12, 12);
+            const bulletMaterial = new THREE.MeshPhongMaterial({ 
                 color: 0xFFD700,
-                emissive: 0xFF4500
+                emissive: 0xFF4500,
+                shininess: 100
             });
             const bullet = new THREE.Mesh(bulletGeometry, bulletMaterial);
             
             // Posicionar bala en la punta del cañón
-            bullet.position.set(3.5, 0.1, 0);
-            bullet.userData = { speed: 0.5, life: 100 };
+            bullet.position.set(3.8, 0.1, 0);
+            bullet.userData = { speed: 0.7, life: 80 };
             
             scene.add(bullet);
             bullets.push(bullet);
@@ -179,19 +255,22 @@
             if (isFiring) return;
             
             isFiring = true;
+            shotCount++;
+            shotCounter.textContent = `Disparos: ${shotCount}`;
             
             // Efecto de sonido visual
             message.style.opacity = 1;
             setTimeout(() => {
                 message.style.opacity = 0;
-            }, 300);
+            }, 200);
             
             // Crear bala
             const bullet = createBullet();
             
             // Animación del arma (retroceso)
             const originalY = weapon.position.y;
-            weapon.position.y -= 0.1;
+            weapon.position.y -= 0.15;
+            weapon.rotation.x -= 0.05;
             
             // Animación de la bala
             function animateBullet() {
@@ -203,17 +282,16 @@
                 
                 // Mover bala hacia adelante
                 bullet.position.x += bullet.userData.speed;
-                bullet.position.y += Math.sin(Date.now() * 0.01) * 0.1; // Efecto onda
+                bullet.position.y += Math.sin(Date.now() * 0.02) * 0.15;
                 
-                // Rotar bala
-                bullet.rotation.x += 0.1;
-                bullet.rotation.y += 0.1;
+                // Rotar bala en 3D
+                bullet.rotation.x += 0.15;
+                bullet.rotation.y += 0.15;
+                bullet.rotation.z += 0.1;
                 
-                // Reducir vida
+                // Reducir vida y tamaño
                 bullet.userData.life--;
-                
-                // Hacer bala más pequeña mientras vuela
-                bullet.scale.multiplyScalar(0.99);
+                bullet.scale.multiplyScalar(0.985);
                 
                 requestAnimationFrame(animateBullet);
             }
@@ -223,29 +301,38 @@
             // Restaurar posición del arma
             setTimeout(() => {
                 weapon.position.y = originalY;
-            }, 100);
+                weapon.rotation.x += 0.05;
+            }, 150);
             
-            // Permitir otro disparo después de 500ms
+            // Permitir otro disparo
             setTimeout(() => {
                 isFiring = false;
-            }, 500);
+            }, 300);
         }
 
-        // 8. Controles
+        // 8. Controles para desktop y móvil
         let isDragging = false;
         let previousMousePosition = { x: 0, y: 0 };
-        const container = document.getElementById('container');
+        let isTouch = false;
 
-        // Disparar al hacer clic
+        // Disparar al hacer clic (desktop)
         container.addEventListener('click', (e) => {
-            if (!isDragging) { // Solo disparar si no estábamos arrastrando
+            if (!isDragging && !isTouch) {
                 fireWeapon();
             }
         });
 
-        // Rotación al arrastrar
+        // Botón de disparo para móvil
+        shootButton.addEventListener('click', fireWeapon);
+        shootButton.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            fireWeapon();
+        });
+
+        // Rotación al arrastrar (desktop)
         container.addEventListener('mousedown', (e) => {
             isDragging = true;
+            isTouch = false;
             container.style.cursor = 'grabbing';
             previousMousePosition = { x: e.clientX, y: e.clientY };
         });
@@ -267,17 +354,48 @@
             container.style.cursor = 'crosshair';
         });
 
+        // Controles táctiles para móvil
+        container.addEventListener('touchstart', (e) => {
+            isTouch = true;
+            isDragging = true;
+            previousMousePosition = { 
+                x: e.touches[0].clientX, 
+                y: e.touches[0].clientY 
+            };
+            e.preventDefault();
+        });
+
+        container.addEventListener('touchmove', (e) => {
+            if (isDragging) {
+                const deltaX = e.touches[0].clientX - previousMousePosition.x;
+                const deltaY = e.touches[0].clientY - previousMousePosition.y;
+                
+                weapon.rotation.y += deltaX * 0.015;
+                weapon.rotation.x += deltaY * 0.015;
+                
+                previousMousePosition = { 
+                    x: e.touches[0].clientX, 
+                    y: e.touches[0].clientY 
+                };
+            }
+            e.preventDefault();
+        });
+
+        container.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
         // 9. Animación principal
         function animate() {
             requestAnimationFrame(animate);
             
-            // Rotación automática suave cuando no hay interacción
+            // Rotación automática suave
             if (!isDragging && !isFiring) {
-                weapon.rotation.y += 0.005;
+                weapon.rotation.y += 0.004;
             }
             
             // Efecto de respiración en la luz
-            pointLight.intensity = 0.5 + Math.sin(Date.now() * 0.001) * 0.3;
+            pointLight.intensity = 0.4 + Math.sin(Date.now() * 0.001) * 0.2;
             
             renderer.render(scene, camera);
         }
@@ -288,18 +406,28 @@
 
         function appearAnimation() {
             if (scale < 1) {
-                scale += 0.03;
+                scale += 0.02;
                 weapon.scale.set(scale, scale, scale);
                 requestAnimationFrame(appearAnimation);
             }
         }
 
+        // 11. Responsive
+        window.addEventListener('resize', () => {
+            width = container.clientWidth;
+            height = container.clientHeight;
+            
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, height);
+        });
+
         appearAnimation();
         animate();
 
         // Efecto de luz de disparo
-        const muzzleFlash = new THREE.PointLight(0xff4500, 2, 2);
-        muzzleFlash.position.set(3.5, 0.1, 0);
+        const muzzleFlash = new THREE.PointLight(0xff4500, 3, 3);
+        muzzleFlash.position.set(3.8, 0.1, 0);
         scene.add(muzzleFlash);
         muzzleFlash.visible = false;
 
@@ -310,7 +438,7 @@
             muzzleFlash.visible = true;
             setTimeout(() => {
                 muzzleFlash.visible = false;
-            }, 100);
+            }, 80);
             
             originalFireWeapon();
         };
