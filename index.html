@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Librería de emojis -->
     <link href="https://cdn.jsdelivr.net/npm/emoji-picker-element@1.12.0/index.css" rel="stylesheet">
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <style>
         :root {
             --primary-color: #1a365d;
@@ -328,6 +331,7 @@
             border-radius: 18px;
             box-shadow: var(--shadow);
             transition: background-color 0.3s;
+            position: relative;
         }
 
         .message.own .message-content {
@@ -372,10 +376,89 @@
             color: var(--accent-color);
         }
 
+        /* Reply System */
+        .reply-preview {
+            background-color: rgba(0, 0, 0, 0.05);
+            border-left: 3px solid var(--accent-color);
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+        }
+
+        .reply-sender {
+            font-weight: 600;
+            font-size: 12px;
+            color: var(--accent-color);
+        }
+
+        .reply-text {
+            font-size: 12px;
+            color: #718096;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .cancel-reply {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            color: #718096;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        /* Reactions */
+        .reactions-container {
+            display: flex;
+            gap: 5px;
+            margin-top: 5px;
+            flex-wrap: wrap;
+        }
+
+        .reaction {
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 2px 6px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            cursor: pointer;
+        }
+
+        .reaction-count {
+            font-size: 11px;
+        }
+
+        .reaction:hover {
+            background-color: rgba(0, 0, 0, 0.15);
+        }
+
         /* Message Input */
         .message-input-container {
             padding: 20px;
             border-top: 1px solid var(--border-color);
+        }
+
+        .reply-indicator {
+            background-color: var(--message-bg);
+            padding: 10px 15px;
+            border-radius: var(--radius);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .reply-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .reply-indicator .cancel-reply {
+            position: static;
         }
 
         .message-input {
@@ -627,6 +710,14 @@
                 </div>
 
                 <div class="message-input-container">
+                    <div class="reply-indicator" id="replyIndicator" style="display: none;">
+                        <div class="reply-info">
+                            <span>Respondiendo a <strong id="replyToUser"></strong></span>
+                            <span id="replyPreviewText" style="color: #718096;"></span>
+                        </div>
+                        <i class="fas fa-times cancel-reply" id="cancelReply"></i>
+                    </div>
+                    
                     <div class="file-preview" id="filePreview" style="display: none;">
                         <i class="fas fa-file"></i>
                         <div class="file-info">
@@ -660,6 +751,20 @@
     <!-- Scripts -->
     <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@1.12.0/index.js"></script>
     <script>
+        // Configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyB7wLDtmqwDIdzhI_50t4kfkkCfiIv1Nkc",
+            authDomain: "chatrapido-7ec85.firebaseapp.com",
+            projectId: "chatrapido-7ec85",
+            storageBucket: "chatrapido-7ec85.firebasestorage.app",
+            messagingSenderId: "579883431056",
+            appId: "1:579883431056:web:4993c55db6327dbb911415"
+        };
+
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
         // Elementos DOM
         const loginScreen = document.getElementById('loginScreen');
         const mainApp = document.getElementById('mainApp');
@@ -679,11 +784,17 @@
         const fileName = document.getElementById('fileName');
         const fileSize = document.getElementById('fileSize');
         const fileRemove = document.getElementById('fileRemove');
+        const replyIndicator = document.getElementById('replyIndicator');
+        const replyToUser = document.getElementById('replyToUser');
+        const replyPreviewText = document.getElementById('replyPreviewText');
+        const cancelReply = document.getElementById('cancelReply');
 
         // Variables de estado
         let currentUser = '';
         let isDarkTheme = false;
         let selectedFile = null;
+        let replyingTo = null;
+        let messageIdCounter = 0;
 
         // Inicialización
         document.addEventListener('DOMContentLoaded', function() {
@@ -716,26 +827,38 @@
                 loginScreen.style.display = 'none';
                 mainApp.style.display = 'block';
                 
-                // Agregar usuario a la lista
-                addUserToList(username, true);
+                // Agregar usuario a Firebase
+                const userRef = database.ref('users/' + username);
+                userRef.set({
+                    name: username,
+                    online: true,
+                    lastSeen: Date.now()
+                });
+                
+                // Escuchar cambios en usuarios
+                database.ref('users').on('value', (snapshot) => {
+                    updateUsersList(snapshot.val());
+                });
+                
+                // Escuchar mensajes
+                database.ref('messages').on('value', (snapshot) => {
+                    loadMessages(snapshot.val());
+                });
                 
                 // Mostrar mensaje de bienvenida
                 addSystemMessage(`${username} se ha unido al chat`);
-                
-                // Simular usuarios existentes
-                setTimeout(() => {
-                    addUserToList('Ana Rodríguez', false);
-                    addUserToList('Carlos Méndez', false);
-                    addUserToList('María López', false);
-                    
-                    // Simular mensajes existentes
-                    setTimeout(() => {
-                        addMessage('Ana Rodríguez', 'AR', 'Hola equipo, bienvenido al chat corporativo de Luxus.');
-                        setTimeout(() => {
-                            addMessage('Carlos Méndez', 'CM', 'Hola ' + username + ', ¡bienvenido!');
-                        }, 1000);
-                    }, 500);
-                }, 1000);
+            }
+        }
+
+        // Actualizar lista de usuarios
+        function updateUsersList(users) {
+            usersList.innerHTML = '';
+            if (users) {
+                Object.keys(users).forEach(username => {
+                    if (users[username].online) {
+                        addUserToList(username, true);
+                    }
+                });
             }
         }
 
@@ -778,6 +901,12 @@
             filePreview.style.display = 'none';
         });
 
+        // Sistema de respuestas
+        cancelReply.addEventListener('click', function() {
+            replyingTo = null;
+            replyIndicator.style.display = 'none';
+        });
+
         // Envío de mensajes
         sendButton.addEventListener('click', sendMessage);
         messageInput.addEventListener('keypress', function(e) {
@@ -788,62 +917,203 @@
         });
 
         function sendMessage() {
-            const message = messageInput.value.trim();
+            const messageText = messageInput.value.trim();
             
-            if ((message || selectedFile) && currentUser) {
-                addMessage(currentUser, getInitials(currentUser), message, true, selectedFile);
+            if ((messageText || selectedFile) && currentUser) {
+                const messageData = {
+                    id: Date.now().toString(),
+                    sender: currentUser,
+                    text: messageText,
+                    timestamp: Date.now(),
+                    initials: getInitials(currentUser),
+                    file: selectedFile ? {
+                        name: selectedFile.name,
+                        size: selectedFile.size,
+                        type: selectedFile.type
+                    } : null,
+                    replyTo: replyingTo
+                };
+
+                // Guardar en Firebase
+                database.ref('messages/' + messageData.id).set(messageData);
+
+                // Limpiar inputs
                 messageInput.value = '';
-                
-                // Limpiar archivo seleccionado
-                if (selectedFile) {
-                    selectedFile = null;
-                    fileInput.value = '';
-                    filePreview.style.display = 'none';
-                }
-                
-                // Simular respuesta después de un tiempo
-                setTimeout(simulateResponse, 1000 + Math.random() * 2000);
+                selectedFile = null;
+                fileInput.value = '';
+                filePreview.style.display = 'none';
+                replyingTo = null;
+                replyIndicator.style.display = 'none';
             }
         }
 
-        function addMessage(sender, initials, text, isOwn = false, file = null) {
+        // Cargar mensajes desde Firebase
+        function loadMessages(messages) {
+            messagesContainer.innerHTML = '';
+            if (messages) {
+                const sortedMessages = Object.values(messages).sort((a, b) => a.timestamp - b.timestamp);
+                sortedMessages.forEach(message => {
+                    displayMessage(message);
+                });
+                scrollToBottom();
+            }
+        }
+
+        function displayMessage(message) {
+            const isOwn = message.sender === currentUser;
             const messageElement = document.createElement('div');
             messageElement.className = `message ${isOwn ? 'own' : ''}`;
+            messageElement.dataset.id = message.id;
             
-            const time = getCurrentTime();
+            const time = formatTime(message.timestamp);
             
             let fileHtml = '';
-            if (file) {
+            if (message.file) {
                 fileHtml = `
                     <div class="file-preview">
                         <i class="fas fa-file"></i>
                         <div class="file-info">
-                            <div class="file-name">${file.name}</div>
-                            <div class="file-size">${formatFileSize(file.size)}</div>
+                            <div class="file-name">${message.file.name}</div>
+                            <div class="file-size">${formatFileSize(message.file.size)}</div>
                         </div>
+                    </div>
+                `;
+            }
+
+            let replyHtml = '';
+            if (message.replyTo) {
+                replyHtml = `
+                    <div class="reply-preview">
+                        <div class="reply-sender">${message.replyTo.sender}</div>
+                        <div class="reply-text">${message.replyTo.text}</div>
+                    </div>
+                `;
+            }
+
+            let reactionsHtml = '';
+            if (message.reactions && Object.keys(message.reactions).length > 0) {
+                reactionsHtml = `
+                    <div class="reactions-container">
+                        ${Object.entries(message.reactions).map(([emoji, users]) => `
+                            <div class="reaction" data-emoji="${emoji}" data-message="${message.id}">
+                                <span>${emoji}</span>
+                                <span class="reaction-count">${users.length}</span>
+                            </div>
+                        `).join('')}
                     </div>
                 `;
             }
             
             messageElement.innerHTML = `
-                ${!isOwn ? `<div class="message-avatar">${initials}</div>` : ''}
+                ${!isOwn ? `<div class="message-avatar">${message.initials}</div>` : ''}
                 <div class="message-content">
                     <div class="message-header">
-                        <span class="message-sender">${isOwn ? 'Tú' : sender}</span>
+                        <span class="message-sender">${isOwn ? 'Tú' : message.sender}</span>
                         <span class="message-time">${time}</span>
                     </div>
+                    ${replyHtml}
                     ${fileHtml}
-                    <div class="message-text">${text}</div>
+                    <div class="message-text">${message.text}</div>
+                    ${reactionsHtml}
                     <div class="message-actions">
-                        <span class="message-action">Responder</span>
-                        <span class="message-action">Reaccionar</span>
+                        <span class="message-action reply-action" data-message='${JSON.stringify(message)}'>Responder</span>
+                        <span class="message-action react-action" data-message="${message.id}">Reaccionar</span>
                     </div>
                 </div>
-                ${isOwn ? `<div class="message-avatar">${initials}</div>` : ''}
+                ${isOwn ? `<div class="message-avatar">${message.initials}</div>` : ''}
             `;
             
             messagesContainer.appendChild(messageElement);
-            scrollToBottom();
+
+            // Agregar event listeners para las acciones
+            const replyAction = messageElement.querySelector('.reply-action');
+            const reactAction = messageElement.querySelector('.react-action');
+            
+            replyAction.addEventListener('click', function() {
+                const messageData = JSON.parse(this.dataset.message);
+                replyingTo = {
+                    id: messageData.id,
+                    sender: messageData.sender,
+                    text: messageData.text
+                };
+                replyToUser.textContent = messageData.sender;
+                replyPreviewText.textContent = messageData.text.length > 50 ? 
+                    messageData.text.substring(0, 50) + '...' : messageData.text;
+                replyIndicator.style.display = 'flex';
+                messageInput.focus();
+            });
+
+            reactAction.addEventListener('click', function() {
+                showReactionPicker(this.dataset.message);
+            });
+
+            // Agregar event listeners para las reacciones existentes
+            messageElement.querySelectorAll('.reaction').forEach(reaction => {
+                reaction.addEventListener('click', function() {
+                    addReaction(this.dataset.message, this.dataset.emoji);
+                });
+            });
+        }
+
+        function showReactionPicker(messageId) {
+            // Crear un selector simple de emojis para reacciones
+            const commonEmojis = ['👍', '❤️', '😂', '😮', '😢', '🙏'];
+            const reactionPicker = document.createElement('div');
+            reactionPicker.className = 'reactions-container';
+            reactionPicker.style.position = 'absolute';
+            reactionPicker.style.background = 'var(--message-bg)';
+            reactionPicker.style.padding = '8px';
+            reactionPicker.style.borderRadius = 'var(--radius)';
+            reactionPicker.style.boxShadow = 'var(--shadow)';
+            reactionPicker.style.zIndex = '100';
+            
+            commonEmojis.forEach(emoji => {
+                const emojiSpan = document.createElement('span');
+                emojiSpan.textContent = emoji;
+                emojiSpan.style.cursor = 'pointer';
+                emojiSpan.style.fontSize = '20px';
+                emojiSpan.style.padding = '5px';
+                emojiSpan.addEventListener('click', () => {
+                    addReaction(messageId, emoji);
+                    document.body.removeChild(reactionPicker);
+                });
+                reactionPicker.appendChild(emojiSpan);
+            });
+            
+            document.body.appendChild(reactionPicker);
+            
+            // Posicionar cerca del botón de reaccionar
+            const reactButton = document.querySelector(`[data-message="${messageId}"]`);
+            const rect = reactButton.getBoundingClientRect();
+            reactionPicker.style.top = (rect.top - 50) + 'px';
+            reactionPicker.style.left = rect.left + 'px';
+            
+            // Remover al hacer clic fuera
+            setTimeout(() => {
+                const removePicker = (e) => {
+                    if (!reactionPicker.contains(e.target) && e.target !== reactButton) {
+                        document.body.removeChild(reactionPicker);
+                        document.removeEventListener('click', removePicker);
+                    }
+                };
+                document.addEventListener('click', removePicker);
+            }, 100);
+        }
+
+        function addReaction(messageId, emoji) {
+            const messageRef = database.ref('messages/' + messageId + '/reactions/' + emoji);
+            
+            messageRef.transaction((currentUsers) => {
+                if (currentUsers === null) {
+                    return [currentUser];
+                } else if (!currentUsers.includes(currentUser)) {
+                    return [...currentUsers, currentUser];
+                } else {
+                    // Si el usuario ya reaccionó, quitar la reacción
+                    const filteredUsers = currentUsers.filter(user => user !== currentUser);
+                    return filteredUsers.length > 0 ? filteredUsers : null;
+                }
+            });
         }
 
         function addSystemMessage(text) {
@@ -873,28 +1143,13 @@
             usersList.appendChild(userElement);
         }
 
-        function simulateResponse() {
-            const users = ['Ana Rodríguez', 'Carlos Méndez', 'María López'];
-            const randomUser = users[Math.floor(Math.random() * users.length)];
-            const responses = [
-                '¡Interesante punto!',
-                'Estoy de acuerdo con eso',
-                '¿Podrías elaborar más sobre ese tema?',
-                'Gracias por compartir',
-                'Eso es exactamente lo que estaba pensando'
-            ];
-            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-            
-            addMessage(randomUser, getInitials(randomUser), randomResponse);
-        }
-
         function getInitials(name) {
             return name.split(' ').map(n => n[0]).join('').toUpperCase();
         }
 
-        function getCurrentTime() {
-            const now = new Date();
-            return now.getHours() + ':' + (now.getMinutes() < 10 ? '0' : '') + now.getMinutes();
+        function formatTime(timestamp) {
+            const date = new Date(timestamp);
+            return date.getHours() + ':' + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
         }
 
         function formatFileSize(bytes) {
@@ -920,6 +1175,16 @@
         // Mobile menu toggle
         document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
             document.querySelector('.sidebar').classList.toggle('active');
+        });
+
+        // Manejar cierre de la aplicación
+        window.addEventListener('beforeunload', function() {
+            if (currentUser) {
+                database.ref('users/' + currentUser).update({
+                    online: false,
+                    lastSeen: Date.now()
+                });
+            }
         });
     </script>
 </body>
