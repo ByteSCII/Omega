@@ -50,13 +50,16 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
             transition: background-color 0.3s, color 0.3s;
-            height: 100vh;
-            overflow: hidden;
         }
 
         /* Login Screen */
@@ -71,6 +74,7 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            padding: 20px;
         }
 
         .login-form {
@@ -78,7 +82,7 @@
             padding: 40px;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
-            width: 90%;
+            width: 100%;
             max-width: 400px;
             text-align: center;
         }
@@ -121,6 +125,7 @@
             font-size: 14px;
             color: #718096;
             transition: all 0.2s;
+            width: 100%;
         }
 
         .upload-profile-btn:hover {
@@ -149,6 +154,7 @@
         .main-app {
             display: none;
             height: 100vh;
+            flex-direction: column;
         }
 
         /* Header minimalista */
@@ -160,11 +166,12 @@
             top: 0;
             z-index: 100;
             transition: background-color 0.3s;
+            flex-shrink: 0;
         }
 
         .header-content {
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
             align-items: center;
             padding: 0 20px;
         }
@@ -173,7 +180,6 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-right: 15px;
         }
 
         .user-avatar {
@@ -189,13 +195,18 @@
             font-weight: 500;
         }
 
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
         .theme-toggle {
             background: none;
             border: none;
             color: var(--text-color);
             font-size: 20px;
             cursor: pointer;
-            margin-right: 15px;
         }
 
         .mobile-menu-toggle {
@@ -207,7 +218,8 @@
         /* Main Layout */
         .main-layout {
             display: flex;
-            height: calc(100vh - 50px);
+            flex: 1;
+            overflow: hidden;
         }
 
         /* Sidebar */
@@ -217,13 +229,21 @@
             border-right: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
-            overflow-y: auto;
             transition: background-color 0.3s;
+            flex-shrink: 0;
+        }
+
+        .sidebar-content {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
         }
 
         .sidebar-header {
             padding: 20px;
             border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
         }
 
         .search-box {
@@ -250,6 +270,7 @@
 
         .channels, .direct-messages {
             padding: 20px;
+            flex-shrink: 0;
         }
 
         .section-title {
@@ -329,6 +350,7 @@
             flex-direction: column;
             background-color: var(--chat-bg);
             transition: background-color 0.3s;
+            min-width: 0;
         }
 
         .chat-header {
@@ -337,6 +359,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            flex-shrink: 0;
         }
 
         .chat-title {
@@ -356,6 +379,7 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
+            min-height: 0;
         }
 
         .message {
@@ -391,6 +415,7 @@
             box-shadow: var(--shadow);
             transition: background-color 0.3s;
             position: relative;
+            min-width: 0;
         }
 
         .message.own .message-content {
@@ -417,6 +442,7 @@
         .message-text {
             font-size: 14px;
             line-height: 1.4;
+            word-wrap: break-word;
         }
 
         .message-actions {
@@ -498,6 +524,7 @@
         .message-input-container {
             padding: 20px;
             border-top: 1px solid var(--border-color);
+            flex-shrink: 0;
         }
 
         .reply-indicator {
@@ -514,10 +541,13 @@
         .reply-info {
             display: flex;
             flex-direction: column;
+            flex: 1;
+            min-width: 0;
         }
 
         .reply-indicator .cancel-reply {
             position: static;
+            flex-shrink: 0;
         }
 
         .message-input {
@@ -530,6 +560,7 @@
             display: flex;
             gap: 10px;
             margin-bottom: 10px;
+            flex-shrink: 0;
         }
 
         .input-action {
@@ -553,6 +584,7 @@
             font-size: 14px;
             background-color: var(--input-bg);
             color: var(--text-color);
+            min-width: 0;
         }
 
         .send-button {
@@ -564,6 +596,7 @@
             cursor: pointer;
             font-weight: 600;
             transition: background-color 0.2s;
+            flex-shrink: 0;
         }
 
         .send-button:hover {
@@ -588,21 +621,26 @@
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: var(--radius);
             margin-bottom: 10px;
-            max-width: 300px;
+            max-width: 100%;
         }
 
         .file-preview i {
             font-size: 24px;
             color: #4299e1;
+            flex-shrink: 0;
         }
 
         .file-info {
             flex: 1;
+            min-width: 0;
         }
 
         .file-name {
             font-weight: 500;
             font-size: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .file-size {
@@ -613,6 +651,7 @@
         .file-remove {
             color: #718096;
             cursor: pointer;
+            flex-shrink: 0;
         }
 
         .file-remove:hover {
@@ -648,6 +687,7 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            padding: 20px;
         }
 
         .profile-modal-content {
@@ -655,7 +695,7 @@
             padding: 30px;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
-            width: 90%;
+            width: 100%;
             max-width: 400px;
             text-align: center;
         }
@@ -706,10 +746,12 @@
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
                 width: 100%;
-                position: absolute;
                 height: 100%;
-                z-index: 10;
+                z-index: 100;
                 transform: translateX(-100%);
                 transition: transform 0.3s ease;
             }
@@ -724,6 +766,22 @@
 
             .user-name {
                 display: none;
+            }
+
+            .header-content {
+                padding: 0 15px;
+            }
+
+            .messages-container {
+                padding: 15px;
+            }
+
+            .message-input-container {
+                padding: 15px;
+            }
+
+            .login-form {
+                padding: 30px 20px;
             }
         }
 
@@ -785,6 +843,22 @@
                 transform: translateY(-5px);
             }
         }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #718096;
+        }
+
+        .error-message {
+            background-color: var(--danger-color);
+            color: white;
+            padding: 10px 15px;
+            border-radius: var(--radius);
+            margin: 10px 20px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -824,15 +898,17 @@
     <div class="main-app" id="mainApp">
         <header>
             <div class="header-content">
+                <div class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
                 <div class="user-profile" id="userProfile">
                     <img id="headerUserAvatar" class="user-avatar" alt="Usuario">
                     <span class="user-name" id="headerUserName"></span>
                 </div>
-                <button class="theme-toggle" id="themeToggle">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <div class="mobile-menu-toggle">
-                    <i class="fas fa-bars"></i>
+                <div class="header-right">
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
                 </div>
             </div>
         </header>
@@ -840,32 +916,34 @@
         <div class="main-layout">
             <!-- Sidebar -->
             <div class="sidebar">
-                <div class="sidebar-header">
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="text" placeholder="Buscar en conversaciones...">
+                <div class="sidebar-content">
+                    <div class="sidebar-header">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Buscar en conversaciones...">
+                        </div>
                     </div>
-                </div>
 
-                <div class="channels">
-                    <div class="section-title">
-                        <span>Canales</span>
+                    <div class="channels">
+                        <div class="section-title">
+                            <span>Canales</span>
+                        </div>
+                        <ul class="channel-list">
+                            <li class="channel-item active">
+                                <i class="fas fa-hashtag"></i>
+                                <span>Chat Corporativo</span>
+                            </li>
+                        </ul>
                     </div>
-                    <ul class="channel-list">
-                        <li class="channel-item active">
-                            <i class="fas fa-hashtag"></i>
-                            <span>Chat Corporativo</span>
-                        </li>
-                    </ul>
-                </div>
 
-                <div class="direct-messages">
-                    <div class="section-title">
-                        <span>Usuarios Conectados</span>
+                    <div class="direct-messages">
+                        <div class="section-title">
+                            <span>Usuarios Conectados</span>
+                        </div>
+                        <ul class="dm-list" id="usersList">
+                            <div class="loading" id="usersLoading">Cargando usuarios...</div>
+                        </ul>
                     </div>
-                    <ul class="dm-list" id="usersList">
-                        <!-- Los usuarios se cargarán dinámicamente -->
-                    </ul>
                 </div>
             </div>
 
@@ -875,12 +953,12 @@
                     <i class="fas fa-hashtag"></i>
                     <div>
                         <div class="chat-title">Chat Corporativo</div>
-                        <div class="chat-info">Canal principal de comunicación</div>
+                        <div class="chat-info" id="onlineCount">Cargando...</div>
                     </div>
                 </div>
 
                 <div class="messages-container" id="messagesContainer">
-                    <!-- Mensajes se cargarán aquí -->
+                    <div class="loading" id="messagesLoading">Cargando mensajes...</div>
                 </div>
 
                 <div class="message-input-container">
@@ -932,6 +1010,7 @@
         const firebaseConfig = {
             apiKey: "AIzaSyB7wLDtmqwDIdzhI_50t4kfkkCfiIv1Nkc",
             authDomain: "chatrapido-7ec85.firebaseapp.com",
+            databaseURL: "https://chatrapido-7ec85-default-rtdb.firebaseio.com",
             projectId: "chatrapido-7ec85",
             storageBucket: "chatrapido-7ec85.firebasestorage.app",
             messagingSenderId: "579883431056",
@@ -966,7 +1045,10 @@
         const messageInput = document.getElementById('messageInput');
         const sendButton = document.getElementById('sendButton');
         const messagesContainer = document.getElementById('messagesContainer');
+        const messagesLoading = document.getElementById('messagesLoading');
         const usersList = document.getElementById('usersList');
+        const usersLoading = document.getElementById('usersLoading');
+        const onlineCount = document.getElementById('onlineCount');
         const emojiButton = document.getElementById('emojiButton');
         const emojiPickerContainer = document.getElementById('emojiPickerContainer');
         const emojiPicker = document.querySelector('emoji-picker');
@@ -981,6 +1063,7 @@
         const replyToUser = document.getElementById('replyToUser');
         const replyPreviewText = document.getElementById('replyPreviewText');
         const cancelReply = document.getElementById('cancelReply');
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
 
         // Variables de estado
         let currentUser = '';
@@ -989,19 +1072,30 @@
         let replyingTo = null;
         let userProfilePicture = null;
         let userProfilePictureUrl = '';
+        let usersRef;
+        let messagesRef;
 
         // Inicialización
         document.addEventListener('DOMContentLoaded', function() {
             // Configurar el selector de emojis
-            emojiPicker.addEventListener('emoji-click', event => {
-                messageInput.value += event.detail.unicode;
-                messageInput.focus();
-            });
+            if (emojiPicker) {
+                emojiPicker.addEventListener('emoji-click', event => {
+                    messageInput.value += event.detail.unicode;
+                    messageInput.focus();
+                });
+            }
 
             // Ocultar selector de emojis al hacer clic fuera
             document.addEventListener('click', function(e) {
-                if (!emojiPickerContainer.contains(e.target) && e.target !== emojiButton) {
+                if (emojiPickerContainer && !emojiPickerContainer.contains(e.target) && e.target !== emojiButton) {
                     emojiPickerContainer.style.display = 'none';
+                }
+            });
+
+            // Cerrar modal al hacer clic fuera
+            document.addEventListener('click', function(e) {
+                if (e.target === profileModal) {
+                    profileModal.style.display = 'none';
                 }
             });
         });
@@ -1012,13 +1106,18 @@
 
         // Modal de perfil
         userProfile.addEventListener('click', () => {
-            profilePictureLarge.src = headerUserAvatar.src;
+            profilePictureLarge.src = headerUserAvatar.src || '';
             profileModal.style.display = 'flex';
         });
 
         changePhotoBtn.addEventListener('click', () => changePictureInput.click());
         changePictureInput.addEventListener('change', handleProfilePictureChange);
         closeModalBtn.addEventListener('click', () => profileModal.style.display = 'none');
+
+        // Mobile menu
+        mobileMenuToggle.addEventListener('click', () => {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
 
         function handleProfilePictureSelect(e) {
             const file = e.target.files[0];
@@ -1046,6 +1145,9 @@
                     if (currentUser) {
                         database.ref('users/' + currentUser + '/profilePicture').set(url);
                     }
+                }).catch(error => {
+                    console.error('Error subiendo foto:', error);
+                    alert('Error al subir la foto de perfil');
                 });
             }
         }
@@ -1100,7 +1202,7 @@
                 }
 
                 loginScreen.style.display = 'none';
-                mainApp.style.display = 'block';
+                mainApp.style.display = 'flex';
                 
                 // Actualizar header
                 headerUserName.textContent = username;
@@ -1111,47 +1213,68 @@
                     headerUserAvatar.src = '';
                     headerUserAvatar.style.backgroundColor = '#4299e1';
                     headerUserAvatar.textContent = getInitials(username);
+                    headerUserAvatar.style.display = 'flex';
+                    headerUserAvatar.style.alignItems = 'center';
+                    headerUserAvatar.style.justifyContent = 'center';
                 }
                 
+                // Configurar referencias de Firebase
+                usersRef = database.ref('users');
+                messagesRef = database.ref('messages');
+                
                 // Agregar usuario a Firebase
-                const userRef = database.ref('users/' + username);
                 const userData = {
                     name: username,
                     online: true,
-                    lastSeen: Date.now()
+                    lastSeen: Date.now(),
+                    joined: Date.now()
                 };
                 
                 if (userProfilePictureUrl) {
                     userData.profilePicture = userProfilePictureUrl;
                 }
                 
-                userRef.set(userData);
+                usersRef.child(username).set(userData);
                 
                 // Escuchar cambios en usuarios
-                database.ref('users').on('value', (snapshot) => {
+                usersRef.on('value', (snapshot) => {
                     updateUsersList(snapshot.val());
                 });
                 
                 // Escuchar mensajes
-                database.ref('messages').on('value', (snapshot) => {
+                messagesRef.on('value', (snapshot) => {
                     loadMessages(snapshot.val());
                 });
                 
                 // Mostrar mensaje de bienvenida
                 addSystemMessage(`${username} se ha unido al chat`);
+            } else {
+                alert('Por favor ingresa un nombre de usuario');
             }
         }
 
         // Actualizar lista de usuarios
         function updateUsersList(users) {
+            if (!users) {
+                usersList.innerHTML = '<div class="loading">No hay usuarios conectados</div>';
+                onlineCount.textContent = '0 usuarios en línea';
+                return;
+            }
+
+            usersLoading.style.display = 'none';
             usersList.innerHTML = '';
-            if (users) {
-                Object.keys(users).forEach(username => {
-                    if (users[username].online && username !== currentUser) {
+            
+            let onlineUsers = 0;
+            Object.keys(users).forEach(username => {
+                if (users[username].online) {
+                    onlineUsers++;
+                    if (username !== currentUser) {
                         addUserToList(username, users[username]);
                     }
-                });
-            }
+                }
+            });
+            
+            onlineCount.textContent = `${onlineUsers} usuario${onlineUsers !== 1 ? 's' : ''} en línea`;
         }
 
         function addUserToList(username, userData) {
@@ -1162,7 +1285,8 @@
             if (userData.profilePicture) {
                 avatarHtml = `<img src="${userData.profilePicture}" class="user-avatar-small" alt="${username}">`;
             } else {
-                avatarHtml = `<div class="user-avatar-small" style="background-color: #4299e1; color: white; display: flex; align-items: center; justify-content: center; font-size: 10px;">${getInitials(username)}</div>`;
+                const initials = getInitials(username);
+                avatarHtml = `<div class="user-avatar-small" style="background-color: #4299e1; color: white; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold;">${initials}</div>`;
             }
             
             userElement.innerHTML = `
@@ -1173,10 +1297,6 @@
             
             usersList.appendChild(userElement);
         }
-
-        // Resto del código permanece igual...
-        // [El resto del código JavaScript se mantiene igual que en la versión anterior]
-        // Solo agregué las funciones de foto de perfil arriba
 
         // Toggle tema claro/oscuro
         themeToggle.addEventListener('click', function() {
@@ -1262,7 +1382,7 @@
                 };
 
                 // Guardar en Firebase
-                database.ref('messages/' + messageData.id).set(messageData);
+                messagesRef.child(messageData.id).set(messageData);
 
                 // Limpiar inputs
                 messageInput.value = '';
@@ -1316,14 +1436,20 @@
 
         // Cargar mensajes desde Firebase
         function loadMessages(messages) {
-            messagesContainer.innerHTML = '';
-            if (messages) {
-                const sortedMessages = Object.values(messages).sort((a, b) => a.timestamp - b.timestamp);
-                sortedMessages.forEach(message => {
-                    displayMessage(message);
-                });
-                scrollToBottom();
+            if (!messages) {
+                messagesLoading.textContent = 'No hay mensajes aún';
+                return;
             }
+
+            messagesLoading.style.display = 'none';
+            
+            const sortedMessages = Object.values(messages).sort((a, b) => a.timestamp - b.timestamp);
+            messagesContainer.innerHTML = '';
+            
+            sortedMessages.forEach(message => {
+                displayMessage(message);
+            });
+            scrollToBottom();
         }
 
         function displayMessage(message) {
@@ -1376,7 +1502,8 @@
             if (message.profilePicture) {
                 avatarHtml = `<img src="${message.profilePicture}" class="message-avatar" alt="${message.sender}">`;
             } else {
-                avatarHtml = `<div class="message-avatar">${message.initials}</div>`;
+                const initials = message.initials || getInitials(message.sender);
+                avatarHtml = `<div class="message-avatar">${initials}</div>`;
             }
             
             messageElement.innerHTML = `
@@ -1388,7 +1515,7 @@
                     </div>
                     ${replyHtml}
                     ${fileHtml}
-                    <div class="message-text">${message.text}</div>
+                    <div class="message-text">${message.text || ''}</div>
                     ${reactionsHtml}
                     <div class="message-actions">
                         <span class="message-action reply-action" data-message='${JSON.stringify(message)}'>Responder</span>
@@ -1404,23 +1531,27 @@
             const replyAction = messageElement.querySelector('.reply-action');
             const reactAction = messageElement.querySelector('.react-action');
             
-            replyAction.addEventListener('click', function() {
-                const messageData = JSON.parse(this.dataset.message);
-                replyingTo = {
-                    id: messageData.id,
-                    sender: messageData.sender,
-                    text: messageData.text
-                };
-                replyToUser.textContent = messageData.sender;
-                replyPreviewText.textContent = messageData.text.length > 50 ? 
-                    messageData.text.substring(0, 50) + '...' : messageData.text;
-                replyIndicator.style.display = 'flex';
-                messageInput.focus();
-            });
+            if (replyAction) {
+                replyAction.addEventListener('click', function() {
+                    const messageData = JSON.parse(this.dataset.message);
+                    replyingTo = {
+                        id: messageData.id,
+                        sender: messageData.sender,
+                        text: messageData.text
+                    };
+                    replyToUser.textContent = messageData.sender;
+                    replyPreviewText.textContent = messageData.text && messageData.text.length > 50 ? 
+                        messageData.text.substring(0, 50) + '...' : (messageData.text || '');
+                    replyIndicator.style.display = 'flex';
+                    messageInput.focus();
+                });
+            }
 
-            reactAction.addEventListener('click', function() {
-                showReactionPicker(this.dataset.message);
-            });
+            if (reactAction) {
+                reactAction.addEventListener('click', function() {
+                    showReactionPicker(this.dataset.message);
+                });
+            }
 
             // Agregar event listeners para las reacciones existentes
             messageElement.querySelectorAll('.reaction').forEach(reaction => {
@@ -1479,13 +1610,15 @@
             document.body.appendChild(reactionPicker);
             
             const reactButton = document.querySelector(`[data-message="${messageId}"]`);
-            const rect = reactButton.getBoundingClientRect();
-            reactionPicker.style.top = (rect.top - 50) + 'px';
-            reactionPicker.style.left = rect.left + 'px';
+            if (reactButton) {
+                const rect = reactButton.getBoundingClientRect();
+                reactionPicker.style.top = (rect.top - 50) + 'px';
+                reactionPicker.style.left = rect.left + 'px';
+            }
             
             setTimeout(() => {
                 const removePicker = (e) => {
-                    if (!reactionPicker.contains(e.target) && e.target !== reactButton) {
+                    if (!reactionPicker.contains(e.target)) {
                         document.body.removeChild(reactionPicker);
                         document.removeEventListener('click', removePicker);
                     }
@@ -1525,7 +1658,8 @@
         }
 
         function getInitials(name) {
-            return name.split(' ').map(n => n[0]).join('').toUpperCase();
+            if (!name) return '?';
+            return name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
         }
 
         function formatTime(timestamp) {
@@ -1544,27 +1678,35 @@
         }
 
         function scrollToBottom() {
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            setTimeout(() => {
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 100);
         }
 
         // Toggle emoji picker
         emojiButton.addEventListener('click', function(e) {
             e.stopPropagation();
-            emojiPickerContainer.style.display = emojiPickerContainer.style.display === 'block' ? 'none' : 'block';
-        });
-
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
-            document.querySelector('.sidebar').classList.toggle('active');
+            if (emojiPickerContainer) {
+                emojiPickerContainer.style.display = emojiPickerContainer.style.display === 'block' ? 'none' : 'block';
+            }
         });
 
         // Manejar cierre de la aplicación
         window.addEventListener('beforeunload', function() {
-            if (currentUser) {
-                database.ref('users/' + currentUser).update({
+            if (currentUser && usersRef) {
+                usersRef.child(currentUser).update({
                     online: false,
                     lastSeen: Date.now()
                 });
+            }
+        });
+
+        // Cerrar sidebar al hacer clic en un mensaje en móvil
+        document.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                if (!e.target.closest('.sidebar') && !e.target.closest('.mobile-menu-toggle')) {
+                    document.querySelector('.sidebar').classList.remove('active');
+                }
             }
         });
     </script>
