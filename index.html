@@ -3,736 +3,842 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXUS | Tienda Gaming</title>
+    <title>Chat de Staff</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Librería de emojis reales -->
+    <link href="https://cdn.jsdelivr.net/npm/emoji-picker-element@1.12.0/index.css" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #2980b9;
+            --background-color: #f8f9fa;
+            --message-bg: #ffffff;
+            --user-message-bg: #e3f2fd;
+            --text-color: #2c3e50;
+            --light-text: #7f8c8d;
+            --border-color: #e0e0e0;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --online-color: #2ecc71;
+            --offline-color: #e74c3c;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-        }
-
-        :root {
-            --neon-blue: #00f3ff;
-            --neon-purple: #b967ff;
-            --neon-pink: #ff2a6d;
-            --dark-bg: #0a0a14;
-            --card-bg: #1a1a2e;
-            --accent: #00ff88;
-            --text: #ffffff;
-            --text-secondary: #b8b8b8;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
 
         body {
-            background: var(--dark-bg);
-            color: var(--text);
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 20% 30%, rgba(0, 243, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(185, 103, 255, 0.1) 0%, transparent 50%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
 
-        /* Glassmorphism Header */
-        .glass-header {
-            background: rgba(26, 26, 46, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            position: fixed;
+        .container {
             width: 100%;
-            top: 0;
-            z-index: 1000;
+            max-width: 1100px;
+            height: 90vh;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            display: flex;
         }
 
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .users-sidebar {
+            width: 280px;
+            background: linear-gradient(to bottom, #2c3e50, #34495e);
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .users-sidebar h3 {
+            margin-bottom: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .users-list {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .user-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .user-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(to right, #3498db, #2980b9);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .user-status {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-left: auto;
+        }
+
+        .user-online {
+            background-color: var(--online-color);
+            box-shadow: 0 0 8px var(--online-color);
+        }
+
+        .user-offline {
+            background-color: var(--offline-color);
+        }
+
+        .chat-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(to bottom right, #f8f9fa, #e9ecef);
+        }
+
+        .login-container h1 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 28px;
+        }
+
+        .login-container p {
+            margin-bottom: 30px;
+            color: var(--light-text);
+            font-size: 16px;
+        }
+
+        .login-form {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background-color: white;
+        }
+
+        .login-form input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .login-form button {
+            width: 100%;
+            padding: 16px 20px;
+            background: linear-gradient(to right, var(--secondary-color), var(--accent-color));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+
+        .login-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .chat-container {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .chat-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 80px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .logo i {
-            font-size: 2rem;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 40px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a:after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover:after {
-            width: 100%;
-        }
-
-        .nav-actions {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
-        /* Modern Buttons */
-        .btn-modern {
-            padding: 14px 32px;
-            border: none;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            padding: 20px 25px;
+            background: linear-gradient(to right, var(--primary-color), #34495e);
             color: white;
-            box-shadow: 0 8px 25px rgba(0, 243, 255, 0.3);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 35px rgba(0, 243, 255, 0.4);
+        .chat-header h2 {
+            font-weight: 600;
+            font-size: 20px;
         }
 
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            color: var(--text);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
-        }
-
-        /* Hero Section */
-        .hero {
-            margin-top: 80px;
-            min-height: 90vh;
+        .user-info {
             display: flex;
             align-items: center;
+        }
+
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: white;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background-color: var(--background-color);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            padding: 12px 18px;
+            margin-bottom: 15px;
+            border-radius: 18px;
+            max-width: 75%;
+            word-wrap: break-word;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.user-message {
+            background: linear-gradient(to right, var(--secondary-color), var(--accent-color));
+            color: white;
+            margin-left: auto;
+            border-bottom-right-radius: 6px;
+        }
+
+        .message.other-message {
+            background-color: var(--message-bg);
+            border-bottom-left-radius: 6px;
+        }
+
+        .message-header {
+            font-size: 12px;
+            margin-bottom: 5px;
+            opacity: 0.8;
+            font-weight: 500;
+        }
+
+        .message.user-message .message-header {
+            text-align: right;
+        }
+
+        .message-content {
+            font-size: 15px;
+            line-height: 1.4;
+        }
+
+        .message-time {
+            font-size: 11px;
+            opacity: 0.7;
+            text-align: right;
+            margin-top: 5px;
+        }
+
+        .input-container {
+            display: flex;
+            padding: 20px;
+            background-color: white;
+            border-top: 1px solid var(--border-color);
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .message-input-container {
+            flex: 1;
             position: relative;
         }
 
-        .hero-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
+        .message-input {
+            width: 100%;
+            padding: 16px 50px 16px 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            font-size: 15px;
+            resize: none;
+            max-height: 120px;
+            min-height: 50px;
+            transition: all 0.3s;
         }
 
-        .hero-text h1 {
-            font-size: 4rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 24px;
-            background: linear-gradient(135deg, var(--text), var(--neon-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .message-input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
         }
 
-        .hero-text p {
-            font-size: 1.3rem;
-            color: var(--text-secondary);
-            margin-bottom: 40px;
-            line-height: 1.6;
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 40px;
-            margin-top: 40px;
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .stat-label {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Cards Grid */
-        .section {
-            padding: 100px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-title h2 {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .section-title p {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .cards-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-        }
-
-        .modern-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 40px;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .modern-card:before {
-            content: '';
+        .emoji-btn {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            right: 15px;
+            bottom: 15px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--light-text);
+            transition: all 0.2s;
         }
 
-        .modern-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        .emoji-btn:hover {
+            color: var(--secondary-color);
+            transform: scale(1.1);
         }
 
-        .card-icon {
-            font-size: 3rem;
-            margin-bottom: 24px;
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-            color: var(--text);
-        }
-
-        .card-description {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 24px;
-        }
-
-        /* Rank Cards */
-        .rank-card {
-            text-align: center;
-            background: linear-gradient(135deg, var(--card-bg), #16213e);
-        }
-
-        .rank-badge {
-            width: 80px;
-            height: 80px;
+        .send-btn {
+            background: linear-gradient(to right, var(--secondary-color), var(--accent-color));
+            color: white;
+            border: none;
             border-radius: 50%;
+            width: 50px;
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 2rem;
-            border: 3px solid;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
         }
 
-        .rank-diamond .rank-badge {
-            background: rgba(0, 243, 255, 0.1);
-            border-color: var(--neon-blue);
-            color: var(--neon-blue);
+        .send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
         }
 
-        .rank-emerald .rank-badge {
-            background: rgba(0, 255, 136, 0.1);
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        .rank-gold .rank-badge {
-            background: rgba(255, 42, 109, 0.1);
-            border-color: var(--neon-pink);
-            color: var(--neon-pink);
-        }
-
-        .rank-price {
-            font-size: 2rem;
-            font-weight: 800;
-            margin: 20px 0;
-            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .rank-features {
-            list-style: none;
-            margin: 24px 0;
-            text-align: left;
-        }
-
-        .rank-features li {
-            padding: 8px 0;
-            color: var(--text-secondary);
-            position: relative;
-            padding-left: 24px;
-        }
-
-        .rank-features li:before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--accent);
-            font-weight: bold;
-        }
-
-        /* Server Status */
-        .server-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .server-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 30px;
-            display: flex;
+        .typing-indicator {
+            font-style: italic;
+            color: var(--light-text);
+            font-size: 13px;
+            margin-bottom: 10px;
+            display: none;
             align-items: center;
-            gap: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            gap: 8px;
         }
 
-        .server-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--neon-blue);
-        }
-
-        .server-status {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: var(--accent);
-            box-shadow: 0 0 20px var(--accent);
-            flex-shrink: 0;
-        }
-
-        .server-info h3 {
-            font-size: 1.3rem;
-            margin-bottom: 8px;
-            color: var(--text);
-        }
-
-        .server-players {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        /* Footer */
-        .modern-footer {
-            background: var(--card-bg);
-            padding: 60px 0 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 40px;
-        }
-
-        .footer-column h3 {
-            font-size: 1.2rem;
-            margin-bottom: 24px;
-            color: var(--text);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--neon-blue);
-        }
-
-        .social-links {
+        .typing-dots {
             display: flex;
-            gap: 16px;
-            margin-top: 20px;
+            gap: 3px;
         }
 
-        .social-links a {
-            width: 40px;
-            height: 40px;
+        .typing-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--light-text);
+            animation: typingAnimation 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: 0s; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typingAnimation {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-5px); }
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px 25px;
             border-radius: 10px;
-            background: rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow);
             display: flex;
             align-items: center;
-            justify-content: center;
-            color: var(--text);
-            text-decoration: none;
-            transition: all 0.3s ease;
+            gap: 10px;
+            z-index: 1000;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
         }
 
-        .social-links a:hover {
-            background: var(--neon-blue);
-            transform: translateY(-2px);
+        .notification.show {
+            transform: translateX(0);
         }
 
-        .footer-bottom {
-            text-align: center;
-            margin-top: 60px;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-secondary);
+        .notification i {
+            color: var(--secondary-color);
+            font-size: 20px;
         }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-            }
+        /* Estilos para el selector de emojis */
+        emoji-picker {
+            --num-columns: 8;
+            --emoji-size: 1.5rem;
+            width: 350px;
+            height: 400px;
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            z-index: 100;
+            display: none;
         }
 
         @media (max-width: 768px) {
-            .nav-links {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                height: 95vh;
+                border-radius: 12px;
+            }
+            
+            .users-sidebar {
                 display: none;
             }
             
-            .hero-text h1 {
-                font-size: 2.5rem;
+            .message {
+                max-width: 85%;
             }
             
-            .section-title h2 {
-                font-size: 2rem;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
+            emoji-picker {
+                width: 100%;
+                right: 0;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Modern Header -->
-    <header class="glass-header">
-        <div class="nav-container">
-            <div class="logo">
-                <i class="fas fa-gamepad"></i>
-                NEXUS
-            </div>
-            
-            <ul class="nav-links">
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Tienda</a></li>
-                <li><a href="#">Rangos</a></li>
-                <li><a href="#">Servidores</a></li>
-                <li><a href="#">Soporte</a></li>
-            </ul>
-            
-            <div class="nav-actions">
-                <button class="btn-modern btn-secondary">Ingresar</button>
-                <button class="btn-modern btn-primary">Registrarse</button>
+    <div class="container">
+        <div class="users-sidebar" id="usersSidebar">
+            <h3><i class="fas fa-users"></i> Usuarios Conectados</h3>
+            <div class="users-list" id="usersList">
+                <!-- Los usuarios se cargarán aquí dinámicamente -->
             </div>
         </div>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1>La Evolución del Gaming en Minecraft</h1>
-                <p>Experimenta el siguiente nivel con rangos exclusivos, items épicos y una comunidad vibrante. Únete a miles de jugadores.</p>
-                <div class="hero-buttons">
-                    <button class="btn-modern btn-primary">Explorar Tienda</button>
-                    <button class="btn-modern btn-secondary">Ver Servidores</button>
+        <div class="chat-main">
+            <div class="login-container" id="loginContainer">
+                <h1>Chat de Staff</h1>
+                <p>Comunicación profesional y eficiente</p>
+                <div class="login-form">
+                    <input type="text" id="usernameInput" placeholder="Ingresa tu nombre de usuario" maxlength="20">
+                    <button id="loginBtn">
+                        <i class="fas fa-sign-in-alt"></i> Acceder al Chat
+                    </button>
                 </div>
-                <div class="hero-stats">
-                    <div class="stat">
-                        <div class="stat-number">15K+</div>
-                        <div class="stat-label">Jugadores</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">99.9%</div>
-                        <div class="stat-label">Uptime</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">24/7</div>
-                        <div class="stat-label">Soporte</div>
+            </div>
+
+            <div class="chat-container" id="chatContainer">
+                <div class="chat-header">
+                    <h2><i class="fas fa-comments"></i> Chat de Staff</h2>
+                    <div class="user-info">
+                        <div class="user-avatar" id="userAvatar"></div>
+                        <div id="userName"></div>
+                        <button class="logout-btn" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i> Salir
+                        </button>
                     </div>
                 </div>
-            </div>
-            <div class="hero-visual">
-                <!-- Aquí iría un graphic moderno -->
-            </div>
-        </div>
-    </section>
 
-    <!-- Features Section -->
-    <section class="section">
-        <div class="section-title">
-            <h2>¿Por Qué Elegirnos?</h2>
-            <p>Ofrecemos la experiencia gaming más premium del mercado</p>
-        </div>
-        
-        <div class="cards-grid">
-            <div class="modern-card">
-                <div class="card-icon">
-                    <i class="fas fa-bolt"></i>
+                <div class="messages-container" id="messagesContainer">
+                    <div class="typing-indicator" id="typingIndicator">
+                        <span id="typingUser"></span> está escribiendo
+                        <div class="typing-dots">
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                        </div>
+                    </div>
                 </div>
-                <h3 class="card-title">Entrega Instantánea</h3>
-                <p class="card-description">Recibe tus compras inmediatamente después del pago. Sin esperas, sin complicaciones.</p>
-            </div>
-            
-            <div class="modern-card">
-                <div class="card-icon">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
-                <h3 class="card-title">Seguridad Total</h3>
-                <p class="card-description">Transacciones protegidas con encriptación de grado bancario y autenticación de dos factores.</p>
-            </div>
-            
-            <div class="modern-card">
-                <div class="card-icon">
-                    <i class="fas fa-headset"></i>
-                </div>
-                <h3 class="card-title">Soporte 24/7</h3>
-                <p class="card-description">Nuestro equipo de soporte está disponible en todo momento para resolver cualquier problema.</p>
-            </div>
-        </div>
-    </section>
 
-    <!-- Ranks Section -->
-    <section class="section">
-        <div class="section-title">
-            <h2>Rangos Exclusivos</h2>
-            <p>Mejora tu experiencia de juego con nuestros rangos premium</p>
-        </div>
-        
-        <div class="cards-grid">
-            <div class="modern-card rank-card rank-diamond">
-                <div class="rank-badge">
-                    <i class="fas fa-gem"></i>
+                <div class="input-container">
+                    <div class="message-input-container">
+                        <textarea class="message-input" id="messageInput" placeholder="Escribe un mensaje..." rows="1"></textarea>
+                        <button class="emoji-btn" id="emojiBtn">
+                            <i class="far fa-smile"></i>
+                        </button>
+                        <!-- Selector de emojis reales -->
+                        <emoji-picker id="emojiPicker"></emoji-picker>
+                    </div>
+                    <button class="send-btn" id="sendBtn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
                 </div>
-                <h3 class="card-title">Diamante</h3>
-                <div class="rank-price">$14.99</div>
-                <ul class="rank-features">
-                    <li>Acceso a zonas VIP exclusivas</li>
-                    <li>Comandos y permisos avanzados</li>
-                    <li>Prefix personalizado con colores</li>
-                    <li>+150 monedas mensuales</li>
-                    <li>Soporte prioritario 24/7</li>
-                    <li>Acceso a betas cerradas</li>
-                </ul>
-                <button class="btn-modern btn-primary">Seleccionar</button>
-            </div>
-            
-            <div class="modern-card rank-card rank-emerald">
-                <div class="rank-badge">
-                    <i class="fas fa-crown"></i>
-                </div>
-                <h3 class="card-title">Esmeralda</h3>
-                <div class="rank-price">$9.99</div>
-                <ul class="rank-features">
-                    <li>Prefix colorido personalizable</li>
-                    <li>Comandos VIP esenciales</li>
-                    <li>+75 monedas mensuales</li>
-                    <li>Acceso a eventos especiales</li>
-                    <li>Soporte prioritario</li>
-                </ul>
-                <button class="btn-modern btn-primary">Seleccionar</button>
-            </div>
-            
-            <div class="modern-card rank-card rank-gold">
-                <div class="rank-badge">
-                    <i class="fas fa-star"></i>
-                </div>
-                <h3 class="card-title">Oro</h3>
-                <div class="rank-price">$4.99</div>
-                <ul class="rank-features">
-                    <li>Prefix dorado especial</li>
-                    <li>Comandos básicos VIP</li>
-                    <li>+30 monedas mensuales</li>
-                    <li>Fly en lobbies</li>
-                    <li>Soporte estándar</li>
-                </ul>
-                <button class="btn-modern btn-primary">Seleccionar</button>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Servers Section -->
-    <section class="section">
-        <div class="section-title">
-            <h2>Servidores Activos</h2>
-            <p>Únete a nuestra comunidad en estos servidores</p>
-        </div>
-        
-        <div class="server-grid">
-            <div class="server-card">
-                <div class="server-status"></div>
-                <div class="server-info">
-                    <h3>Survival Extreme</h3>
-                    <div class="server-players">🎮 142/200 jugadores online</div>
-                </div>
-            </div>
-            
-            <div class="server-card">
-                <div class="server-status"></div>
-                <div class="server-info">
-                    <h3>SkyWars Arena</h3>
-                    <div class="server-players">🎮 98/120 jugadores online</div>
-                </div>
-            </div>
-            
-            <div class="server-card">
-                <div class="server-status"></div>
-                <div class="server-info">
-                    <h3>BedWars Champions</h3>
-                    <div class="server-players">🎮 215/300 jugadores online</div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="notification" id="notification">
+        <i class="fas fa-bell"></i>
+        <span id="notificationText"></span>
+    </div>
 
-    <!-- Footer -->
-    <footer class="modern-footer">
-        <div class="footer-content">
-            <div class="footer-column">
-                <div class="logo">
-                    <i class="fas fa-gamepad"></i>
-                    NEXUS
-                </div>
-                <p style="color: var(--text-secondary); margin: 20px 0; line-height: 1.6;">
-                    La plataforma gaming más avanzada para servidores de Minecraft. Ofrecemos experiencias únicas y servicios premium.
-                </p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-discord"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                    <a href="#"><i class="fab fa-tiktok"></i></a>
-                </div>
-            </div>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <!-- Librería de emojis reales -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@1.12.0/index.js"></script>
+    
+    <script>
+        // Configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyB7wLDtmqwDIdzhI_50t4kfkkCfiIv1Nkc",
+            authDomain: "chatrapido-7ec85.firebaseapp.com",
+            projectId: "chatrapido-7ec85",
+            storageBucket: "chatrapido-7ec85.firebasestorage.app",
+            messagingSenderId: "579883431056",
+            appId: "1:579883431056:web:4993c55db6327dbb911415",
+            databaseURL: "https://chatrapido-7ec85-default-rtdb.firebaseio.com/"
+        };
+
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Elementos DOM
+        const loginContainer = document.getElementById('loginContainer');
+        const chatContainer = document.getElementById('chatContainer');
+        const usernameInput = document.getElementById('usernameInput');
+        const loginBtn = document.getElementById('loginBtn');
+        const userName = document.getElementById('userName');
+        const userAvatar = document.getElementById('userAvatar');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const messagesContainer = document.getElementById('messagesContainer');
+        const messageInput = document.getElementById('messageInput');
+        const emojiBtn = document.getElementById('emojiBtn');
+        const emojiPicker = document.getElementById('emojiPicker');
+        const sendBtn = document.getElementById('sendBtn');
+        const typingIndicator = document.getElementById('typingIndicator');
+        const typingUser = document.getElementById('typingUser');
+        const notification = document.getElementById('notification');
+        const notificationText = document.getElementById('notificationText');
+        const usersList = document.getElementById('usersList');
+        const usersSidebar = document.getElementById('usersSidebar');
+
+        // Variables globales
+        let currentUser = null;
+        let typingTimer = null;
+        let lastMessageTime = 0;
+        const MESSAGE_DELAY = 1000; // 1 segundo entre mensajes
+
+        // Inicializar el selector de emojis
+        document.addEventListener('DOMContentLoaded', () => {
+            // Configurar el selector de emojis
+            emojiPicker.addEventListener('emoji-click', event => {
+                messageInput.value += event.detail.unicode;
+                messageInput.focus();
+            });
+        });
+
+        // Mostrar/ocultar el selector de emojis
+        emojiBtn.addEventListener('click', () => {
+            emojiPicker.style.display = emojiPicker.style.display === 'none' ? 'block' : 'none';
+        });
+
+        // Cerrar el selector de emojis al hacer clic fuera
+        document.addEventListener('click', (event) => {
+            if (!emojiBtn.contains(event.target) && !emojiPicker.contains(event.target)) {
+                emojiPicker.style.display = 'none';
+            }
+        });
+
+        // Función para mostrar notificaciones
+        function showNotification(message) {
+            notificationText.textContent = message;
+            notification.classList.add('show');
             
-            <div class="footer-column">
-                <h3>Enlaces Rápidos</h3>
-                <ul class="footer-links">
-                    <li><a href="#">Inicio</a></li>
-                    <li><a href="#">Tienda</a></li>
-                    <li><a href="#">Rangos</a></li>
-                    <li><a href="#">Servidores</a></li>
-                    <li><a href="#">Soporte</a></li>
-                </ul>
-            </div>
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Función para obtener el avatar del usuario (primera letra)
+        function getUserAvatar(name) {
+            return name.charAt(0).toUpperCase();
+        }
+
+        // Función para formatear la hora
+        function formatTime(date) {
+            return date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        // Función para iniciar sesión
+        loginBtn.addEventListener('click', () => {
+            const username = usernameInput.value.trim();
             
-            <div class="footer-column">
-                <h3>Legal</h3>
-                <ul class="footer-links">
-                    <li><a href="#">Términos de Servicio</a></li>
-                    <li><a href="#">Política de Privacidad</a></li>
-                    <li><a href="#">Política de Reembolsos</a></li>
-                    <li><a href="#">DMCA</a></li>
-                </ul>
-            </div>
+            if (username === '') {
+                showNotification('Por favor, ingresa un nombre de usuario');
+                return;
+            }
             
-            <div class="footer-column">
-                <h3>Contacto</h3>
-                <ul class="footer-links">
-                    <li><a href="#">soporte@nexus.com</a></li>
-                    <li><a href="#">Discord Oficial</a></li>
-                    <li><a href="#">Sistema de Tickets</a></li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2024 NEXUS Gaming. Todos los derechos reservados. Minecraft es una marca registrada de Mojang Studios.</p>
-        </div>
-    </footer>
+            if (username.length < 2) {
+                showNotification('El nombre de usuario debe tener al menos 2 caracteres');
+                return;
+            }
+            
+            currentUser = username;
+            userName.textContent = username;
+            userAvatar.textContent = getUserAvatar(username);
+            
+            // Ocultar login y mostrar chat
+            loginContainer.style.display = 'none';
+            chatContainer.style.display = 'flex';
+            usersSidebar.style.display = 'flex';
+            
+            // Registrar usuario como conectado
+            const userRef = database.ref('users/' + currentUser);
+            userRef.set({
+                name: currentUser,
+                online: true,
+                lastSeen: firebase.database.ServerValue.TIMESTAMP
+            });
+            
+            // Escuchar cambios en el estado de conexión
+            userRef.onDisconnect().update({
+                online: false,
+                lastSeen: firebase.database.ServerValue.TIMESTAMP
+            });
+            
+            // Cargar mensajes anteriores
+            loadMessages();
+            
+            // Cargar usuarios conectados
+            loadOnlineUsers();
+            
+            showNotification(`Bienvenido, ${username}!`);
+        });
+
+        // Función para cargar usuarios en línea
+        function loadOnlineUsers() {
+            const usersRef = database.ref('users');
+            
+            usersRef.on('value', (snapshot) => {
+                usersList.innerHTML = '';
+                
+                snapshot.forEach((childSnapshot) => {
+                    const user = childSnapshot.val();
+                    
+                    if (user.online) {
+                        const userItem = document.createElement('div');
+                        userItem.className = 'user-item';
+                        
+                        userItem.innerHTML = `
+                            <div class="user-avatar">${getUserAvatar(user.name)}</div>
+                            <div>${user.name}</div>
+                            <div class="user-status user-online"></div>
+                        `;
+                        
+                        usersList.appendChild(userItem);
+                    }
+                });
+            });
+        }
+
+        // Función para cargar mensajes
+        function loadMessages() {
+            const messagesRef = database.ref('messages');
+            
+            messagesRef.on('child_added', (snapshot) => {
+                const message = snapshot.val();
+                displayMessage(message);
+                
+                // Auto-scroll al último mensaje
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            });
+        }
+
+        // Función para mostrar un mensaje
+        function displayMessage(message) {
+            const messageDiv = document.createElement('div');
+            const isCurrentUser = message.user === currentUser;
+            
+            messageDiv.className = `message ${isCurrentUser ? 'user-message' : 'other-message'}`;
+            
+            const messageTime = new Date(message.timestamp);
+            
+            messageDiv.innerHTML = `
+                <div class="message-header">${isCurrentUser ? 'Tú' : message.user}</div>
+                <div class="message-content">${message.text}</div>
+                <div class="message-time">${formatTime(messageTime)}</div>
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+        }
+
+        // Función para enviar mensaje
+        function sendMessage() {
+            const messageText = messageInput.value.trim();
+            
+            if (messageText === '') {
+                return;
+            }
+            
+            // Prevenir envío rápido de mensajes
+            const currentTime = Date.now();
+            if (currentTime - lastMessageTime < MESSAGE_DELAY) {
+                showNotification('Espera un momento antes de enviar otro mensaje');
+                return;
+            }
+            
+            lastMessageTime = currentTime;
+            
+            const message = {
+                user: currentUser,
+                text: messageText,
+                timestamp: firebase.database.ServerValue.TIMESTAMP
+            };
+            
+            // Guardar mensaje en Firebase
+            database.ref('messages').push(message);
+            
+            // Limpiar campo de texto
+            messageInput.value = '';
+            messageInput.style.height = 'auto';
+            
+            // Ocultar indicador de typing
+            database.ref('typing/' + currentUser).remove();
+        }
+
+        // Enviar mensaje al hacer clic en el botón
+        sendBtn.addEventListener('click', sendMessage);
+
+        // Enviar mensaje al presionar Enter
+        messageInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // Detectar cuando el usuario está escribiendo
+        messageInput.addEventListener('input', () => {
+            if (messageInput.value.trim() !== '') {
+                // Indicar que el usuario está escribiendo
+                database.ref('typing/' + currentUser).set({
+                    user: currentUser,
+                    timestamp: firebase.database.ServerValue.TIMESTAMP
+                });
+                
+                // Limpiar el temporizador anterior
+                if (typingTimer) {
+                    clearTimeout(typingTimer);
+                }
+                
+                // Establecer un temporizador para eliminar el estado de typing después de 2 segundos
+                typingTimer = setTimeout(() => {
+                    database.ref('typing/' + currentUser).remove();
+                }, 2000);
+            } else {
+                // Si el campo está vacío, eliminar el estado de typing
+                database.ref('typing/' + currentUser).remove();
+            }
+        });
+
+        // Escuchar cambios en el estado de typing
+        database.ref('typing').on('child_added', (snapshot) => {
+            const typingUserData = snapshot.val();
+            
+            if (typingUserData.user !== currentUser) {
+                typingUser.textContent = typingUserData.user;
+                typingIndicator.style.display = 'flex';
+            }
+        });
+
+        database.ref('typing').on('child_removed', (snapshot) => {
+            const typingUserData = snapshot.val();
+            
+            if (typingUserData.user !== currentUser) {
+                typingIndicator.style.display = 'none';
+            }
+        });
+
+        // Cerrar sesión
+        logoutBtn.addEventListener('click', () => {
+            if (currentUser) {
+                // Marcar usuario como desconectado
+                database.ref('users/' + currentUser).update({
+                    online: false,
+                    lastSeen: firebase.database.ServerValue.TIMESTAMP
+                });
+            }
+            
+            // Limpiar datos locales
+            currentUser = null;
+            usernameInput.value = '';
+            
+            // Mostrar login y ocultar chat
+            loginContainer.style.display = 'flex';
+            chatContainer.style.display = 'none';
+            usersSidebar.style.display = 'none';
+            
+            // Limpiar mensajes
+            messagesContainer.innerHTML = '<div class="typing-indicator" id="typingIndicator"></div>';
+            
+            showNotification('Has salido del chat');
+        });
+
+        // Autoajustar altura del textarea
+        messageInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+
+        // Permitir enviar con Enter y nueva línea con Shift+Enter
+        messageInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+    </script>
 </body>
 </html>
