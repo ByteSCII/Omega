@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luxus Chat | Comunicación Corporativa</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Librería de emojis -->
-    <link href="https://cdn.jsdelivr.net/npm/emoji-picker-element@1.12.0/index.css" rel="stylesheet">
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
@@ -29,6 +27,10 @@
             --message-bg: #2a2a2a;
             --own-message-bg: #333333;
             --input-bg: #2a2a2a;
+            
+            /* Colores personalizados para scrollbar */
+            --scrollbar-thumb: linear-gradient(135deg, #FFD700 0%, #B8860B 50%, #000000 100%);
+            --scrollbar-track: #1a1a1a;
         }
 
         .light-theme {
@@ -41,6 +43,38 @@
             --message-bg: #f7fafc;
             --own-message-bg: #ebf8ff;
             --input-bg: white;
+            --scrollbar-track: #f1f1f1;
+        }
+
+        /* ESTILOS PERSONALIZADOS PARA SCROLLBAR */
+        ::-webkit-scrollbar {
+            width: 8px; /* Más delgada */
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--scrollbar-track);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border-radius: 4px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #FFE55C 0%, #D4AF37 50%, #2a2a2a 100%);
+        }
+
+        /* Para Firefox */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #FFD700 #1a1a1a;
+        }
+
+        .light-theme * {
+            scrollbar-color: #B8860B #f1f1f1;
         }
 
         * {
@@ -157,63 +191,7 @@
             flex-direction: column;
         }
 
-        /* Header minimalista */
-        header {
-            background-color: var(--sidebar-bg);
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            transition: background-color 0.3s;
-            flex-shrink: 0;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 15px;
-        }
-
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .user-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--accent-color);
-        }
-
-        .user-name {
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .theme-toggle {
-            background: none;
-            border: none;
-            color: var(--text-color);
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        .mobile-menu-toggle {
-            color: var(--text-color);
-            font-size: 20px;
-            cursor: pointer;
-        }
+        /* Header minimalista - ELIMINADO EL HEADER ANTIGUO */
 
         /* Main Layout */
         .main-layout {
@@ -221,6 +199,7 @@
             flex: 1;
             overflow: hidden;
             position: relative;
+            height: 100vh;
         }
 
         /* Sidebar */
@@ -353,6 +332,7 @@
             transition: background-color 0.3s;
             min-width: 0;
             position: relative;
+            height: 100vh;
         }
 
         .chat-header {
@@ -382,12 +362,25 @@
             flex-direction: column;
             gap: 15px;
             min-height: 0;
+            padding-bottom: 100px; /* Espacio extra para evitar que los mensajes queden detrás del input */
         }
 
         .message {
             display: flex;
             gap: 10px;
             max-width: 85%;
+            animation: messageAppear 0.3s ease-out;
+        }
+
+        @keyframes messageAppear {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .message.own {
@@ -458,10 +451,44 @@
 
         .message-action {
             cursor: pointer;
+            transition: all 0.2s;
         }
 
         .message-action:hover {
             color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        /* Animaciones para reacciones y respuestas */
+        .reaction-animation {
+            animation: reactionPop 0.3s ease-out;
+        }
+
+        @keyframes reactionPop {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .reply-animation {
+            animation: replyHighlight 1s ease-out;
+        }
+
+        @keyframes replyHighlight {
+            0% {
+                background-color: rgba(66, 153, 225, 0.3);
+            }
+            100% {
+                background-color: transparent;
+            }
         }
 
         /* Reply System */
@@ -513,6 +540,7 @@
             align-items: center;
             gap: 3px;
             cursor: pointer;
+            transition: all 0.2s;
         }
 
         .reaction-count {
@@ -521,6 +549,7 @@
 
         .reaction:hover {
             background-color: rgba(0, 0, 0, 0.15);
+            transform: scale(1.1);
         }
 
         /* Message Input */
@@ -529,6 +558,11 @@
             border-top: 1px solid var(--border-color);
             flex-shrink: 0;
             background-color: var(--chat-bg);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
         }
 
         .reply-indicator {
@@ -540,6 +574,18 @@
             justify-content: space-between;
             align-items: center;
             font-size: 13px;
+            animation: slideInUp 0.3s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .reply-info {
@@ -572,10 +618,12 @@
             color: #718096;
             cursor: pointer;
             font-size: 18px;
+            transition: all 0.2s;
         }
 
         .input-action:hover {
             color: var(--accent-color);
+            transform: scale(1.1);
         }
 
         .message-input textarea {
@@ -882,11 +930,11 @@
                 display: none;
             }
 
-            /* Ajustar contenedor de mensajes */
+            /* Ajustar contenedor de mensajes - CORREGIDO PARA MÓVIL */
             .messages-container {
                 flex: 1;
                 padding: 10px;
-                padding-bottom: 80px; /* Espacio para el input fijo */
+                padding-bottom: 150px; /* Más espacio para el input fijo */
                 min-height: calc(100vh - 120px);
             }
 
@@ -987,15 +1035,24 @@
             .input-actions {
                 gap: 5px;
             }
+            
+            .messages-container {
+                padding-bottom: 140px; /* Aún más espacio en pantallas muy pequeñas */
+            }
         }
 
         @media (min-width: 769px) {
-            .mobile-menu-toggle {
+            .mobile-menu {
                 display: none;
             }
             
-            .mobile-menu {
-                display: none;
+            /* En escritorio, el input no es fijo */
+            .message-input-container {
+                position: static;
+            }
+            
+            .messages-container {
+                padding-bottom: 15px;
             }
         }
 
@@ -1233,6 +1290,7 @@
                     <div class="direct-messages">
                         <div class="section-title">
                             <span>Usuarios Conectados</span>
+                            <span class="badge" id="onlineUsersCount">0</span>
                         </div>
                         <ul class="dm-list" id="usersList">
                             <div class="loading" id="usersLoading">Cargando usuarios...</div>
@@ -1285,11 +1343,6 @@
                         <button class="send-button" id="sendButton">Enviar</button>
                     </div>
                 </div>
-
-                <!-- Selector de emojis -->
-                <div class="emoji-picker-container" id="emojiPickerContainer">
-                    <emoji-picker></emoji-picker>
-                </div>
                 
                 <!-- Input oculto para adjuntar archivos -->
                 <input type="file" id="fileInput" style="display: none;">
@@ -1297,8 +1350,18 @@
         </div>
     </div>
 
+    <!-- Audio elements para sonidos -->
+    <audio id="reactionSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="replySound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-plastic-bubble-click-1124.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="messageSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-software-interface-start-2574.mp3" type="audio/mpeg">
+    </audio>
+
     <!-- Scripts -->
-    <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@1.12.0/index.js"></script>
     <script>
         // Configuración de Firebase
         const firebaseConfig = {
@@ -1319,7 +1382,7 @@
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        // Elementos DOM - Con verificaciones de null
+        // Elementos DOM
         const loginScreen = document.getElementById('loginScreen');
         const mainApp = document.getElementById('mainApp');
         const usernameInput = document.getElementById('usernameInput');
@@ -1332,10 +1395,6 @@
         const changePhotoBtn = document.getElementById('changePhotoBtn');
         const changePictureInput = document.getElementById('changePictureInput');
         const closeModalBtn = document.getElementById('closeModalBtn');
-        const userProfile = document.getElementById('userProfile');
-        const headerUserAvatar = document.getElementById('headerUserAvatar');
-        const headerUserName = document.getElementById('headerUserName');
-        const themeToggle = document.getElementById('themeToggle');
         const messageInput = document.getElementById('messageInput');
         const sendButton = document.getElementById('sendButton');
         const messagesContainer = document.getElementById('messagesContainer');
@@ -1343,9 +1402,7 @@
         const usersList = document.getElementById('usersList');
         const usersLoading = document.getElementById('usersLoading');
         const onlineCount = document.getElementById('onlineCount');
-        const emojiButton = document.getElementById('emojiButton');
-        const emojiPickerContainer = document.getElementById('emojiPickerContainer');
-        const emojiPicker = document.querySelector('emoji-picker');
+        const onlineUsersCount = document.getElementById('onlineUsersCount');
         const attachButton = document.getElementById('attachButton');
         const fileInput = document.getElementById('fileInput');
         const filePreview = document.getElementById('filePreview');
@@ -1370,35 +1427,32 @@
         const mobileHeaderOnlineCount = document.getElementById('mobileHeaderOnlineCount');
         const mobileChatInfo = document.getElementById('mobileChatInfo');
 
+        // Elementos de audio
+        const reactionSound = document.getElementById('reactionSound');
+        const replySound = document.getElementById('replySound');
+        const messageSound = document.getElementById('messageSound');
+
         // Variables de estado
         let currentUser = '';
-        let isDarkTheme = true; // Tema oscuro por defecto
+        let isDarkTheme = true;
         let selectedFile = null;
         let replyingTo = null;
         let userProfilePicture = null;
         let userProfilePictureUrl = '';
         let usersRef;
         let messagesRef;
+        let userStatusRef;
 
-        // Inicialización con verificaciones de null
-        document.addEventListener('DOMContentLoaded', function() {
-            // Configurar el selector de emojis
-            if (emojiPicker) {
-                emojiPicker.addEventListener('emoji-click', event => {
-                    if (messageInput) {
-                        messageInput.value += event.detail.unicode;
-                        messageInput.focus();
-                    }
-                });
+        // Función para reproducir sonidos
+        function playSound(soundElement) {
+            if (soundElement) {
+                soundElement.currentTime = 0;
+                soundElement.play().catch(e => console.log('Error reproduciendo sonido:', e));
             }
+        }
 
-            // Ocultar selector de emojis al hacer clic fuera
-            document.addEventListener('click', function(e) {
-                if (emojiPickerContainer && !emojiPickerContainer.contains(e.target) && e.target !== emojiButton) {
-                    emojiPickerContainer.style.display = 'none';
-                }
-            });
-
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
             // Cerrar modal al hacer clic fuera
             document.addEventListener('click', function(e) {
                 if (e.target === profileModal) {
@@ -1413,7 +1467,7 @@
                 }
             });
 
-            // Cerrar menú móvil al hacer clic fuera - con verificación de null
+            // Cerrar menú móvil al hacer clic fuera
             document.addEventListener('click', function(e) {
                 if (mobileMenu && mobileMenuToggle && mobileUserProfileBtn && mobileThemeToggleBtn) {
                     if (!mobileMenu.contains(e.target) && !mobileMenuToggle.contains(e.target) && 
@@ -1423,8 +1477,6 @@
                 }
             });
         });
-
-        // Event listeners con verificaciones de null
 
         // Menú móvil
         if (mobileMenuToggle) {
@@ -1461,12 +1513,6 @@
             });
         }
 
-        if (mobileChatInfo) {
-            mobileChatInfo.addEventListener('click', () => {
-                if (mobileMenu) mobileMenu.classList.remove('active');
-            });
-        }
-
         // Foto de perfil en login
         if (uploadProfileBtn) {
             uploadProfileBtn.addEventListener('click', () => {
@@ -1479,15 +1525,6 @@
         }
 
         // Modal de perfil
-        if (userProfile) {
-            userProfile.addEventListener('click', () => {
-                if (profilePictureLarge && headerUserAvatar) {
-                    profilePictureLarge.src = headerUserAvatar.src || '';
-                }
-                if (profileModal) profileModal.style.display = 'flex';
-            });
-        }
-
         if (changePhotoBtn) {
             changePhotoBtn.addEventListener('click', () => {
                 if (changePictureInput) changePictureInput.click();
@@ -1501,14 +1538,6 @@
         if (closeModalBtn) {
             closeModalBtn.addEventListener('click', () => {
                 if (profileModal) profileModal.style.display = 'none';
-            });
-        }
-
-        // Mobile menu
-        if (mobileMenuToggle) {
-            mobileMenuToggle.addEventListener('click', () => {
-                const sidebar = document.querySelector('.sidebar');
-                if (sidebar) sidebar.classList.toggle('active');
             });
         }
 
@@ -1533,8 +1562,6 @@
                 userProfilePicture = file;
                 uploadProfilePicture(file).then(url => {
                     userProfilePictureUrl = url;
-                    if (headerUserAvatar) headerUserAvatar.src = url;
-                    if (profilePictureLarge) profilePictureLarge.src = url;
                     if (mobileHeaderUserAvatar) mobileHeaderUserAvatar.src = url;
                     if (mobileUserAvatar) mobileUserAvatar.src = url;
                     
@@ -1581,10 +1608,6 @@
             document.body.classList.toggle('light-theme', !isDarkTheme);
             document.body.classList.toggle('dark-theme', isDarkTheme);
             
-            if (themeToggle) {
-                themeToggle.innerHTML = isDarkTheme ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-            }
-            
             if (mobileThemeToggleBtn) {
                 mobileThemeToggleBtn.innerHTML = isDarkTheme ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
             }
@@ -1595,10 +1618,6 @@
                     icon.className = isDarkTheme ? 'fas fa-sun' : 'fas fa-moon';
                 }
             }
-        }
-
-        if (themeToggle) {
-            themeToggle.addEventListener('click', toggleTheme);
         }
 
         // Login
@@ -1633,25 +1652,14 @@
                 if (mainApp) mainApp.style.display = 'flex';
                 
                 // Actualizar header
-                if (headerUserName) headerUserName.textContent = username;
                 if (mobileUserName) mobileUserName.textContent = username;
                 
                 if (userProfilePictureUrl) {
-                    if (headerUserAvatar) headerUserAvatar.src = userProfilePictureUrl;
                     if (mobileHeaderUserAvatar) mobileHeaderUserAvatar.src = userProfilePictureUrl;
                     if (mobileUserAvatar) mobileUserAvatar.src = userProfilePictureUrl;
                 } else {
                     // Usar avatar con iniciales
                     const initials = getInitials(username);
-                    
-                    if (headerUserAvatar) {
-                        headerUserAvatar.src = '';
-                        headerUserAvatar.style.backgroundColor = '#4299e1';
-                        headerUserAvatar.textContent = initials;
-                        headerUserAvatar.style.display = 'flex';
-                        headerUserAvatar.style.alignItems = 'center';
-                        headerUserAvatar.style.justifyContent = 'center';
-                    }
                     
                     if (mobileHeaderUserAvatar) {
                         mobileHeaderUserAvatar.src = '';
@@ -1676,12 +1684,13 @@
                 usersRef = database.ref('users');
                 messagesRef = database.ref('messages');
                 
-                // Agregar usuario a Firebase
+                // Agregar usuario a Firebase con timestamp de conexión
                 const userData = {
                     name: username,
                     online: true,
                     lastSeen: Date.now(),
-                    joined: Date.now()
+                    joined: Date.now(),
+                    lastActive: Date.now()
                 };
                 
                 if (userProfilePictureUrl) {
@@ -1690,7 +1699,16 @@
                 
                 usersRef.child(username).set(userData);
                 
-                // Escuchar cambios en usuarios
+                // Actualizar lastActive cada 30 segundos
+                setInterval(() => {
+                    if (currentUser) {
+                        usersRef.child(currentUser).update({
+                            lastActive: Date.now()
+                        });
+                    }
+                }, 30000);
+                
+                // Escuchar cambios en usuarios - ACTUALIZACIÓN EN TIEMPO REAL
                 usersRef.on('value', (snapshot) => {
                     updateUsersList(snapshot.val());
                 });
@@ -1707,13 +1725,14 @@
             }
         }
 
-        // Actualizar lista de usuarios
+        // Actualizar lista de usuarios EN TIEMPO REAL
         function updateUsersList(users) {
             if (!users) {
                 if (usersList) usersList.innerHTML = '<div class="loading">No hay usuarios conectados</div>';
                 if (onlineCount) onlineCount.textContent = '0 usuarios en línea';
                 if (mobileOnlineCount) mobileOnlineCount.textContent = '0 usuarios en línea';
                 if (mobileHeaderOnlineCount) mobileHeaderOnlineCount.textContent = '0 usuarios en línea';
+                if (onlineUsersCount) onlineUsersCount.textContent = '0';
                 return;
             }
 
@@ -1721,12 +1740,27 @@
             if (usersList) usersList.innerHTML = '';
             
             let onlineUsers = 0;
-            Object.keys(users).forEach(username => {
-                if (users[username].online) {
+            const now = Date.now();
+            const fiveMinutesAgo = now - 5 * 60 * 1000; // 5 minutos para considerar "desconectado"
+            
+            // Ordenar usuarios por estado (primero los online)
+            const sortedUsers = Object.entries(users).sort(([aKey, aVal], [bKey, bVal]) => {
+                const aOnline = aVal.online && aVal.lastActive > fiveMinutesAgo;
+                const bOnline = bVal.online && bVal.lastActive > fiveMinutesAgo;
+                if (aOnline && !bOnline) return -1;
+                if (!aOnline && bOnline) return 1;
+                return 0;
+            });
+            
+            sortedUsers.forEach(([username, userData]) => {
+                const isOnline = userData.online && userData.lastActive > fiveMinutesAgo;
+                
+                if (isOnline) {
                     onlineUsers++;
-                    if (username !== currentUser && usersList) {
-                        addUserToList(username, users[username]);
-                    }
+                }
+                
+                if (username !== currentUser) {
+                    addUserToList(username, userData, isOnline);
                 }
             });
             
@@ -1734,11 +1768,13 @@
             if (onlineCount) onlineCount.textContent = usersText;
             if (mobileOnlineCount) mobileOnlineCount.textContent = usersText;
             if (mobileHeaderOnlineCount) mobileHeaderOnlineCount.textContent = usersText;
+            if (onlineUsersCount) onlineUsersCount.textContent = onlineUsers;
         }
 
-        function addUserToList(username, userData) {
+        function addUserToList(username, userData, isOnline) {
             const userElement = document.createElement('li');
             userElement.className = 'dm-item';
+            userElement.dataset.username = username;
             
             let avatarHtml = '';
             if (userData.profilePicture) {
@@ -1748,10 +1784,13 @@
                 avatarHtml = `<div class="user-avatar-small" style="background-color: #4299e1; color: white; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold;">${initials}</div>`;
             }
             
+            const statusClass = isOnline ? 'online' : 'offline';
+            const statusText = isOnline ? 'En línea' : 'Desconectado';
+            
             userElement.innerHTML = `
                 ${avatarHtml}
                 <span>${username}</span>
-                <div class="user-status online"></div>
+                <div class="user-status ${statusClass}" title="${statusText}"></div>
             `;
             
             if (usersList) usersList.appendChild(userElement);
@@ -1800,7 +1839,10 @@
         if (cancelReply) {
             cancelReply.addEventListener('click', function() {
                 replyingTo = null;
-                if (replyIndicator) replyIndicator.style.display = 'none';
+                if (replyIndicator) {
+                    replyIndicator.style.display = 'none';
+                    playSound(replySound);
+                }
             });
         }
 
@@ -1848,6 +1890,9 @@
 
                 // Guardar en Firebase
                 messagesRef.child(messageData.id).set(messageData);
+
+                // Reproducir sonido de mensaje
+                playSound(messageSound);
 
                 // Limpiar inputs
                 if (messageInput) messageInput.value = '';
@@ -1927,18 +1972,15 @@
             
             let fileHtml = '';
             if (message.file) {
-                // Verificar si es una imagen
                 const isImage = message.file.format && ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp'].includes(message.file.format.toLowerCase());
                 
                 if (isImage) {
-                    // Mostrar imagen directamente en el chat
                     fileHtml = `
                         <div class="image-preview-container">
                             <img src="${message.file.url}" class="image-preview" alt="${message.file.original_filename}" onclick="showImageFullscreen('${message.file.url}')">
                         </div>
                     `;
                 } else {
-                    // Mostrar como archivo descargable
                     fileHtml = `
                         <div class="file-preview" style="cursor: pointer;" onclick="window.open('${message.file.url}', '_blank')">
                             <i class="${getFileIcon(message.file.format)}"></i>
@@ -2021,7 +2063,14 @@
                         replyPreviewText.textContent = messageData.text && messageData.text.length > 50 ? 
                             messageData.text.substring(0, 50) + '...' : (messageData.text || '');
                     }
-                    if (replyIndicator) replyIndicator.style.display = 'flex';
+                    if (replyIndicator) {
+                        replyIndicator.style.display = 'flex';
+                        replyIndicator.classList.add('reply-animation');
+                        setTimeout(() => {
+                            replyIndicator.classList.remove('reply-animation');
+                        }, 1000);
+                    }
+                    playSound(replySound);
                     if (messageInput) messageInput.focus();
                 });
             }
@@ -2080,6 +2129,7 @@
             reactionPicker.style.borderRadius = 'var(--radius)';
             reactionPicker.style.boxShadow = 'var(--shadow)';
             reactionPicker.style.zIndex = '100';
+            reactionPicker.classList.add('reaction-animation');
             
             commonEmojis.forEach(emoji => {
                 const emojiSpan = document.createElement('span');
@@ -2087,6 +2137,13 @@
                 emojiSpan.style.cursor = 'pointer';
                 emojiSpan.style.fontSize = '20px';
                 emojiSpan.style.padding = '5px';
+                emojiSpan.style.transition = 'transform 0.2s';
+                emojiSpan.addEventListener('mouseenter', () => {
+                    emojiSpan.style.transform = 'scale(1.2)';
+                });
+                emojiSpan.addEventListener('mouseleave', () => {
+                    emojiSpan.style.transform = 'scale(1)';
+                });
                 emojiSpan.addEventListener('click', () => {
                     addReaction(messageId, emoji);
                     document.body.removeChild(reactionPicker);
@@ -2127,6 +2184,18 @@
                     return filteredUsers.length > 0 ? filteredUsers : null;
                 }
             });
+            
+            // Reproducir sonido y animación
+            playSound(reactionSound);
+            
+            // Encontrar el elemento de reacción y animarlo
+            const reactionElement = document.querySelector(`[data-message="${messageId}"][data-emoji="${emoji}"]`);
+            if (reactionElement) {
+                reactionElement.classList.add('reaction-animation');
+                setTimeout(() => {
+                    reactionElement.classList.remove('reaction-animation');
+                }, 300);
+            }
         }
 
         function addSystemMessage(text) {
@@ -2174,16 +2243,6 @@
             }, 100);
         }
 
-        // Toggle emoji picker
-        if (emojiButton) {
-            emojiButton.addEventListener('click', function(e) {
-                e.stopPropagation();
-                if (emojiPickerContainer) {
-                    emojiPickerContainer.style.display = emojiPickerContainer.style.display === 'block' ? 'none' : 'block';
-                }
-            });
-        }
-
         // Manejar cierre de la aplicación
         window.addEventListener('beforeunload', function() {
             if (currentUser && usersRef) {
@@ -2194,12 +2253,21 @@
             }
         });
 
-        // Cerrar sidebar al hacer clic en un mensaje en móvil
-        document.addEventListener('click', function(e) {
-            if (window.innerWidth <= 768) {
-                const sidebar = document.querySelector('.sidebar');
-                if (sidebar && !e.target.closest('.sidebar') && !e.target.closest('.mobile-menu-toggle')) {
-                    sidebar.classList.remove('active');
+        // Detectar cambios en la visibilidad de la página
+        document.addEventListener('visibilitychange', function() {
+            if (currentUser && usersRef) {
+                if (document.hidden) {
+                    // Página no visible - usuario podría estar inactivo
+                    usersRef.child(currentUser).update({
+                        online: false,
+                        lastSeen: Date.now()
+                    });
+                } else {
+                    // Página visible - usuario activo
+                    usersRef.child(currentUser).update({
+                        online: true,
+                        lastActive: Date.now()
+                    });
                 }
             }
         });
