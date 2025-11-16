@@ -30,37 +30,37 @@
         }
 
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: var(--primary-black);
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 16px;
+            padding: 20px;
         }
 
         .container {
             width: 100%;
-            max-width: 1200px;
-            height: 95vh;
+            max-width: 1400px;
+            height: 90vh;
+            min-height: 600px;
             background-color: var(--background-white);
             border-radius: 20px;
             box-shadow: var(--shadow);
             overflow: hidden;
             display: flex;
-            transition: all 0.3s ease;
         }
 
         /* Sidebar de usuarios */
         .users-sidebar {
-            width: 300px;
+            width: 320px;
             background: var(--primary-black);
             color: white;
             padding: 24px 20px;
             display: flex;
             flex-direction: column;
-            transition: all 0.3s ease;
             border-right: 1px solid var(--dark-gray);
+            flex-shrink: 0;
         }
 
         .sidebar-header {
@@ -68,6 +68,8 @@
             align-items: center;
             justify-content: space-between;
             margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--dark-gray);
         }
 
         .sidebar-header h3 {
@@ -94,7 +96,7 @@
         }
 
         .users-list::-webkit-scrollbar {
-            width: 4px;
+            width: 6px;
         }
 
         .users-list::-webkit-scrollbar-thumb {
@@ -119,8 +121,8 @@
         }
 
         .user-avatar {
-            width: 42px;
-            height: 42px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--medium-gray), var(--light-gray));
             color: white;
@@ -129,7 +131,7 @@
             justify-content: center;
             margin-right: 14px;
             font-weight: 600;
-            font-size: 16px;
+            font-size: 18px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
 
@@ -167,7 +169,7 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            min-width: 0; /* Para evitar problemas de flexbox */
+            min-width: 0;
         }
 
         /* Pantalla de login */
@@ -178,45 +180,45 @@
             align-items: center;
             height: 100%;
             text-align: center;
-            padding: 40px;
+            padding: 60px 40px;
             background: var(--off-white);
         }
 
         .login-logo {
-            margin-bottom: 24px;
+            margin-bottom: 32px;
         }
 
         .login-logo i {
-            font-size: 48px;
+            font-size: 64px;
             color: var(--primary-black);
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
         .login-container h1 {
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             color: var(--primary-black);
             font-weight: 700;
-            font-size: 32px;
+            font-size: 36px;
             letter-spacing: -0.5px;
         }
 
         .login-container p {
-            margin-bottom: 32px;
+            margin-bottom: 40px;
             color: var(--medium-gray);
-            font-size: 16px;
-            max-width: 400px;
-            line-height: 1.5;
+            font-size: 18px;
+            max-width: 500px;
+            line-height: 1.6;
         }
 
         .login-form {
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
         }
 
         .login-form input {
             width: 100%;
-            padding: 16px 20px;
-            margin-bottom: 20px;
+            padding: 18px 22px;
+            margin-bottom: 24px;
             border: 1px solid var(--border-color);
             border-radius: 12px;
             font-size: 16px;
@@ -233,7 +235,7 @@
 
         .login-form button {
             width: 100%;
-            padding: 16px 20px;
+            padding: 18px 22px;
             background: var(--primary-black);
             color: white;
             border: none;
@@ -262,7 +264,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 24px;
+            padding: 24px 32px;
             background: var(--background-white);
             border-bottom: 1px solid var(--border-color);
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
@@ -271,14 +273,14 @@
         .chat-header-left {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 20px;
         }
 
         .menu-toggle {
             display: none;
             background: none;
             border: none;
-            font-size: 20px;
+            font-size: 22px;
             cursor: pointer;
             color: var(--primary-black);
         }
@@ -286,31 +288,31 @@
         .chat-title {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
         }
 
         .chat-title h2 {
             font-weight: 600;
-            font-size: 20px;
+            font-size: 22px;
             color: var(--primary-black);
         }
 
         .chat-title i {
             color: var(--medium-gray);
-            font-size: 20px;
+            font-size: 22px;
         }
 
         .user-info {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
         }
 
         .current-user {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 8px 16px;
+            gap: 12px;
+            padding: 10px 20px;
             background: var(--off-white);
             border-radius: 20px;
         }
@@ -319,7 +321,7 @@
             background: var(--primary-black);
             color: white;
             border: none;
-            padding: 10px 18px;
+            padding: 12px 20px;
             border-radius: 10px;
             cursor: pointer;
             font-weight: 500;
@@ -339,14 +341,14 @@
         .messages-container {
             flex: 1;
             overflow-y: auto;
-            padding: 24px;
+            padding: 32px;
             background: var(--off-white);
             display: flex;
             flex-direction: column;
         }
 
         .messages-container::-webkit-scrollbar {
-            width: 6px;
+            width: 8px;
         }
 
         .messages-container::-webkit-scrollbar-thumb {
@@ -355,15 +357,15 @@
         }
 
         .message {
-            padding: 14px 18px;
-            margin-bottom: 16px;
+            padding: 16px 20px;
+            margin-bottom: 20px;
             border-radius: 18px;
-            max-width: 70%;
+            max-width: 65%;
             word-wrap: break-word;
             position: relative;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
             animation: fadeIn 0.3s ease;
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
         @keyframes fadeIn {
@@ -385,8 +387,8 @@
         }
 
         .message-header {
-            font-size: 13px;
-            margin-bottom: 6px;
+            font-size: 14px;
+            margin-bottom: 8px;
             font-weight: 600;
         }
 
@@ -399,23 +401,23 @@
         }
 
         .message-content {
-            font-size: 15px;
+            font-size: 16px;
         }
 
         .message-time {
-            font-size: 11px;
+            font-size: 12px;
             opacity: 0.7;
             text-align: right;
-            margin-top: 6px;
+            margin-top: 8px;
         }
 
         /* Área de entrada de mensajes */
         .input-container {
             display: flex;
-            padding: 20px 24px;
+            padding: 24px 32px;
             background-color: white;
             border-top: 1px solid var(--border-color);
-            gap: 12px;
+            gap: 16px;
             align-items: flex-end;
         }
 
@@ -426,16 +428,17 @@
 
         .message-input {
             width: 100%;
-            padding: 16px 50px 16px 20px;
+            padding: 18px 60px 18px 24px;
             border: 1px solid var(--border-color);
             border-radius: 24px;
-            font-size: 15px;
+            font-size: 16px;
             resize: none;
-            max-height: 120px;
-            min-height: 50px;
+            max-height: 150px;
+            min-height: 60px;
             transition: all 0.3s;
             background: white;
             color: var(--primary-black);
+            line-height: 1.5;
         }
 
         .message-input:focus {
@@ -446,18 +449,21 @@
 
         .emoji-btn {
             position: absolute;
-            right: 15px;
-            bottom: 15px;
+            right: 20px;
+            bottom: 20px;
             background: none;
             border: none;
-            font-size: 20px;
+            font-size: 22px;
             cursor: pointer;
             color: var(--medium-gray);
             transition: all 0.2s;
+            padding: 8px;
+            border-radius: 50%;
         }
 
         .emoji-btn:hover {
             color: var(--primary-black);
+            background: var(--off-white);
             transform: scale(1.1);
         }
 
@@ -466,14 +472,15 @@
             color: white;
             border: none;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            width: 56px;
+            height: 56px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            font-size: 18px;
         }
 
         .send-btn:hover {
@@ -486,16 +493,16 @@
         .typing-indicator {
             font-style: italic;
             color: var(--medium-gray);
-            font-size: 13px;
-            margin-bottom: 10px;
+            font-size: 14px;
+            margin-bottom: 12px;
             display: none;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .typing-dots {
             display: flex;
-            gap: 3px;
+            gap: 4px;
         }
 
         .typing-dot {
@@ -518,10 +525,10 @@
         /* Notificaciones */
         .notification {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 24px;
+            right: 24px;
             background: white;
-            padding: 16px 24px;
+            padding: 18px 26px;
             border-radius: 12px;
             box-shadow: var(--shadow);
             display: flex;
@@ -539,17 +546,17 @@
 
         .notification i {
             color: var(--primary-black);
-            font-size: 20px;
+            font-size: 22px;
         }
 
         /* Selector de emojis */
         emoji-picker {
-            --num-columns: 8;
-            --emoji-size: 1.5rem;
-            width: 350px;
-            height: 400px;
+            --num-columns: 9;
+            --emoji-size: 1.6rem;
+            width: 380px;
+            height: 420px;
             position: absolute;
-            bottom: 70px;
+            bottom: 80px;
             right: 0;
             z-index: 100;
             display: none;
@@ -559,10 +566,20 @@
         }
 
         /* Responsive Design */
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 95%;
+            }
+            
+            .users-sidebar {
+                width: 280px;
+            }
+        }
+
         @media (max-width: 1024px) {
             .container {
-                height: 100vh;
-                border-radius: 0;
+                height: 95vh;
+                border-radius: 16px;
             }
             
             .users-sidebar {
@@ -570,7 +587,7 @@
                 left: -100%;
                 z-index: 50;
                 height: 100%;
-                width: 280px;
+                width: 320px;
                 transition: left 0.3s ease;
             }
             
@@ -589,28 +606,30 @@
 
         @media (max-width: 768px) {
             body {
-                padding: 0;
+                padding: 10px;
             }
             
             .container {
                 height: 100vh;
-                border-radius: 0;
+                border-radius: 12px;
+                max-width: 100%;
             }
             
             .chat-header {
-                padding: 16px 20px;
+                padding: 18px 20px;
             }
             
             .messages-container {
-                padding: 16px 20px;
+                padding: 20px;
             }
             
             .input-container {
-                padding: 16px 20px;
+                padding: 18px 20px;
             }
             
             .message {
                 max-width: 85%;
+                padding: 14px 18px;
             }
             
             .current-user span {
@@ -618,11 +637,15 @@
             }
             
             .login-container {
-                padding: 30px 20px;
+                padding: 40px 24px;
             }
             
             .login-container h1 {
                 font-size: 28px;
+            }
+            
+            .login-logo i {
+                font-size: 48px;
             }
             
             emoji-picker {
@@ -632,16 +655,25 @@
         }
 
         @media (max-width: 480px) {
+            body {
+                padding: 0;
+            }
+            
+            .container {
+                height: 100vh;
+                border-radius: 0;
+            }
+            
             .chat-header {
-                padding: 14px 16px;
+                padding: 16px;
             }
             
             .messages-container {
-                padding: 14px 16px;
+                padding: 16px;
             }
             
             .input-container {
-                padding: 14px 16px;
+                padding: 16px;
             }
             
             .message {
@@ -656,10 +688,32 @@
             .login-container h1 {
                 font-size: 24px;
             }
+            
+            .login-container p {
+                font-size: 16px;
+            }
+        }
+
+        /* Estados vacíos */
+        .empty-state {
+            text-align: center;
+            color: var(--medium-gray);
+            padding: 40px 20px;
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
         }
     </style>
 </head>
 <body>
+    <!-- Audio para notificaciones -->
+    <audio id="messageSound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-software-interface-start-2574.mp3" type="audio/mpeg">
+    </audio>
+
     <div class="container">
         <!-- Sidebar de usuarios -->
         <div class="users-sidebar" id="usersSidebar">
@@ -670,7 +724,10 @@
                 </button>
             </div>
             <div class="users-list" id="usersList">
-                <!-- Los usuarios se cargarán aquí dinámicamente -->
+                <div class="empty-state">
+                    <i class="fas fa-user-friends"></i>
+                    <p>Esperando usuarios...</p>
+                </div>
             </div>
         </div>
 
@@ -724,6 +781,11 @@
                             <div class="typing-dot"></div>
                         </div>
                     </div>
+                    <div class="empty-state" id="emptyMessages">
+                        <i class="fas fa-comment-dots"></i>
+                        <p>No hay mensajes aún</p>
+                        <p style="font-size: 14px; margin-top: 8px;">Sé el primero en enviar un mensaje</p>
+                    </div>
                 </div>
 
                 <div class="input-container">
@@ -732,7 +794,6 @@
                         <button class="emoji-btn" id="emojiBtn">
                             <i class="far fa-smile"></i>
                         </button>
-                        <!-- Selector de emojis reales -->
                         <emoji-picker id="emojiPicker"></emoji-picker>
                     </div>
                     <button class="send-btn" id="sendBtn">
@@ -792,16 +853,18 @@
         const usersSidebar = document.getElementById('usersSidebar');
         const menuToggle = document.getElementById('menuToggle');
         const closeSidebar = document.getElementById('closeSidebar');
+        const emptyMessages = document.getElementById('emptyMessages');
+        const messageSound = document.getElementById('messageSound');
 
         // Variables globales
         let currentUser = null;
         let typingTimer = null;
         let lastMessageTime = 0;
-        const MESSAGE_DELAY = 1000; // 1 segundo entre mensajes
+        let messageCount = 0;
+        const MESSAGE_DELAY = 1000;
 
         // Inicializar el selector de emojis
         document.addEventListener('DOMContentLoaded', () => {
-            // Configurar el selector de emojis
             emojiPicker.addEventListener('emoji-click', event => {
                 messageInput.value += event.detail.unicode;
                 messageInput.focus();
@@ -830,6 +893,17 @@
             usersSidebar.classList.remove('active');
         });
 
+        // Función para reproducir sonido de mensaje
+        function playMessageSound() {
+            try {
+                messageSound.volume = 0.3; // Volumen bajo
+                messageSound.currentTime = 0;
+                messageSound.play().catch(e => console.log('Error reproduciendo sonido:', e));
+            } catch (error) {
+                console.log('Error con el audio:', error);
+            }
+        }
+
         // Función para mostrar notificaciones
         function showNotification(message) {
             notificationText.textContent = message;
@@ -840,7 +914,7 @@
             }, 3000);
         }
 
-        // Función para obtener el avatar del usuario (primera letra)
+        // Función para obtener el avatar del usuario
         function getUserAvatar(name) {
             return name.charAt(0).toUpperCase();
         }
@@ -907,12 +981,14 @@
             
             usersRef.on('value', (snapshot) => {
                 usersList.innerHTML = '';
+                let hasOnlineUsers = false;
                 
                 snapshot.forEach((childSnapshot) => {
                     const user = childSnapshot.val();
                     const userKey = childSnapshot.key;
                     
                     if (user.online && userKey !== currentUser) {
+                        hasOnlineUsers = true;
                         const userItem = document.createElement('div');
                         userItem.className = 'user-item';
                         
@@ -932,10 +1008,10 @@
                 });
                 
                 // Si no hay otros usuarios en línea
-                if (usersList.children.length === 0) {
+                if (!hasOnlineUsers) {
                     usersList.innerHTML = `
-                        <div style="text-align: center; color: var(--light-gray); padding: 20px;">
-                            <i class="fas fa-user-friends" style="font-size: 24px; margin-bottom: 10px;"></i>
+                        <div class="empty-state">
+                            <i class="fas fa-user-friends"></i>
                             <p>No hay otros usuarios en línea</p>
                         </div>
                     `;
@@ -949,10 +1025,25 @@
             
             messagesRef.on('child_added', (snapshot) => {
                 const message = snapshot.val();
+                const isCurrentUser = message.user === currentUser;
+                
+                // Reproducir sonido solo para mensajes de otros usuarios
+                if (!isCurrentUser) {
+                    playMessageSound();
+                }
+                
                 displayMessage(message);
+                messageCount++;
+                
+                // Ocultar estado vacío
+                if (messageCount > 0) {
+                    emptyMessages.style.display = 'none';
+                }
                 
                 // Auto-scroll al último mensaje
-                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                setTimeout(() => {
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                }, 100);
             });
         }
 
@@ -1024,23 +1115,19 @@
             adjustTextareaHeight();
             
             if (messageInput.value.trim() !== '') {
-                // Indicar que el usuario está escribiendo
                 database.ref('typing/' + currentUser).set({
                     user: currentUser,
                     timestamp: firebase.database.ServerValue.TIMESTAMP
                 });
                 
-                // Limpiar el temporizador anterior
                 if (typingTimer) {
                     clearTimeout(typingTimer);
                 }
                 
-                // Establecer un temporizador para eliminar el estado de typing después de 2 segundos
                 typingTimer = setTimeout(() => {
                     database.ref('typing/' + currentUser).remove();
                 }, 2000);
             } else {
-                // Si el campo está vacío, eliminar el estado de typing
                 database.ref('typing/' + currentUser).remove();
             }
         });
@@ -1066,26 +1153,33 @@
         // Cerrar sesión
         logoutBtn.addEventListener('click', () => {
             if (currentUser) {
-                // Marcar usuario como desconectado
                 database.ref('users/' + currentUser).update({
                     online: false,
                     lastSeen: firebase.database.ServerValue.TIMESTAMP
                 });
             }
             
-            // Limpiar datos locales
             currentUser = null;
             usernameInput.value = '';
+            messageCount = 0;
             
-            // Mostrar login y ocultar chat
             loginContainer.style.display = 'flex';
             chatContainer.style.display = 'none';
             
-            // Limpiar mensajes
-            messagesContainer.innerHTML = '<div class="typing-indicator" id="typingIndicator"></div>';
+            messagesContainer.innerHTML = `
+                <div class="typing-indicator" id="typingIndicator"></div>
+                <div class="empty-state" id="emptyMessages">
+                    <i class="fas fa-comment-dots"></i>
+                    <p>No hay mensajes aún</p>
+                    <p style="font-size: 14px; margin-top: 8px;">Sé el primero en enviar un mensaje</p>
+                </div>
+            `;
             
             showNotification('Has salido del chat');
         });
+
+        // Autoajuste del textarea al cargar
+        messageInput.addEventListener('input', adjustTextareaHeight);
     </script>
 </body>
 </html>
